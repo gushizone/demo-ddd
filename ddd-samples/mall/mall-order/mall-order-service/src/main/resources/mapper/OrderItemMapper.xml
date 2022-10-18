@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tk.gushizone.mall.order.infrastructure.gateway.db.mapper.OrderItemMapper">
+
+    <resultMap id="BaseResultMap" type="tk.gushizone.mall.order.infrastructure.gateway.db.dataobject.OrderItem">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="orderNo" column="order_no" jdbcType="BIGINT"/>
+            <result property="productId" column="product_id" jdbcType="BIGINT"/>
+            <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+            <result property="productImage" column="product_image" jdbcType="VARCHAR"/>
+            <result property="currentUnitPrice" column="current_unit_price" jdbcType="DECIMAL"/>
+            <result property="quantity" column="quantity" jdbcType="INTEGER"/>
+            <result property="totalPrice" column="total_price" jdbcType="DECIMAL"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="deleted" column="deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,order_no,
+        product_id,product_name,product_image,
+        current_unit_price,quantity,total_price,
+        create_time,update_time,deleted
+    </sql>
+</mapper>
