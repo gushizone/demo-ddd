@@ -12,6 +12,8 @@
         <module>mall-order</module>
     </modules>
 
+    <!-- todo 如果微服务是独立的 git 仓库, 此 pom 应该可以和微服务 pom 合并, 或独立出一个 pom 依赖管理 -->
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
@@ -34,13 +36,15 @@
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
         <mysql.version>5.1.41</mysql.version>
         <seata.version>1.4.2</seata.version>
+
+        <infra-libs.version>1.0-SNAPSHOT</infra-libs.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
+                <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -58,6 +62,14 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>tk.gushizone</groupId>
+                <artifactId>infra-libs-dependencies</artifactId>
+                <version>${infra-libs.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -107,6 +119,10 @@
             <version>${guava.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>tk.gushizone</groupId>
+            <artifactId>infra-libs-utils</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
