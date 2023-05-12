@@ -2,18 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mall</artifactId>
+        <groupId>tk.gushizone</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>tk.gushizone</groupId>
-    <artifactId>infra-libs</artifactId>
+    <artifactId>mall-stock</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>infra-libs-dependencies</module>
-        <module>infra-libs-core</module>
+        <module>mall-stock-api</module>
+        <module>mall-stock-service</module>
     </modules>
-
-    <description> 此 pom 仅为方便编译和构建, 参考: https://github.com/spring-projects/spring-boot/tree/2.1.x </description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

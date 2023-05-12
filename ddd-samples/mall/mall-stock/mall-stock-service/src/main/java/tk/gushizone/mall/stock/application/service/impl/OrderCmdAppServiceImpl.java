@@ -1,15 +1,15 @@
-package tk.gushizone.mall.order.application.service.impl;
+package tk.gushizone.mall.stock.application.service.impl;
 
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.core.util.ModelUtils;
-import tk.gushizone.mall.order.application.assembler.OrderFactory;
-import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
-import tk.gushizone.mall.order.application.dto.req.cmd.common.OrderItemCmdReq;
-import tk.gushizone.mall.order.application.service.OrderCmdAppService;
-import tk.gushizone.mall.order.domain.model.value.cmd.OrderCreateCmd;
-import tk.gushizone.mall.order.domain.service.OrderDomainService;
-import tk.gushizone.mall.order.application.server.ProductServer;
-import tk.gushizone.mall.order.infrastructure.gateway.server.dataobject.Product;
+import tk.gushizone.mall.stock.application.assembler.OrderFactory;
+import tk.gushizone.mall.stock.application.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.stock.application.dto.req.cmd.common.OrderItemCmdReq;
+import tk.gushizone.mall.stock.application.service.OrderCmdAppService;
+import tk.gushizone.mall.stock.domain.model.value.cmd.OrderCreateCmd;
+import tk.gushizone.mall.stock.domain.service.OrderDomainService;
+import tk.gushizone.mall.stock.application.server.ProductServer;
+import tk.gushizone.mall.stock.infrastructure.gateway.server.dataobject.Product;
 
 import javax.annotation.Resource;
 import java.util.List;
