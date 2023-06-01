@@ -5,6 +5,11 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author gushizone
+ * @since 2023/6/1
+ */
 @Data
 public class RestResponse<T> implements Serializable {
 
@@ -20,6 +25,9 @@ public class RestResponse<T> implements Serializable {
      * 数据
      */
     private T data;
+
+    public RestResponse() {
+    }
 
     /**
      * 一般业务不要直接使用这个方法
@@ -43,5 +51,12 @@ public class RestResponse<T> implements Serializable {
 
     public static <T> RestResponse<T> ok(T data) {
         return new RestResponse<>(Status.OK.code(), Status.OK.label(), data);
+    }
+
+    /**
+     * 一般业务不要直接使用这个方法, 直接抛出异常即可
+     */
+    public static <T> RestResponse<T> fail(String msg) {
+        return new RestResponse<>(Status.FAIL_OPERATION.code(), msg);
     }
 }

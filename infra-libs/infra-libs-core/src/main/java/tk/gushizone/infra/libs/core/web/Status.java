@@ -1,5 +1,7 @@
 package tk.gushizone.infra.libs.core.web;
 
+import tk.gushizone.infra.libs.core.common.BaseEnum;
+
 /**
  * 状态码枚举
  * <p>
@@ -11,9 +13,11 @@ package tk.gushizone.infra.libs.core.web;
  * - other -> 200 http status
  * 参考: <a href="https://github.com/dibo-software/diboot/blob/develop/diboot-core/src/main/java/com/diboot/core/vo/Status.java">diboot:Status.java</a>
  *
+ * @author gushizone
  * @see cn.hutool.http.HttpStatus
+ * @since 2023/6/1
  */
-public enum Status {
+public enum Status implements BaseEnum {
 
     /***
      * 请求处理成功
@@ -69,11 +73,15 @@ public enum Status {
         this.label = label;
     }
 
+    @Override
     public int code() {
         return code;
     }
 
+    @Override
     public String label() {
         return label;
     }
+
+
 }

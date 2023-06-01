@@ -1,15 +1,15 @@
 package tk.gushizone.mall.order.adapter.web;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tk.gushizone.infra.libs.core.web.PagingRestResponse;
+import tk.gushizone.infra.libs.core.web.RestResponse;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  *
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  * @date 2022/10/18 11:40
  */
 @RestController
-@RequestMapping("/mall-order")
+@RequestMapping("/orders")
 public class OrderController {
 
     @Resource
@@ -25,11 +25,31 @@ public class OrderController {
     @Resource
     private OrderQueryAppService orderQueryAppService;
 
-
-    @PostMapping("/orders")
-    public Long create(@RequestBody OrderCreateCmdReq req) {
-        return orderCmdAppService.create(req);
+    @GetMapping
+    public PagingRestResponse<List<OrderRsp>> page() {
+        return null;
     }
+
+    @PostMapping
+    public RestResponse<Long> create(@RequestBody OrderCreateCmdReq req) {
+        return RestResponse.ok(orderCmdAppService.create(req));
+    }
+
+    @PutMapping("/{id}")
+    public RestResponse<Long> edit(@PathVariable("id") Long id) {
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public RestResponse<Long> delete(@PathVariable("id") Long id) {
+        return null;
+    }
+
+    @DeleteMapping("/batch/{ids}")
+    public RestResponse<List<Long>> deleteByIds(@PathVariable("ids") Long ids) {
+        return null;
+    }
+
 
     /**
      * todo /orders/:search ???

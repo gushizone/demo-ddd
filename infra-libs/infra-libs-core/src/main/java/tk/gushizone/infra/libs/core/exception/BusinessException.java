@@ -1,6 +1,7 @@
 package tk.gushizone.infra.libs.core.exception;
 
 import cn.hutool.core.util.StrUtil;
+import tk.gushizone.infra.libs.core.common.BaseEnum;
 import tk.gushizone.infra.libs.core.web.Status;
 
 /**
@@ -10,10 +11,7 @@ public class BusinessException extends RuntimeException {
 
     private int code;
 
-    /**
-     * todo 不应该用枚举, 不然不好扩展???
-     */
-    private Status status;
+    private BaseEnum status;
 
     public BusinessException(String msg, Object... args) {
         super(StrUtil.format(msg, args));
@@ -21,11 +19,17 @@ public class BusinessException extends RuntimeException {
         this.status = Status.FAIL_OPERATION;
     }
 
+    public BusinessException(BaseEnum status, Object... args) {
+        super(StrUtil.format(status.label(), args));
+        this.code = status.code();
+        this.status = status;
+    }
+
     public Integer getCode() {
         return code;
     }
 
-    public Status getStatus() {
+    public BaseEnum getStatus() {
         return status;
     }
 }
