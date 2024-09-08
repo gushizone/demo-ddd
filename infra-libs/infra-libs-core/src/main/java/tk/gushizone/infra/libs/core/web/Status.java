@@ -5,13 +5,14 @@ import tk.gushizone.infra.libs.core.common.BaseEnum;
 /**
  * 状态码枚举
  * <p>
- * 业务仅使用 OK(2000) 和 FAIL_OPERATION(4006) 即可
+ * 业务一般仅使用 OK(2000) 和 FAIL_OPERATION(4006) 即可
  * <p>
- * 注意: 部分状态码 和 http status 存在映射
+ * 注意: 部分状态码 和 http status 存在映射, 若需要自定义code, 业务方一般需要 >= 6XXX .
  * - 4XXX -> 4XX http status
  * - 5XXX -> 5XX http status
  * - other -> 200 http status
  * 参考: <a href="https://github.com/dibo-software/diboot/blob/develop/diboot-core/src/main/java/com/diboot/core/vo/Status.java">diboot:Status.java</a>
+ * 注意: 302等重定向状态码无法被前端代码捕获,因为浏览器的优先级高于AJAX库.
  *
  * @author gushizone
  * @see cn.hutool.http.HttpStatus
@@ -25,32 +26,47 @@ public enum Status implements BaseEnum {
     OK(2000, "成功"),
     /***
      * 部分成功
-     * 备注: 一般用于批量处理场景
      */
-    WARN_PARTIAL_SUCCESS(1001, "部分成功"),
+    WARN_PARTIAL_SUCCESS(2001, "部分成功"),
     /***
-     * 传入参数不对
-     * 备注: 一般由框架统一处理
+     * 请求参数、格式或语法不正确等
      */
-    FAIL_INVALID_PARAM(4000, "请求参数不匹配"),
+    FAIL_BAD_REQUEST(4000, "错误的请求"),
     /***
-     * Token无效或已过期
-     * 备注: 一般由框架统一处理
+     * 认证不通过 : 缺少有效身份信息的统称, 在不需要区分或没有细分项时使用
      */
-    FAIL_INVALID_TOKEN(4001, "Token无效或已过期"),
+    FAIL_INVALID_IDENTIFICATION(4001, "认证不通过"),
+    /***
+     * 认证不通过 - Token无效或已过期
+     * todo - 一般会伴随重定向
+     */
+    FAIL_INVALID_TOKEN(4101, "Token无效或已过期"),
+    /***
+     * 认证不通过 - 用户名或密码错误
+     */
+    FAIL_INVALID_USERNAME_OR_PASSWORD(4102, "用户名或密码错误"),
+    /***
+     * 认证不通过 - 验证码(人机验证, 包括文字验证码, 声音验证码, 图像选择验证码,滑块验证码等)
+     */
+    FAIL_INVALID_CAPTCHA(4103, "验证码错误"),
+    /***
+     * 认证不通过 - 短信验证码
+     */
+    FAIL_INVALID_SMS_VERIFICATION_CODE(4103, "短信验证码错误"),
+    /**
+     * 认证不通过 - 多因素认证(MFA)
+     */
+    FAIL_INVALID_MFA(4109, "多因素认证失败"),
     /***
      * 没有权限执行该操作
-     * 备注: 一般由框架统一处理
      */
     FAIL_NO_PERMISSION(4003, "无权执行该操作"),
     /***
      * 数据校验不通过
-     * 备注: 一般由框架统一处理, 特殊校验业务可使用
      */
     FAIL_VALIDATION(4005, "数据校验不通过"),
     /***
-     * 操作执行失败
-     * 备注: 业务异常,主动使用
+     * 操作执行失败 : 业务异常
      */
     FAIL_OPERATION(4006, "操作执行失败"),
     /***

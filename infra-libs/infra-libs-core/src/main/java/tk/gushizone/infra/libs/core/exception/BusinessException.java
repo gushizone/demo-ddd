@@ -6,6 +6,9 @@ import tk.gushizone.infra.libs.core.web.Status;
 
 /**
  * 通用的业务异常类
+ *
+ * @author gushizone
+ * @since 2023/6/2
  */
 public class BusinessException extends RuntimeException {
 

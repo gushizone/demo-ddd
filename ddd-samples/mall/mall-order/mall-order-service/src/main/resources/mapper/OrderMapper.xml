@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="tk.gushizone.mall.order.infrastructure.gateway.db.mapper.OrderMapper">
+<mapper namespace="tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderMapper">
 
-    <resultMap id="BaseResultMap" type="tk.gushizone.mall.order.infrastructure.gateway.db.dataobject.Order">
+    <resultMap id="BaseResultMap" type="tk.gushizone.mall.order.infrastructure.repository.db.po.Order">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="orderNo" column="order_no" jdbcType="BIGINT"/>
             <result property="userId" column="user_id" jdbcType="BIGINT"/>

@@ -6,10 +6,13 @@ import tk.gushizone.mall.order.application.assembler.OrderFactory;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.application.dto.req.cmd.common.OrderItemCmdReq;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
-import tk.gushizone.mall.order.domain.model.value.cmd.OrderCreateCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
-import tk.gushizone.mall.order.application.server.ProductServer;
-import tk.gushizone.mall.order.infrastructure.gateway.server.dataobject.Product;
+import tk.gushizone.mall.order.adapter.out.remote.ProductClient;
+import tk.gushizone.mall.order.adapter.out.remote.dto.Product;
+import tk.gushizone.mall.stock.api.StockApi;
+import tk.gushizone.mall.stock.dto.req.qry.StockQryReq;
+import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,24 +28,30 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     @Resource
     private OrderDomainService orderDomainService;
 
-    /**
-     * todo api
-     */
     @Resource
-    private ProductServer productServer;
+    private ProductClient productClient;
+
+    @Resource
+    private StockApi stockApi;
 
 
     @Override
     public Long create(OrderCreateCmdReq req) {
 
-        // 商品
+        // 商品 todo 在 stock
         List<Long> productIds = ModelUtils.map(req.getOrderItems(), OrderItemCmdReq::getProductId);
-        List<Product> products = productServer.queryByIds(productIds);
-        Map<Long, Product> productMap = ModelUtils.convertToMap(products, Product::getId);
+        List<Product> products = productClient.queryByIds(productIds);
+        Map<Long, Product> productMap = ModelUtils.toMap(products, Product::getId);
 
-        // todo 库存
-        OrderCreateCmd cmd = OrderFactory.buildCmd(req, productMap);
-        Long id = orderDomainService.create(cmd);
+        // 库存
+        // todo
+        StockQryReq stockQryReq = new StockQryReq();
+        stockQryReq.setProductIds(productIds);
+        List<StockApiRsp> stocks = stockApi.query(stockQryReq);
+        Map<Long, StockApiRsp> productStockMap = ModelUtils.toMap(stocks, StockApiRsp::getProductId);
+
+        OrderCreateCmd orderCreateCmd = OrderFactory.buildCmd(req, productMap, productStockMap);
+        Long id = orderDomainService.create(orderCreateCmd);
 
         // todo event...
 

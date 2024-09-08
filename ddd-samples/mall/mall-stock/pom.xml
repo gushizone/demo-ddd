@@ -14,6 +14,7 @@
     <modules>
         <module>mall-stock-api</module>
         <module>mall-stock-service</module>
+        <module>mall-stock-domain</module>
     </modules>
 
     <properties>

@@ -1,5 +1,10 @@
 package tk.gushizone.infra.libs.core.common;
 
+/**
+ *
+ * @author gushizone
+ * @since 2023/6/2
+ */
 public interface BaseEnum {
 
     int code();

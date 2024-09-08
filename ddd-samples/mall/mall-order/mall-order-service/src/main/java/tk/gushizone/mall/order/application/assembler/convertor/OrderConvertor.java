@@ -3,7 +3,7 @@ package tk.gushizone.mall.order.application.assembler.convertor;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
-import tk.gushizone.mall.order.domain.model.value.cmd.OrderCreateCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 
 /**
  * @author gushizone

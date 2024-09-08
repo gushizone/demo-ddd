@@ -3,8 +3,8 @@ package tk.gushizone.mall.order.application.assembler.convertor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import tk.gushizone.mall.order.domain.model.value.cmd.common.OrderItemCmd;
-import tk.gushizone.mall.order.infrastructure.gateway.server.dataobject.Product;
+import tk.gushizone.mall.order.domain.model.cmd.OrderItemCmd;
+import tk.gushizone.mall.order.adapter.out.remote.dto.Product;
 
 /**
  * @author gushizone
