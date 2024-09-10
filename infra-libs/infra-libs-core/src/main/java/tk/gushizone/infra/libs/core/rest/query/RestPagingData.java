@@ -7,6 +7,7 @@ import lombok.*;
 import tk.gushizone.infra.libs.base.query.OrderEntry;
 import tk.gushizone.infra.libs.base.query.PagingData;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,24 +21,17 @@ import java.util.List;
 @Schema(description = "分页")
 public class RestPagingData implements PagingData {
 
-
-    /***
-     * 当前页
-     */
     @Getter
     @Setter
     @Schema(description = "页码", defaultValue = "1")
     private long current = 1;
-    /***
-     * 每页数量, 默认为10
-     */
+
     @Getter
     @Setter
     @Schema(description = "页容量", defaultValue = "10")
     private long size = 10;
-    /**
-     * 排序项
-     */
+
+    @Valid
     @Schema(description = "排序集")
     private List<RestOrderEntry> orders = Lists.newArrayList();
 

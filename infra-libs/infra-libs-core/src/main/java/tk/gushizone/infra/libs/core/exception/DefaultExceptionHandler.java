@@ -26,13 +26,17 @@ import java.util.List;
 public class DefaultExceptionHandler {
 
     /**
-     * 统一处理校验错误 BindResult
+     * 参数绑定异常
+     * todo 低版本存在继承存在差异
      */
     @ExceptionHandler({BindException.class, MethodArgumentNotValidException.class})
-    public Object validExceptionHandler(Exception ex) {
+    public Object bindExceptionHandler(Exception e) {
+        log.warn("参数绑定异常", e);
         BindingResult br = null;
-        if (ex instanceof BindException) {
-            br = ((BindException) ex).getBindingResult();
+        if (e instanceof BindException) {
+            br = ((BindException) e).getBindingResult();
+        } else if (e instanceof MethodArgumentNotValidException) {
+            br = ((MethodArgumentNotValidException) e).getBindingResult();
         }
         RestResponse<?> restResponse = null;
         if (br != null && br.hasErrors()) {
@@ -43,6 +47,30 @@ public class DefaultExceptionHandler {
                     .setMsg(Status.FAIL_VALIDATION.label()) // todo
 //                    .data() todo
                      ;
+//            log.warn("数据校验失败, {}: {}", br.getObjectName(), validateErrorMsg);
+        }
+        return new ResponseEntity<>(restResponse, HttpStatus.OK);
+    }
+
+    /**
+     * 参数校验异常
+     */
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Object validExceptionHandler(Exception e) {
+        log.warn("参数校验异常", e);
+        BindingResult br = null;
+        if (e instanceof MethodArgumentNotValidException) {
+            br = ((BindException) e).getBindingResult();
+        }
+        RestResponse<?> restResponse = null;
+        if (br != null && br.hasErrors()) {
+
+//            String validateErrorMsg = V.getBindingError(br);
+            restResponse = new RestResponse<>()
+                    .setCode(Status.FAIL_VALIDATION.code())
+                    .setMsg(Status.FAIL_VALIDATION.label()) // todo
+//                    .data() todo
+            ;
 //            log.warn("数据校验失败, {}: {}", br.getObjectName(), validateErrorMsg);
         }
         return new ResponseEntity<>(restResponse, HttpStatus.OK);

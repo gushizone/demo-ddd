@@ -14,10 +14,10 @@ import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
- *
  * @author gushizone
  * @date 2022/10/18 11:40
  */
@@ -68,7 +68,7 @@ public class OrderController {
 
     @Operation(summary = "搜索")
     @PostMapping("/search")
-    public PagedRestResponse<OrderRsp> search(@RequestBody PagingRestRequest<OrderQryReq> req) {
+    public PagedRestResponse<OrderRsp> search(@RequestBody @Valid PagingRestRequest<OrderQryReq> req) {
         return orderQueryAppService.query(req);
     }
 
@@ -89,8 +89,6 @@ public class OrderController {
     public RestResponse<List<Long>> importFile() {
         return null;
     }
-
-
 
 
 }

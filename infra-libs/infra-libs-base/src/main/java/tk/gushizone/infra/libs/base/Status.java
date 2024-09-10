@@ -61,6 +61,7 @@ public enum Status implements BaseEnum {
     FAIL_NO_PERMISSION(4003, "无权执行该操作"),
     /***
      * 数据校验不通过
+     * todo 参数异常
      */
     FAIL_VALIDATION(4005, "数据校验不通过"),
     /***

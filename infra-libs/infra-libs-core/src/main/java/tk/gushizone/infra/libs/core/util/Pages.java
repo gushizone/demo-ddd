@@ -15,9 +15,22 @@ import java.util.List;
 /**
  * 类型转换
  * - 使用接口解耦, 不暴露实现类
+ *
+ * @author zhangwei
+ * @since 2024/9/10
  */
 public class Pages {
 
+    /**
+     * 转变为参数
+     */
+    public static <T> PagingParam<T> toParam(RestPagingData restPaging, T param) {
+        return new RestPagingParam<>(restPaging, param);
+    }
+
+    /**
+     * 转变为结果
+     */
     public static <T> PagedResult<T> toResult(Page<?> page, List<T> records) {
         QryPagedResult<T> qryPagedResult = new QryPagedResult<>();
         qryPagedResult.setRecords(records);
@@ -33,17 +46,16 @@ public class Pages {
     }
 
     /**
-     * todo
+     * 转变为结果
      */
     @SuppressWarnings("unchecked")
     public static <T> PagedResult<T> toResult(Page<?> page) {
         return (PagedResult<T>) toResult(page, page.getRecords());
     }
 
-    public static <T> PagingParam<T> toParam(RestPagingData restPaging, T param) {
-        return new RestPagingParam<>(restPaging, param);
-    }
-
+    /**
+     * 转变为 mybatis-plus 参数
+     */
     public static <T> Page<T> toPage(PagingData pagingData) {
         Page<T> result = Page.of(pagingData.getCurrent(), pagingData.getSize());
         result.setOrders(toOrder(pagingData.getOrders()));
