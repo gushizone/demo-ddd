@@ -1,7 +1,7 @@
 package tk.gushizone.mall.order.application.service.impl;
 
 import org.springframework.stereotype.Service;
-import tk.gushizone.infra.libs.core.util.ModelUtils;
+import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.application.dto.req.cmd.common.OrderItemCmdReq;

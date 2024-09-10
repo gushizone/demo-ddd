@@ -1,7 +1,7 @@
 package tk.gushizone.mall.order.application.service;
 
-import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
+import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
 import tk.gushizone.mall.order.application.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
 
@@ -11,6 +11,6 @@ import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
  */
 public interface OrderQueryAppService {
 
-    PagedResult<OrderRsp> query(PagingParam<OrderQryReq> req);
+    PagedRestResponse<OrderRsp> query(PagingRestRequest<OrderQryReq> req);
 
 }

@@ -2,6 +2,7 @@ package tk.gushizone.infra.libs.core.util;
 
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Test;
+import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.common.User;
 
 import java.util.List;

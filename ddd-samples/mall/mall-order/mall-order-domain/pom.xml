@@ -15,7 +15,7 @@
         <!--  todo 净可能干净, 无技术耦合  -->
         <dependency>
             <groupId>tk.gushizone</groupId>
-            <artifactId>infra-libs-core</artifactId>
+            <artifactId>infra-libs-base</artifactId>
         </dependency>
 
         <dependency>

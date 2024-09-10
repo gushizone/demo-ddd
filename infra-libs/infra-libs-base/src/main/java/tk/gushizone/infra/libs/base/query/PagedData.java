@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.base;
+package tk.gushizone.infra.libs.base.query;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import java.util.List;
  * @author gushizone
  * @since 2023/6/1
  */
-public interface IPaged {
+public interface PagedData {
 
     long getCurrent();
 
@@ -20,7 +20,7 @@ public interface IPaged {
 
     void setTotal(long total);
 
-    List<IOrderItem> getOrders();
+    List<? extends OrderEntry> getOrders();
 
-    void setOrders(List<IOrderItem> orders);
+    void setOrders(List<? extends OrderEntry> orders);
 }

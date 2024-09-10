@@ -1,10 +1,11 @@
-package tk.gushizone.infra.libs.core.web;
+package tk.gushizone.infra.libs.core.rest;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
 import tk.gushizone.infra.libs.base.BaseEnum;
-import tk.gushizone.infra.libs.core.exception.BusinessException;
+import tk.gushizone.infra.libs.base.Status;
+import tk.gushizone.infra.libs.base.exception.BusinessException;
 
 class WebTest {
 

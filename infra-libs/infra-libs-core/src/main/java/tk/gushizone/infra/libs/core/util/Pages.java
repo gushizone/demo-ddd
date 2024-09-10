@@ -1,53 +1,86 @@
 package tk.gushizone.infra.libs.core.util;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.infra.libs.base.query.OrderEntry;
 import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.Paged;
-import tk.gushizone.infra.libs.base.query.Paging;
+import tk.gushizone.infra.libs.base.query.PagingData;
 import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.core.rest.query.*;
 
 import java.util.List;
 
 /**
- * todo 抽取
- * todo 排序
+ * 类型转换
+ * - 使用接口解耦, 不暴露实现类
  */
 public class Pages {
 
-    public static <T> PagedResult<T> toResult(Paged paged, List<T> records) {
-        PagedResult<T> pagedResult = new PagedResult<>();
-        pagedResult.setRecords(records);
-
-        // todo
-        pagedResult.setPage(paged);
-        return pagedResult;
-    }
-
-    // todo 解耦 接口
     public static <T> PagedResult<T> toResult(Page<?> page, List<T> records) {
-        PagedResult<T> pagedResult = new PagedResult<>();
-        pagedResult.setRecords(records);
+        QryPagedResult<T> qryPagedResult = new QryPagedResult<>();
+        qryPagedResult.setRecords(records);
 
-        Paged paged = new Paged();
-        paged.setCurrent(page.getCurrent());
-        paged.setSize(page.getSize());
-        paged.setTotal(page.getTotal());
-//        pagination.setOrders(page.orders()); todo
+        RestPagedData restPaged = new RestPagedData();
+        restPaged.setCurrent(page.getCurrent());
+        restPaged.setSize(page.getSize());
+        restPaged.setTotal(page.getTotal());
+        restPaged.setOrders(toEntry(page.orders()));
 
-        pagedResult.setPage(paged);
-        return pagedResult;
+        qryPagedResult.setPage(restPaged);
+        return qryPagedResult;
     }
 
+    /**
+     * todo
+     */
+    @SuppressWarnings("unchecked")
     public static <T> PagedResult<T> toResult(Page<?> page) {
-        return toResult(page, Lists.newArrayList());
+        return (PagedResult<T>) toResult(page, page.getRecords());
     }
 
-    public static <T> PagingParam<T> toParam(Paging paging, T param) {
-        return new PagingParam<>(paging, param);
+    public static <T> PagingParam<T> toParam(RestPagingData restPaging, T param) {
+        return new RestPagingParam<>(restPaging, param);
     }
 
-    public static <T> Page<T> toPage(Paging paging) {
-        return Page.of(paging.getCurrent(), paging.getSize());
+    public static <T> Page<T> toPage(PagingData pagingData) {
+        Page<T> result = Page.of(pagingData.getCurrent(), pagingData.getSize());
+        result.setOrders(toOrder(pagingData.getOrders()));
+        return result;
+    }
+
+    /**
+     * 转换排序集 - 请求
+     */
+    private static List<OrderItem> toOrder(List<? extends OrderEntry> entries) {
+        if (CollectionUtils.isEmpty(entries)) {
+            return Lists.newArrayList();
+        }
+        List<OrderItem> results = Lists.newArrayListWithExpectedSize(entries.size());
+        for (OrderEntry order : entries) {
+            OrderItem result = new OrderItem();
+            result.setColumn(order.getColumn());
+            result.setAsc(RestOrderEntry.ORDER_AES.equals(order.getOrder()));
+            results.add(result);
+        }
+        return results;
+    }
+
+    /**
+     * 转换排序集 - 响应
+     */
+    private static List<RestOrderEntry> toEntry(List<OrderItem> items) {
+        if (CollectionUtils.isEmpty(items)) {
+            return Lists.newArrayList();
+        }
+        List<RestOrderEntry> results = Lists.newArrayListWithExpectedSize(items.size());
+        for (OrderItem item : items) {
+            RestOrderEntry result = new RestOrderEntry();
+            result.setColumn(item.getColumn());
+            result.setOrder(item.isAsc() ? RestOrderEntry.ORDER_AES : RestOrderEntry.ORDER_DESC);
+            results.add(result);
+        }
+        return results;
     }
 }

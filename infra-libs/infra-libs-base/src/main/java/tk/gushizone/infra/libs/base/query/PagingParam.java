@@ -1,16 +1,12 @@
 package tk.gushizone.infra.libs.base.query;
 
-import lombok.Data;
+public interface PagingParam<T> {
 
-@Data
-public class PagingParam<T> {
+    PagingData getPage();
 
-    private Paging page;
+    void setPage(PagingData page);
 
-    private T param;
+    T getParam();
 
-    public PagingParam(Paging page, T param) {
-        this.param = param;
-        this.page = page;
-    }
+    void setParam(T param);
 }

@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.core.util;
+package tk.gushizone.infra.libs.base.util;
 
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;

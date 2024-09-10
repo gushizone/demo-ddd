@@ -2,7 +2,6 @@ package tk.gushizone.mall.order.application.assembler;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
-import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderAppConvertor;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderItemAppConvertor;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;

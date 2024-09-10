@@ -4,10 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.core.web.PagedRestResponse;
-import tk.gushizone.infra.libs.core.web.PagingRequest;
-import tk.gushizone.infra.libs.core.web.RestResponse;
+import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
+import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.RestResponse;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.application.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
@@ -69,10 +68,8 @@ public class OrderController {
 
     @Operation(summary = "搜索")
     @PostMapping("/search")
-    public PagedRestResponse<OrderRsp> query(@RequestBody PagingRequest<OrderQryReq> req) {
-
-        PagedResult<OrderRsp> pagedResult = orderQueryAppService.query(req);
-        return PagedRestResponse.ok(pagedResult);
+    public PagedRestResponse<OrderRsp> search(@RequestBody PagingRestRequest<OrderQryReq> req) {
+        return orderQueryAppService.query(req);
     }
 
     /**

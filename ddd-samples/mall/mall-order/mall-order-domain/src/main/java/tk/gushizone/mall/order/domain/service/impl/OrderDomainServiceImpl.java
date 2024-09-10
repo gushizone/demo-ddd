@@ -1,7 +1,8 @@
 package tk.gushizone.mall.order.domain.service.impl;
 
 import org.springframework.stereotype.Service;
-import tk.gushizone.infra.libs.base.query.*;
+import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;

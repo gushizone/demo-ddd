@@ -2,7 +2,8 @@ package tk.gushizone.mall.order.application.service.impl;
 
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
+import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
 import tk.gushizone.infra.libs.core.util.Pages;
 import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.dto.req.qry.OrderQryReq;
@@ -22,14 +23,14 @@ public class OrderQueryAppServiceImpl implements OrderQueryAppService {
     private OrderDomainService orderDomainService;
 
     @Override
-    public PagedResult<OrderRsp> query(PagingParam<OrderQryReq> pagingParam) {
+    public PagedRestResponse<OrderRsp> query(PagingRestRequest<OrderQryReq> restPagingParam) {
 
-        OrderQry orderQry = OrderAppAssembler.toQry(pagingParam.getParam());
+        OrderQry orderQry = OrderAppAssembler.toQry(restPagingParam.getParam());
 
-        PagedResult<OrderAggregate> orderPagedResult = orderDomainService.query(Pages.toParam(pagingParam.getPage(), orderQry));
+        PagedResult<OrderAggregate> orderPagedResult = orderDomainService.query(Pages.toParam(restPagingParam.getPage(), orderQry));
 
         List<OrderRsp> orderRspList = OrderAppAssembler.toRsp(orderPagedResult.getRecords());
 
-        return Pages.toResult(orderPagedResult.getPage(), orderRspList);
+        return PagedRestResponse.ok(orderPagedResult.getPage(), orderRspList);
     }
 }

@@ -1,6 +1,4 @@
-package tk.gushizone.infra.libs.core.web;
-
-import tk.gushizone.infra.libs.base.BaseEnum;
+package tk.gushizone.infra.libs.base;
 
 /**
  * 状态码枚举

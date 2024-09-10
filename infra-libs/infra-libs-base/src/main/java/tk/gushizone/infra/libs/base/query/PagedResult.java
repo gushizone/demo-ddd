@@ -1,14 +1,14 @@
 package tk.gushizone.infra.libs.base.query;
 
-import lombok.Data;
-
 import java.util.List;
 
-@Data
-public class PagedResult<T> {
+public interface PagedResult<T> {
 
-    private Paged page;
+    PagedData getPage();
 
-    private List<T> records;
+    void setPage(PagedData page);
 
+    List<T> getRecords();
+
+    void setRecords(List<T> records);
 }

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.gushizone.infra.libs.base.query.PagedResult;
 import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.infra.libs.core.util.Pages;
-import tk.gushizone.infra.libs.core.util.ModelUtils;
+import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
 import tk.gushizone.mall.order.adapter.out.repository.dto.OrderCreateDmResult;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;

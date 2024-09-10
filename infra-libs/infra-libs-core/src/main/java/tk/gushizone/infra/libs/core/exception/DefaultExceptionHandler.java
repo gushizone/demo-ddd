@@ -9,8 +9,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import tk.gushizone.infra.libs.core.web.RestResponse;
-import tk.gushizone.infra.libs.core.web.Status;
+import tk.gushizone.infra.libs.base.exception.BusinessException;
+import tk.gushizone.infra.libs.core.rest.RestResponse;
+import tk.gushizone.infra.libs.base.Status;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -37,11 +38,11 @@ public class DefaultExceptionHandler {
         if (br != null && br.hasErrors()) {
 
 //            String validateErrorMsg = V.getBindingError(br);
-            restResponse = RestResponse.builder()
-                    .code(Status.FAIL_VALIDATION.code())
-                    .msg(Status.FAIL_VALIDATION.label()) // todo
+            restResponse = new RestResponse<>()
+                    .setCode(Status.FAIL_VALIDATION.code())
+                    .setMsg(Status.FAIL_VALIDATION.label()) // todo
 //                    .data() todo
-                    .build();
+                     ;
 //            log.warn("数据校验失败, {}: {}", br.getObjectName(), validateErrorMsg);
         }
         return new ResponseEntity<>(restResponse, HttpStatus.OK);
