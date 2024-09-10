@@ -1,6 +1,5 @@
 package tk.gushizone.mall.order.adapter.out.remote;
 
-import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class ProductClientImpl implements ProductClient {
             result.setId(productId);
             result.setName("产品" + productId);
             result.setImage("www.demo" + productId + ".png");
-            result.setCurrentUnitPrice(RandomUtil.randomBigDecimal(new BigDecimal("1"), new BigDecimal("100")));
+            result.setCurrentUnitPrice(new BigDecimal("10"));
 
             results.add(result);
         }

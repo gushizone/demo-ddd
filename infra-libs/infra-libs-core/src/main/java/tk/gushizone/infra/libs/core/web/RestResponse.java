@@ -10,6 +10,8 @@ import tk.gushizone.infra.libs.core.exception.BusinessException;
 import java.io.Serializable;
 
 /**
+ * todo 是不是不用转 swagger
+ *
  * @author gushizone
  * @since 2023/6/1
  */

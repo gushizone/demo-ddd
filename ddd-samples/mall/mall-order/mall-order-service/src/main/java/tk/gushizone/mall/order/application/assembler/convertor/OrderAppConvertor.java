@@ -3,6 +3,8 @@ package tk.gushizone.mall.order.application.assembler.convertor;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
+import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 
 /**
@@ -11,12 +13,11 @@ import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
  */
 @Mapper
 //@Mapper(componentModel = "spring")
-public interface OrderConvertor {
+public interface OrderAppConvertor {
 
-    OrderConvertor INSTANCE = Mappers.getMapper(OrderConvertor.class);
+    OrderAppConvertor INSTANCE = Mappers.getMapper(OrderAppConvertor.class);
 
-    OrderCreateCmd reqToCmd(OrderCreateCmdReq req);
+    OrderCreateCmd toCmd(OrderCreateCmdReq req);
 
-
-
+    OrderRsp toRsp(OrderAggregate record);
 }

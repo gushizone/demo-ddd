@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.core.common;
+package tk.gushizone.infra.libs.base;
 
 /**
  *

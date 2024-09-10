@@ -2,7 +2,7 @@ package tk.gushizone.mall.order.application.service.impl;
 
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.core.util.ModelUtils;
-import tk.gushizone.mall.order.application.assembler.OrderFactory;
+import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.application.dto.req.cmd.common.OrderItemCmdReq;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
@@ -50,7 +50,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         List<StockApiRsp> stocks = stockApi.query(stockQryReq);
         Map<Long, StockApiRsp> productStockMap = ModelUtils.toMap(stocks, StockApiRsp::getProductId);
 
-        OrderCreateCmd orderCreateCmd = OrderFactory.buildCmd(req, productMap, productStockMap);
+        OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCmd(req, productMap, productStockMap);
         Long id = orderDomainService.create(orderCreateCmd);
 
         // todo event...

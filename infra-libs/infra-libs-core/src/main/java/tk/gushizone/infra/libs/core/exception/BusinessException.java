@@ -1,7 +1,7 @@
 package tk.gushizone.infra.libs.core.exception;
 
 import cn.hutool.core.util.StrUtil;
-import tk.gushizone.infra.libs.core.common.BaseEnum;
+import tk.gushizone.infra.libs.base.BaseEnum;
 import tk.gushizone.infra.libs.core.web.Status;
 
 /**

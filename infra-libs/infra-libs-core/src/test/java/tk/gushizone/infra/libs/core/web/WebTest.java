@@ -3,7 +3,7 @@ package tk.gushizone.infra.libs.core.web;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
-import tk.gushizone.infra.libs.core.common.BaseEnum;
+import tk.gushizone.infra.libs.base.BaseEnum;
 import tk.gushizone.infra.libs.core.exception.BusinessException;
 
 class WebTest {

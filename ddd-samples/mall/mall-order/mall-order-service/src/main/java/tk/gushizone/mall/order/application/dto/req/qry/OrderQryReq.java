@@ -1,8 +1,9 @@
 package tk.gushizone.mall.order.application.dto.req.qry;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * todo
@@ -13,8 +14,7 @@ import java.util.Date;
 @Data
 public class OrderQryReq {
 
-    private Date createTimeFrom;
-
-    private Date createTimeTo;
+    @Schema(description = "ids")
+    private List<Long> ids;
 
 }

@@ -22,12 +22,13 @@
 
         <!--   todo     -->
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
+        <knife4j.version>4.4.0</knife4j.version>
 
         <lombok.version>1.18.6</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
 
         <hutool-all.version>5.8.11</hutool-all.version>
-        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <guava.version>30.0-jre</guava.version>
     </properties>
@@ -37,6 +38,11 @@
             <dependency>
                 <groupId>tk.gushizone</groupId>
                 <artifactId>infra-libs-core</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>tk.gushizone</groupId>
+                <artifactId>infra-libs-base</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 
@@ -96,6 +102,13 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

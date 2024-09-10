@@ -2,7 +2,7 @@ package tk.gushizone.mall.stock.adapter.out.repository;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
-import tk.gushizone.mall.stock.application.assembler.StockFactory;
+import tk.gushizone.mall.stock.adapter.out.repository.assembler.StockRepositoryAssembler;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
 import tk.gushizone.mall.stock.domain.repository.StockRepository;
@@ -30,6 +30,6 @@ public class StockDbRepository implements StockRepository {
                 .in(CollectionUtils.isNotEmpty(qry.getProductIds()), Stock::getProductId, qry.getProductIds())
                 .list();
 
-        return StockFactory.build(stocks);
+        return StockRepositoryAssembler.toAgg(stocks);
     }
 }

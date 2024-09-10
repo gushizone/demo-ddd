@@ -1,4 +1,4 @@
-package tk.gushizone.mall.stock.application.assembler.convertor;
+package tk.gushizone.mall.stock.application.assembler.converter;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

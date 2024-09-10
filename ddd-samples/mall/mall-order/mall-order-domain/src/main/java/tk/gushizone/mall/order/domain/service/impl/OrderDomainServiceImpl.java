@@ -1,8 +1,11 @@
 package tk.gushizone.mall.order.domain.service.impl;
 
 import org.springframework.stereotype.Service;
+import tk.gushizone.infra.libs.base.query.*;
+import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
+import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
 
@@ -26,5 +29,13 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         OrderCreateCmdResult orderCreateCmdResult = orderCreateCmd.exec();
 
         return orderRepository.save(orderCreateCmdResult);
+    }
+
+    @Override
+    public PagedResult<OrderAggregate> query(PagingParam<OrderQry> pagingParam) {
+
+        PagedResult<OrderAggregate> orderPagedResult =  orderRepository.query(pagingParam);
+
+        return orderPagedResult;
     }
 }

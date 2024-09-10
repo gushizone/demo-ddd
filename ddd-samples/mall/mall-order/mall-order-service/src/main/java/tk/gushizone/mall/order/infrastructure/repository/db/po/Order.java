@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * 订单
  */
 @Data
-@TableName(value = "order")
+@TableName(value = "`order`")
 public class Order {
     /**
      * id
@@ -42,5 +42,5 @@ public class Order {
     /**
      * 订单状态: 0=已取消, 10=未付款, 20=已付款, 40=已发货, 50=交易成功, 60=交易关闭
      */
-    private Integer status;
+    private Integer orderStatus;
 }

@@ -35,6 +35,6 @@ public class OrderEntity {
     /**
      * 订单状态: 0=已取消, 10=未付款, 20=已付款, 40=已发货, 50=交易成功, 60=交易关闭
      */
-    private Integer status;
+    private Integer orderStatus;
 
 }

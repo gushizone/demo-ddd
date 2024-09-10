@@ -47,6 +47,11 @@ public class OrderItem {
     private String productImage;
 
     /**
+     * 生成订单时的商品单价，单位是元,保留两位小数
+     */
+    private BigDecimal currentUnitPrice;
+
+    /**
      * 商品数量
      */
     private Integer quantity;

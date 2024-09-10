@@ -29,7 +29,7 @@
         <lombok.version>1.18.6</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hutool-all.version>5.5.8</hutool-all.version>
-        <commons.lang3.version>3.3.2</commons.lang3.version>
+        <commons.lang3.version>3.8.1</commons.lang3.version>
         <commons.collections4.version>4.2</commons.collections4.version>
         <guava.version>30.0-jre</guava.version>
 

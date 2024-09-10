@@ -19,11 +19,4 @@ public class OrderCreateDmResult {
     private Order order;
 
     private List<OrderItem> orderItems;
-
-    public static OrderCreateDmResult valueOf(OrderCreateCmdResult orderCreateCmdResult) {
-        OrderCreateDmResult result = new OrderCreateDmResult();
-        result.setOrder(OrderRepositoryConvertor.INSTANCE.toPo(orderCreateCmdResult.getOrder()));
-        result.setOrderItems(OrderItemRepositoryConvertor.INSTANCE.toPoList(orderCreateCmdResult.getOrderItems()));
-        return result;
-    }
 }

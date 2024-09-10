@@ -26,14 +26,7 @@ public class OrderCreateCmd {
     private List<OrderItemCmd> orderItems;
 
     public OrderCreateCmdResult exec() {
-        check();
-        return build();
-    }
 
-    /**
-     * 构建结果集
-     */
-    public OrderCreateCmdResult build() {
         OrderCreateCmdResult result = new OrderCreateCmdResult();
 
         result.setOrder(buildOrder());
@@ -46,6 +39,14 @@ public class OrderCreateCmd {
     }
 
     private List<OrderItemEntity> buildOrderItem() {
+        if (CollectionUtils.isEmpty(orderItems)) {
+            throw new BusinessException("订单项不能为空");
+        }
+        for (OrderItemCmd orderItem : orderItems) {
+            if (orderItem.getQuantity() > orderItem.getStockQty()) {
+                throw new BusinessException("库存不足");
+            }
+        }
         List<OrderItemEntity> results = Lists.newArrayListWithExpectedSize(orderItems.size());
         for (OrderItemCmd orderItemCmd : orderItems) {
             OrderItemEntity result = new OrderItemEntity();
@@ -70,22 +71,7 @@ public class OrderCreateCmd {
 //        orderEntity.setUserId();
         orderEntity.setShippingId(shippingId);
 //        orderEntity.setPayment(); // todo
-        orderEntity.setStatus(10); // todo
+        orderEntity.setOrderStatus(10); // todo
         return orderEntity;
-    }
-
-
-    /**
-     * check
-     */
-    private void check() {
-        if (CollectionUtils.isEmpty(orderItems)) {
-            throw new BusinessException("订单项不能为空");
-        }
-        for (OrderItemCmd orderItem : orderItems) {
-            if (orderItem.getQuantity() > orderItem.getStockQty()) {
-                throw new BusinessException("库存不足");
-            }
-        }
     }
 }

@@ -11,6 +11,7 @@
     <modules>
         <module>infra-libs-dependencies</module>
         <module>infra-libs-core</module>
+        <module>infra-libs-base</module>
     </modules>
 
     <description> 此 pom 仅为方便编译和构建, 参考: https://github.com/spring-projects/spring-boot/tree/2.1.x </description>
