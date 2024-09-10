@@ -1,5 +1,6 @@
 package tk.gushizone.infra.libs.core.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,6 @@ import tk.gushizone.infra.libs.base.exception.BusinessException;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
 import tk.gushizone.infra.libs.base.Status;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -35,11 +35,11 @@ public class DefaultExceptionHandler {
         BindingResult br = null;
         if (e instanceof BindException) {
             br = ((BindException) e).getBindingResult();
-        } else if (e instanceof MethodArgumentNotValidException) {
-            br = ((MethodArgumentNotValidException) e).getBindingResult();
         }
         RestResponse<?> restResponse = null;
         if (br != null && br.hasErrors()) {
+//          todo
+//            br.getAllErrors()
 
 //            String validateErrorMsg = V.getBindingError(br);
             restResponse = new RestResponse<>()
@@ -102,7 +102,7 @@ public class DefaultExceptionHandler {
      * 获取状态码
      */
     protected HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        Integer statusCode = (Integer) request.getAttribute("jakarta.servlet.error.status_code");
         if (statusCode == null) {
             return HttpStatus.INTERNAL_SERVER_ERROR;
         }

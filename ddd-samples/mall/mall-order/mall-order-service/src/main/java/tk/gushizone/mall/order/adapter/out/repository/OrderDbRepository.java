@@ -19,7 +19,7 @@ import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderMapper;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.Order;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.OrderItem;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

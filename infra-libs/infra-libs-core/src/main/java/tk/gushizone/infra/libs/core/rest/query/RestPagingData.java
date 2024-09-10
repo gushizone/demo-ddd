@@ -3,11 +3,11 @@ package tk.gushizone.infra.libs.core.rest.query;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import lombok.*;
 import tk.gushizone.infra.libs.base.query.OrderEntry;
 import tk.gushizone.infra.libs.base.query.PagingData;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**

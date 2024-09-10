@@ -6,7 +6,7 @@ import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
 import tk.gushizone.mall.stock.domain.repository.StockRepository;
 import tk.gushizone.mall.stock.domain.service.StockDomainService;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
 

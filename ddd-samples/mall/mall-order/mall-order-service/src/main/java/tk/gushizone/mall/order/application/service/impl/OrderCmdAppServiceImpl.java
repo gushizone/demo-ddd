@@ -14,7 +14,7 @@ import tk.gushizone.mall.stock.api.StockApi;
 import tk.gushizone.mall.stock.dto.req.qry.StockQryReq;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 

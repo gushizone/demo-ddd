@@ -6,7 +6,7 @@ import tk.gushizone.mall.stock.application.service.StockQryAppService;
 import tk.gushizone.mall.stock.dto.req.qry.StockQryReq;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 @RestController

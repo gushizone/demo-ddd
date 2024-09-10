@@ -6,7 +6,7 @@ import lombok.*;
 import tk.gushizone.infra.libs.base.query.PagingData;
 import tk.gushizone.infra.libs.base.query.PagingParam;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 /**
  * @author zhangwei
@@ -24,7 +24,7 @@ public class RestPagingParam<T> implements PagingParam<T> {
     @Schema(description = "分页参数")
     private RestPagingData page;
 
-//    @Valid
+    @Valid
     @Setter
     @Schema(description = "查询参数")
     private T param;

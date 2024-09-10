@@ -9,7 +9,7 @@ import tk.gushizone.mall.stock.domain.service.StockDomainService;
 import tk.gushizone.mall.stock.dto.req.qry.StockQryReq;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 @Component

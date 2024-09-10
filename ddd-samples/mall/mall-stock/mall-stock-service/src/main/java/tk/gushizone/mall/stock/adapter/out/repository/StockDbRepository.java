@@ -9,7 +9,7 @@ import tk.gushizone.mall.stock.domain.repository.StockRepository;
 import tk.gushizone.mall.stock.infrastructure.repository.db.mapper.StockMapper;
 import tk.gushizone.mall.stock.infrastructure.repository.db.po.Stock;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.List;
 
 @Repository
