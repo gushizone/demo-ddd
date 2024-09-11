@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author gushizone
- * @date 2022/10/19 10:17
+ * @since 2022/10/19 10:17
  */
 public interface ProductClient {
 

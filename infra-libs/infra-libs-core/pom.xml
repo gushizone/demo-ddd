@@ -4,10 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>infra-libs-dependencies</artifactId>
         <groupId>tk.gushizone</groupId>
+        <artifactId>infra-libs</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../infra-libs-dependencies</relativePath>
     </parent>
 
     <artifactId>infra-libs-core</artifactId>
@@ -78,22 +77,14 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-<!--      todo  -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
-            <version>${mybatis-plus.version}</version>
         </dependency>
-
-<!--   todo     -->
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-common</artifactId>-->
-<!--        </dependency>-->
+        <!--   todo  -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
         </dependency>
 
     </dependencies>

@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author gushizone
- * @date 2022/10/18 11:20
+ * @since 2022/10/18 11:20
  */
 @EnableFeignClients
 @EnableDiscoveryClient

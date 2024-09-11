@@ -8,7 +8,7 @@ import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 
 /**
  * @author gushizone
- * @date 2022/10/18 17:46
+ * @since 2022/10/18 17:46
  */
 public interface OrderRepository {
 

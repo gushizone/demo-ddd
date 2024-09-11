@@ -13,7 +13,7 @@ import java.util.Collection;
 
 /**
  * @author gushizone
- * @date 2022/8/24 10:36
+ * @since 2022/8/24 10:36
  */
 public interface BasePlusMapper<T> extends BaseMapper<T> {
 

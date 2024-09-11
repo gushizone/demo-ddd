@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 /**
  * @author gushizone
- * @date 2022/10/18 15:52
+ * @since 2022/10/18 15:52
  */
 @Data
 public class OrderItemRsp {

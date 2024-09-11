@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 
 /**
  * @author gushizone
- * @date 2022/10/19 10:44
+ * @since 2022/10/19 10:44
  */
 @Data
 public class Product {

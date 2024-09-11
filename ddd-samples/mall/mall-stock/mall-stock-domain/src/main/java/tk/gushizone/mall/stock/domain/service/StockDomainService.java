@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author gushizone
- * @date 2022/10/18 17:47
+ * @since 2022/10/18 17:47
  */
 public interface StockDomainService {
 
