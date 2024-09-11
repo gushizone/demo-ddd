@@ -11,6 +11,11 @@
 
     <artifactId>mall-order-service</artifactId>
 
+    <properties>
+        <!--  跳过: 源码包打包, 发布  -->
+        <maven.source.skip>true</maven.source.skip>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
     <dependencies>
         <dependency>
