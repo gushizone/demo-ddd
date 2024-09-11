@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
 <!--  可以通过 spring-cloud-build, 确认构建所需版本   -->
-    <parent>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-build</artifactId>
-        <version>4.0.0</version>
-        <relativePath/>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>org.springframework.cloud</groupId>-->
+<!--        <artifactId>spring-cloud-build</artifactId>-->
+<!--        <version>4.0.0</version>-->
+<!--        <relativePath/>-->
+<!--    </parent>-->
 
     <groupId>tk.gushizone</groupId>
     <artifactId>infra-libs</artifactId>
