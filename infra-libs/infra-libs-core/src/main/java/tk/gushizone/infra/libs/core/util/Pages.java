@@ -8,6 +8,7 @@ import tk.gushizone.infra.libs.base.query.OrderEntry;
 import tk.gushizone.infra.libs.base.query.PagedResult;
 import tk.gushizone.infra.libs.base.query.PagingData;
 import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
 import tk.gushizone.infra.libs.core.rest.query.*;
 
 import java.util.List;
@@ -94,5 +95,25 @@ public class Pages {
             results.add(result);
         }
         return results;
+    }
+
+    /**
+     * 不分页
+     * - todo 是否需要
+     * - todo 默认排序问题
+     */
+    private static RestPagingData noPaging() {
+        RestPagingData restPagingData = new RestPagingData();
+        restPagingData.setCurrent(1);
+        restPagingData.setSize(-1);
+        restPagingData.setOrders(Lists.newArrayList());
+        return restPagingData;
+    }
+
+    public static <T> PagingRestRequest<T> toReq(T stockQryReq) {
+        PagingRestRequest<T> result = new PagingRestRequest<>();
+        result.setPage(noPaging());
+        result.setParam(stockQryReq);
+        return result;
     }
 }

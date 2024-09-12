@@ -1,9 +1,9 @@
 package tk.gushizone.mall.stock.domain.service;
 
+import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
-
-import java.util.List;
 
 /**
  * @author gushizone
@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface StockDomainService {
 
-    List<StockAggregate> query(StockQry stockQry);
+    PagedResult<StockAggregate> query(PagingParam<StockQry> pagingParam);
 }

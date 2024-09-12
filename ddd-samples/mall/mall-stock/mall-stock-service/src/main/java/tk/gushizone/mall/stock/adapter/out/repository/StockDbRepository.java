@@ -1,7 +1,11 @@
 package tk.gushizone.mall.stock.adapter.out.repository;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
+import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.core.util.Pages;
 import tk.gushizone.mall.stock.adapter.out.repository.assembler.StockRepositoryAssembler;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
@@ -19,17 +23,22 @@ public class StockDbRepository implements StockRepository {
     private StockMapper stockMapper;
 
     @Override
-    public void save(StockAggregate stock) {
+    public PagedResult<StockAggregate> query(PagingParam<StockQry> pagingParam) {
 
+        StockQry stockQry = pagingParam.getParam();
+
+        Page<Stock> stockPage = stockMapper.lambdaQuery()
+                .in(CollectionUtils.isNotEmpty(stockQry.getProductIds()), Stock::getProductId, stockQry.getProductIds())
+                .page(Pages.toPage(pagingParam.getPage()));
+        if (CollectionUtils.isEmpty(stockPage.getRecords())) {
+            return Pages.toResult(stockPage);
+        }
+        List<StockAggregate> stocks = StockRepositoryAssembler.toAgg(stockPage.getRecords());
+        return Pages.toResult(stockPage, stocks);
     }
 
     @Override
-    public List<StockAggregate> query(StockQry qry) {
+    public void save(StockAggregate stock) {
 
-        List<Stock> stocks = stockMapper.lambdaQuery()
-                .in(CollectionUtils.isNotEmpty(qry.getProductIds()), Stock::getProductId, qry.getProductIds())
-                .list();
-
-        return StockRepositoryAssembler.toAgg(stocks);
     }
 }

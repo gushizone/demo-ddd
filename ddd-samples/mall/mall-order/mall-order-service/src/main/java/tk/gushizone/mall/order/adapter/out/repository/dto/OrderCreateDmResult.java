@@ -1,6 +1,7 @@
 package tk.gushizone.mall.order.adapter.out.repository.dto;
 
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.converter.OrderItemRepositoryConvertor;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.converter.OrderRepositoryConvertor;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
@@ -19,4 +20,13 @@ public class OrderCreateDmResult {
     private Order order;
 
     private List<OrderItem> orderItems;
+
+    public void linking() {
+        if (CollectionUtils.isEmpty(orderItems)) {
+            return;
+        }
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setOrderId(order.getId());
+        }
+    }
 }

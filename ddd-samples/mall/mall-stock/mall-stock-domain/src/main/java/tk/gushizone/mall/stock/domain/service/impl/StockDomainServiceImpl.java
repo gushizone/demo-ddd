@@ -1,14 +1,13 @@
 package tk.gushizone.mall.stock.domain.service.impl;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
 import tk.gushizone.mall.stock.domain.repository.StockRepository;
 import tk.gushizone.mall.stock.domain.service.StockDomainService;
-
-import jakarta.annotation.Resource;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author gushizone
@@ -21,7 +20,7 @@ public class StockDomainServiceImpl implements StockDomainService {
     private StockRepository stockRepository;
 
     @Override
-    public List<StockAggregate> query(StockQry stockQry) {
-        return stockRepository.query(stockQry);
+    public PagedResult<StockAggregate> query(PagingParam<StockQry> pagingParam) {
+        return stockRepository.query(pagingParam);
     }
 }

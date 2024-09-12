@@ -43,6 +43,7 @@ public class OrderDbRepository implements OrderRepository {
 
         orderMapper.insert(result.getOrder());
 
+        result.linking();
         orderItemMapper.saveBatch(result.getOrderItems());
 
         return result.getOrder().getId();
