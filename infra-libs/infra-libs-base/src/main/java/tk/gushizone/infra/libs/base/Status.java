@@ -6,8 +6,8 @@ package tk.gushizone.infra.libs.base;
  * 业务一般仅使用 OK(2000) 和 FAIL_OPERATION(4006) 即可
  * <p>
  * 注意: 部分状态码 和 http status 存在映射, 若需要自定义code, 业务方一般需要 >= 6XXX .
- * - 4XXX -> 4XX http status
- * - 5XXX -> 5XX http status
+ * - 客户端错误: 4XXX -> 4XX http status
+ * - 服务器错误: 5XXX -> 5XX http status
  * - other -> 200 http status
  * 参考: <a href="https://github.com/dibo-software/diboot/blob/develop/diboot-core/src/main/java/com/diboot/core/vo/Status.java">diboot:Status.java</a>
  * 注意: 302等重定向状态码无法被前端代码捕获,因为浏览器的优先级高于AJAX库.

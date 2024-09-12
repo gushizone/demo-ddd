@@ -16,7 +16,7 @@ import java.util.List;
  * 类型转换
  * - 使用接口解耦, 不暴露实现类
  *
- * @author zhangwei
+ * @author gushizone
  * @since 2024/9/10
  */
 public class Pages {
@@ -32,8 +32,8 @@ public class Pages {
      * 转变为结果
      */
     public static <T> PagedResult<T> toResult(Page<?> page, List<T> records) {
-        QryPagedResult<T> qryPagedResult = new QryPagedResult<>();
-        qryPagedResult.setRecords(records);
+        TransferablePagedResult<T> transferablePagedResult = new TransferablePagedResult<>();
+        transferablePagedResult.setRecords(records);
 
         RestPagedData restPaged = new RestPagedData();
         restPaged.setCurrent(page.getCurrent());
@@ -41,8 +41,8 @@ public class Pages {
         restPaged.setTotal(page.getTotal());
         restPaged.setOrders(toEntry(page.orders()));
 
-        qryPagedResult.setPage(restPaged);
-        return qryPagedResult;
+        transferablePagedResult.setPage(restPaged);
+        return transferablePagedResult;
     }
 
     /**

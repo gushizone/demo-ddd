@@ -7,16 +7,16 @@ import tk.gushizone.infra.libs.base.query.PagedResult;
 import java.util.List;
 
 /**
- * 此结果集不会对rest暴露 todo 名称
+ * 此结果集仅用于数据传输, 不会对rest暴露
  *
- * @author zhangwei
+ * @author gushizone
  * @since 2024/9/10
  */
 @Getter
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class QryPagedResult<T> implements PagedResult<T> {
+public class TransferablePagedResult<T> implements PagedResult<T> {
 
     private RestPagedData page;
 

@@ -13,7 +13,10 @@ public class RestOrderEntry implements OrderEntry {
     @Schema(description = "排序列")
     private String column;
 
-    @Schema(description = "升序/降序", allowableValues = {"asc", "desc"})
+    /**
+     * todo 枚举校验
+     */
+    @Schema(description = "排序", allowableValues = {"asc", "desc"})
     @Pattern(regexp = "asc|desc")
     private String order;
 }

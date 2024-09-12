@@ -1,8 +1,11 @@
 package tk.gushizone.mall.order.application.dto.req.qry;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Singular;
 
 import java.util.List;
 
@@ -16,7 +19,10 @@ import java.util.List;
 public class OrderQryReq {
 
     @Schema(description = "ids")
-    @NotEmpty(message = "id is empty")
     private List<Long> ids;
+
+    @Schema(description = "列表")
+    @Size(min = 1, max = 20)
+    private List<Long> list;
 
 }

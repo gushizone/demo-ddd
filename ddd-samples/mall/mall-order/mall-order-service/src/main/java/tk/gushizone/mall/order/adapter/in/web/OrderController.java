@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
 import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
@@ -14,8 +15,6 @@ import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 
-import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import java.util.List;
 
 /**
@@ -69,7 +68,7 @@ public class OrderController {
 
     @Operation(summary = "搜索")
     @PostMapping("/search")
-    public PagedRestResponse<OrderRsp> search(@RequestBody @Valid PagingRestRequest<OrderQryReq> req) {
+    public PagedRestResponse<OrderRsp> search(@RequestBody @Validated PagingRestRequest<OrderQryReq> req) {
         return orderQueryAppService.query(req);
     }
 

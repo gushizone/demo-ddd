@@ -69,12 +69,12 @@
         <dependency>
             <groupId>tk.gushizone</groupId>
             <artifactId>mall-stock-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>tk.gushizone</groupId>
             <artifactId>mall-stock-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>

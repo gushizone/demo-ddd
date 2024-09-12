@@ -1,9 +1,9 @@
 package tk.gushizone.infra.libs.core.starter.exception;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import tk.gushizone.infra.libs.core.exception.DefaultExceptionHandler;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler extends DefaultExceptionHandler {
 
 }
