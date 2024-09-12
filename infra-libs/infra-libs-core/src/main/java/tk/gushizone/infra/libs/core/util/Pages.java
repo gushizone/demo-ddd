@@ -16,7 +16,7 @@ import java.util.List;
  * 类型转换
  * - 使用接口解耦, 不暴露实现类
  *
- * @author zhangwei
+ * @author gushizone
  * @since 2024/9/10
  */
 public class Pages {

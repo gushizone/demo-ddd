@@ -9,7 +9,7 @@ import tk.gushizone.infra.libs.base.query.PagingParam;
 import javax.validation.Valid;
 
 /**
- * @author zhangwei
+ * @author gushizone
  * @since 2024/9/10
  */
 @Getter
