@@ -1,4 +1,4 @@
-package tk.gushizone.mall.order.adapter.out.remote.dto;
+package tk.gushizone.mall.order.adapter.out.external.dto;
 
 import lombok.Data;
 

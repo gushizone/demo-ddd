@@ -1,10 +1,10 @@
-package tk.gushizone.mall.order.adapter.out.remote;
+package tk.gushizone.mall.order.adapter.out.external;
 
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-import tk.gushizone.mall.order.adapter.out.remote.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.Product;
 
 import java.math.BigDecimal;
 import java.util.List;

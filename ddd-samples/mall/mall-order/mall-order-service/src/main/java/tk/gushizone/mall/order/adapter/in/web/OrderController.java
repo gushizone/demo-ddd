@@ -34,7 +34,7 @@ public class OrderController {
 
     @Operation(summary = "创建")
     @PostMapping
-    public RestResponse<Long> create(@RequestBody OrderCreateCmdReq req) {
+    public RestResponse<Long> create(@RequestBody @Validated OrderCreateCmdReq req) {
         return RestResponse.ok(orderCmdAppService.create(req));
     }
 

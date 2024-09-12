@@ -11,7 +11,7 @@ import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderItemCmd;
-import tk.gushizone.mall.order.adapter.out.remote.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.Product;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
