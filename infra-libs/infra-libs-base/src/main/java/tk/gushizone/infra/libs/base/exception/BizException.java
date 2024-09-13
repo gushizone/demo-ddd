@@ -1,38 +1,32 @@
 package tk.gushizone.infra.libs.base.exception;
 
 import cn.hutool.core.util.StrUtil;
+import lombok.Getter;
 import tk.gushizone.infra.libs.base.BaseEnum;
 import tk.gushizone.infra.libs.base.Status;
 
 /**
- * 通用的业务异常类
+ * 通用的业务异常类  todo 业务异常代码国际化
  *
  * @author gushizone
  * @since 2023/6/2
  */
-public class BusinessException extends RuntimeException {
+@Getter
+public class BizException extends RuntimeException {
 
-    private int code;
+    private final long code;
 
-    private BaseEnum status;
+    private final BaseEnum status;
 
-    public BusinessException(String msg, Object... args) {
+    public BizException(String msg, Object... args) {
         super(StrUtil.format(msg, args));
         this.code = Status.FAIL_OPERATION.code();
         this.status = Status.FAIL_OPERATION;
     }
 
-    public BusinessException(BaseEnum status, Object... args) {
+    public BizException(BaseEnum status, Object... args) {
         super(StrUtil.format(status.label(), args));
         this.code = status.code();
         this.status = status;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public BaseEnum getStatus() {
-        return status;
     }
 }

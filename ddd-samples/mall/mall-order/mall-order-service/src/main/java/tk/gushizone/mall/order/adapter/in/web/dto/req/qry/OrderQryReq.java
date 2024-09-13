@@ -1,7 +1,8 @@
-package tk.gushizone.mall.order.application.dto.req.qry;
+package tk.gushizone.mall.order.adapter.in.web.dto.req.qry;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @since 2022/10/18 15:12
  */
 @Data
+@Accessors(chain = true)
 public class OrderQryReq {
 
     @Schema(description = "ids")

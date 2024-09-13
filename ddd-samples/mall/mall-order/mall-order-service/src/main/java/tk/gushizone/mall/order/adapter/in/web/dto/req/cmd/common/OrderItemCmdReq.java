@@ -1,4 +1,4 @@
-package tk.gushizone.mall.order.application.dto.req.cmd.common;
+package tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

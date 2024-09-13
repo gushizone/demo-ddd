@@ -4,6 +4,7 @@ package tk.gushizone.infra.libs.core.rest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.Status;
 import tk.gushizone.infra.libs.base.query.PagedData;
 import tk.gushizone.infra.libs.core.rest.query.RestPagedData;
@@ -30,5 +31,12 @@ public class PagedRestResponse<T> extends RestResponse<List<T>> implements Seria
         result.setMsg(Status.OK.label());
         result.setData(list);
         return result;
+    }
+
+    public T findFirst() {
+        if (CollectionUtils.isEmpty(this.getData())) {
+            return null;
+        }
+        return this.getData().get(0);
     }
 }

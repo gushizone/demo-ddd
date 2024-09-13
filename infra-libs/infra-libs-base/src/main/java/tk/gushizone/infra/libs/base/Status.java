@@ -5,12 +5,7 @@ package tk.gushizone.infra.libs.base;
  * <p>
  * 业务一般仅使用 OK(2000) 和 FAIL_OPERATION(4006) 即可
  * <p>
- * 注意: 部分状态码 和 http status 存在映射, 若需要自定义code, 业务方一般需要 >= 6XXX .
- * - 客户端错误: 4XXX -> 4XX http status
- * - 服务器错误: 5XXX -> 5XX http status
- * - other -> 200 http status
  * 参考: <a href="https://github.com/dibo-software/diboot/blob/develop/diboot-core/src/main/java/com/diboot/core/vo/Status.java">diboot:Status.java</a>
- * 注意: 302等重定向状态码无法被前端代码捕获,因为浏览器的优先级高于AJAX库.
  *
  * @author gushizone
  * @see cn.hutool.http.HttpStatus
@@ -42,26 +37,25 @@ public enum Status implements BaseEnum {
     /***
      * 认证不通过 - 用户名或密码错误
      */
-    FAIL_INVALID_USERNAME_OR_PASSWORD(4102, "用户名或密码错误"),
+    FAIL_INVALID_USERNAME_OR_PASSWORD(4201, "用户名或密码错误"),
     /***
      * 认证不通过 - 验证码(人机验证, 包括文字验证码, 声音验证码, 图像选择验证码,滑块验证码等)
      */
-    FAIL_INVALID_CAPTCHA(4103, "验证码错误"),
+    FAIL_INVALID_CAPTCHA(4301, "验证码错误"),
     /***
      * 认证不通过 - 短信验证码
      */
-    FAIL_INVALID_SMS_VERIFICATION_CODE(4103, "短信验证码错误"),
+    FAIL_INVALID_SMS_VERIFICATION_CODE(4401, "短信验证码错误"),
     /**
      * 认证不通过 - 多因素认证(MFA)
      */
-    FAIL_INVALID_MFA(4109, "多因素认证失败"),
+    FAIL_INVALID_MFA(4901, "多因素认证失败"),
     /***
      * 没有权限执行该操作
      */
     FAIL_NO_PERMISSION(4003, "无权执行该操作"),
     /***
      * 数据校验不通过
-     * todo 参数异常
      */
     FAIL_VALIDATION(4005, "数据校验不通过"),
     /***
@@ -79,17 +73,17 @@ public enum Status implements BaseEnum {
      */
     FAIL_SERVICE_UNAVAILABLE(5003, "服务不可用");;
 
-    private int code;
+    private final long code;
 
-    private String label;
+    private final String label;
 
-    Status(int code, String label) {
+    Status(long code, String label) {
         this.code = code;
         this.label = label;
     }
 
     @Override
-    public int code() {
+    public long code() {
         return code;
     }
 

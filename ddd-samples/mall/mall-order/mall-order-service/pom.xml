@@ -87,6 +87,13 @@
             <artifactId>mall-stock-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+
+        <!--  todo  -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

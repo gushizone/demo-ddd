@@ -21,7 +21,7 @@ public class RestPagingParam<T> implements PagingParam<T> {
 
     @Valid
     @Schema(description = "分页参数")
-    private RestPagingData page;
+    private RestPagingData page = RestPagingData.noPaging();
 
     @Valid
     @Setter

@@ -33,13 +33,21 @@ public class Pages {
      * 转变为结果
      */
     public static <T> PagedResult<T> toResult(Page<?> page, List<T> records) {
+        if (CollectionUtils.isEmpty(records)) {
+            records = Lists.newArrayList();
+        }
         TransferablePagedResult<T> transferablePagedResult = new TransferablePagedResult<>();
         transferablePagedResult.setRecords(records);
 
         RestPagedData restPaged = new RestPagedData();
         restPaged.setCurrent(page.getCurrent());
         restPaged.setSize(page.getSize());
-        restPaged.setTotal(page.getTotal());
+        if (page.getSize() >= 0) {
+            restPaged.setTotal(page.getTotal());
+        } else {
+            // 避免未分页时, 计数不对
+            restPaged.setTotal(records.size());
+        }
         restPaged.setOrders(toEntry(page.orders()));
 
         transferablePagedResult.setPage(restPaged);
@@ -102,18 +110,11 @@ public class Pages {
      * - todo 是否需要
      * - todo 默认排序问题
      */
-    private static RestPagingData noPaging() {
+    public static RestPagingData noPaging() {
         RestPagingData restPagingData = new RestPagingData();
         restPagingData.setCurrent(1);
         restPagingData.setSize(-1);
         restPagingData.setOrders(Lists.newArrayList());
         return restPagingData;
-    }
-
-    public static <T> PagingRestRequest<T> toReq(T stockQryReq) {
-        PagingRestRequest<T> result = new PagingRestRequest<>();
-        result.setPage(noPaging());
-        result.setParam(stockQryReq);
-        return result;
     }
 }

@@ -22,6 +22,11 @@ public class OrderItemEntity {
     /**
      *
      */
+    private Long orderId;
+
+    /**
+     *
+     */
     private Long orderNo;
 
     /**

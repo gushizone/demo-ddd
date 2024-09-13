@@ -1,12 +1,9 @@
-package tk.gushizone.mall.order.application.dto.rsp;
+package tk.gushizone.mall.order.adapter.in.web.dto.rsp;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author gushizone

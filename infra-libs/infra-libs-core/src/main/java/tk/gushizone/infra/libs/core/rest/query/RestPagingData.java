@@ -42,4 +42,11 @@ public class RestPagingData implements PagingData {
     public void setOrders(List<? extends OrderEntry> orders) {
         this.orders = (List<RestOrderEntry>) orders;
     }
+
+    public static RestPagingData noPaging() {
+        RestPagingData result = new RestPagingData();
+        result.setCurrent(1);
+        result.setSize(-1);
+        return result;
+    }
 }

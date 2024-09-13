@@ -3,15 +3,17 @@ package tk.gushizone.mall.order.adapter.in.web;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
 import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
-import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
-import tk.gushizone.mall.order.application.dto.req.qry.OrderQryReq;
-import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 
@@ -35,13 +37,13 @@ public class OrderController {
     @Operation(summary = "创建")
     @PostMapping
     public RestResponse<Long> create(@RequestBody @Validated OrderCreateCmdReq req) {
-        return RestResponse.ok(orderCmdAppService.create(req));
+        return orderCmdAppService.create(req);
     }
 
     @Operation(summary = "查询")
     @GetMapping("/{id}")
-    public RestResponse<Long> query(@PathVariable("id") Long id) {
-        return null;
+    public RestResponse<OrderRsp> query(@PathVariable("id") Long id) {
+        return orderQueryAppService.query(id);
     }
 
     @Operation(summary = "编辑")
@@ -76,18 +78,27 @@ public class OrderController {
      * todo
      */
     @Operation(summary = "导出")
-    @PostMapping("/export-file")
-    public RestResponse<List<Long>> exportFile(@RequestBody OrderQryReq req) {
-        return null;
+    @PostMapping("/export")
+    public void exportData(HttpServletResponse response, @RequestBody @Validated PagingRestRequest<OrderQryReq> req) {
+        orderCmdAppService.exportData(response, req);
+    }
+
+    /**
+     * todo
+     */
+    @Operation(summary = "获取导入模板")
+    @GetMapping("/import-tpl")
+    public void createImportTpl(HttpServletResponse response) {
+        orderCmdAppService.createImportTpl(response);
     }
 
     /**
      * todo
      */
     @Operation(summary = "导入")
-    @PostMapping("/import-file")
-    public RestResponse<List<Long>> importFile() {
-        return null;
+    @PostMapping("/import")
+    public void importData(MultipartFile file) {
+        orderCmdAppService.importData(file);
     }
 
 

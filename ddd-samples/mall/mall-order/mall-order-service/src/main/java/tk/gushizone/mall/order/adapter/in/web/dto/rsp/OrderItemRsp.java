@@ -1,4 +1,4 @@
-package tk.gushizone.mall.order.application.dto.rsp;
+package tk.gushizone.mall.order.adapter.in.web.dto.rsp;
 
 import lombok.Data;
 

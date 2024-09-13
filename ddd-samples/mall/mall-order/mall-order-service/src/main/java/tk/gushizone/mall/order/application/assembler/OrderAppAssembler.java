@@ -2,16 +2,17 @@ package tk.gushizone.mall.order.application.assembler;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.mall.order.adapter.in.web.dto.excel.exp.OrderExp;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
+import tk.gushizone.mall.order.adapter.out.external.dto.Product;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderAppConvertor;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderItemAppConvertor;
-import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
-import tk.gushizone.mall.order.application.dto.req.cmd.common.OrderItemCmdReq;
-import tk.gushizone.mall.order.application.dto.req.qry.OrderQryReq;
-import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderItemCmd;
-import tk.gushizone.mall.order.adapter.out.external.dto.Product;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
@@ -73,6 +74,21 @@ public class OrderAppAssembler {
 
             result.setOrderItems(OrderItemAppConvertor.INSTANCE.toRsp(record.getOrderItems()));
 
+            results.add(result);
+        }
+        return results;
+    }
+
+    public static List<OrderExp> toExp(List<OrderRsp> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return Lists.newArrayList();
+        }
+        List<OrderExp> results = Lists.newArrayListWithExpectedSize(list.size());
+        for (OrderRsp item : list) {
+            OrderExp result = new OrderExp();
+            result.setOrderNo(item.getOrderNo());
+            result.setPayment(item.getPayment());
+            result.setOrderStatus(item.getOrderStatus());
             results.add(result);
         }
         return results;

@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.gushizone.infra.libs.base.Status;
-import tk.gushizone.infra.libs.base.exception.BusinessException;
+import tk.gushizone.infra.libs.base.exception.BizException;
 
 import java.io.Serializable;
 
@@ -22,7 +22,7 @@ public class RestResponse<T> implements Serializable {
      * 状态码
      */
     @Schema(description = "状态码", example = "200")
-    private int code;
+    private long code;
     /**
      * 消息
      */
@@ -34,7 +34,7 @@ public class RestResponse<T> implements Serializable {
     @Schema(description = "数据")
     private T data;
 
-    public static RestResponse<Void> ok() {
+    public static <T> RestResponse<T> ok() {
         return ok(null);
     }
 
@@ -57,7 +57,7 @@ public class RestResponse<T> implements Serializable {
     /**
      * 一般业务不要直接使用这个方法, 直接抛出业务异常即可
      */
-    public static <T> RestResponse<T> fail(BusinessException ex) {
+    public static <T> RestResponse<T> fail(BizException ex) {
         return new RestResponse<T>()
                 .setCode(ex.getCode())
                 .setMsg(ex.getMessage());

@@ -1,6 +1,11 @@
 package tk.gushizone.mall.order.application.service;
 
-import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.multipart.MultipartFile;
+import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.RestResponse;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 
 /**
  * @author gushizone
@@ -9,5 +14,11 @@ import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
 public interface OrderCmdAppService {
 
 
-    Long create(OrderCreateCmdReq req);
+    RestResponse<Long> create(OrderCreateCmdReq req);
+
+    void exportData(HttpServletResponse response, PagingRestRequest<OrderQryReq> req);
+
+    void createImportTpl(HttpServletResponse response);
+
+    void importData(MultipartFile file);
 }

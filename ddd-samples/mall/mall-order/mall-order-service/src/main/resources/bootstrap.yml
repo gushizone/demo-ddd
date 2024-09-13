@@ -1,22 +1,29 @@
 server:
-  port: 8082
+  port: ${infra.application.id}
 spring:
   application:
     name: mall-order
   cloud:
     nacos:
-#      server-addr: localhost:8848
-#      username: nacos
-#      password: nacos
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
       discovery:
         enabled: true
-        server-addr: localhost:8848
-        username: nacos
-        password: nacos
+        server-addr: ${spring.cloud.nacos.server-addr}
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
         namespace:
         group: DEFAULT_GROUP
       config:
         enabled: false
+        server-addr: ${spring.cloud.nacos.server-addr}
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
         file-extension: yml
         namespace:
         group: DEFAULT_GROUP
+
+infra:
+  application:
+    id: 7030

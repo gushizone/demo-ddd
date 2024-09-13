@@ -2,8 +2,8 @@ package tk.gushizone.mall.order.application.assembler.convertor;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import tk.gushizone.mall.order.application.dto.req.cmd.OrderCreateCmdReq;
-import tk.gushizone.mall.order.application.dto.rsp.OrderRsp;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 

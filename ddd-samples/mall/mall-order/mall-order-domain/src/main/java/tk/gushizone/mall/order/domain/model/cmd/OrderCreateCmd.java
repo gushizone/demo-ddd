@@ -3,7 +3,7 @@ package tk.gushizone.mall.order.domain.model.cmd;
 import com.google.common.collect.Lists;
 import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
-import tk.gushizone.infra.libs.base.exception.BusinessException;
+import tk.gushizone.infra.libs.base.exception.BizException;
 import tk.gushizone.mall.order.domain.model.entity.OrderEntity;
 import tk.gushizone.mall.order.domain.model.entity.OrderItemEntity;
 
@@ -40,17 +40,16 @@ public class OrderCreateCmd {
 
     private List<OrderItemEntity> buildOrderItem() {
         if (CollectionUtils.isEmpty(orderItems)) {
-            throw new BusinessException("订单项不能为空");
+            throw new BizException("订单项不能为空");
         }
         for (OrderItemCmd orderItem : orderItems) {
             if (orderItem.getQuantity() > orderItem.getStockQty()) {
-                throw new BusinessException("库存不足");
+                throw new BizException("库存不足");
             }
         }
         List<OrderItemEntity> results = Lists.newArrayListWithExpectedSize(orderItems.size());
         for (OrderItemCmd orderItemCmd : orderItems) {
             OrderItemEntity result = new OrderItemEntity();
-//            result.setId();
 //            result.setUserId();
 //            result.setOrderNo();
             result.setProductId(orderItemCmd.getProductId());
@@ -66,7 +65,6 @@ public class OrderCreateCmd {
 
     private OrderEntity buildOrder() {
         OrderEntity orderEntity = new OrderEntity();
-//        orderEntity.setId();
 //        orderEntity.setOrderNo();
 //        orderEntity.setUserId();
         orderEntity.setShippingId(shippingId);

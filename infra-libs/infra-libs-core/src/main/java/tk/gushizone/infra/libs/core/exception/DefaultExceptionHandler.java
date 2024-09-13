@@ -9,9 +9,9 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import tk.gushizone.infra.libs.base.Status;
-import tk.gushizone.infra.libs.base.exception.BusinessException;
+import tk.gushizone.infra.libs.base.exception.BizException;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
-import tk.gushizone.infra.libs.core.validation.BindExceptionHelper;
+import tk.gushizone.infra.libs.core.validation.BindFieldErrorHelper;
 
 import java.util.function.Supplier;
 
@@ -38,7 +38,7 @@ public class DefaultExceptionHandler {
             return new RestResponse<>()
                     .setCode(Status.FAIL_VALIDATION.code())
                     .setMsg(Status.FAIL_VALIDATION.label())
-                    .setData(BindExceptionHelper.getFieldErrors(bindingResult));
+                    .setData(BindFieldErrorHelper.getBindFieldErrors(bindingResult));
         });
     }
 
@@ -47,7 +47,7 @@ public class DefaultExceptionHandler {
      */
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class, HttpMessageNotReadableException.class})
     public RestResponse<?> badRequestException(HttpServletRequest request, Exception ex) {
-        return handle("错误请求", ex, () -> RestResponse.fail(new BusinessException(Status.FAIL_BAD_REQUEST)));
+        return handle("错误请求", ex, () -> RestResponse.fail(new BizException(Status.FAIL_BAD_REQUEST)));
     }
 
     /**
@@ -56,12 +56,12 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(Exception.class)
     public RestResponse<?> exceptionHandler(HttpServletRequest request, Exception ex) {
         return handle("请求处理异常", ex, () -> {
-            if (ex instanceof BusinessException) {
-                return RestResponse.fail((BusinessException) ex);
-            } else if (ex.getCause() instanceof BusinessException) {
-                return RestResponse.fail((BusinessException) ex.getCause());
+            if (ex instanceof BizException) {
+                return RestResponse.fail((BizException) ex);
+            } else if (ex.getCause() instanceof BizException) {
+                return RestResponse.fail((BizException) ex.getCause());
             }
-            return RestResponse.fail(new BusinessException(Status.FAIL_EXCEPTION));
+            return RestResponse.fail(new BizException(Status.FAIL_EXCEPTION));
         });
     }
 
@@ -70,12 +70,13 @@ public class DefaultExceptionHandler {
      */
     protected RestResponse<?> handle(String exLabel, Exception ex, Supplier<RestResponse<?>> handler) {
         try {
+            // todo 这里添加业务异常限制逻辑
             // todo 异常枚举控制日志打印
             log.info("{}: {}", exLabel, ex.getMessage(), ex);
             return handler.get();
         } catch (Exception exception) {
             log.error("异常处理失败: {}", exception.getMessage(), exception);
-            return RestResponse.fail(new BusinessException(Status.FAIL_EXCEPTION));
+            return RestResponse.fail(new BizException(Status.FAIL_EXCEPTION));
         }
     }
 }

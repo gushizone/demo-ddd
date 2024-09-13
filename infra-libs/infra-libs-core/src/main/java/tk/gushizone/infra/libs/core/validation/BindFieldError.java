@@ -7,7 +7,7 @@ import lombok.Data;
  * @since 2024/9/11
  */
 @Data
-public class BindError {
+public class BindFieldError {
 
     private String field;
 

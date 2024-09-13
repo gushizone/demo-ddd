@@ -20,17 +20,17 @@ import java.util.List;
  * @since 2024/9/11
  */
 @Slf4j
-public class BindExceptionHelper {
+public class BindFieldErrorHelper {
 
 
-    public static List<BindError> getFieldErrors(BindingResult bindingResult) {
+    public static List<BindFieldError> getBindFieldErrors(BindingResult bindingResult) {
         if (bindingResult == null || !bindingResult.hasFieldErrors()) {
             return Lists.newArrayList();
         }
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        List<BindError> results = Lists.newArrayListWithExpectedSize(fieldErrors.size());
+        List<BindFieldError> results = Lists.newArrayListWithExpectedSize(fieldErrors.size());
         for (FieldError fieldError : fieldErrors) {
-            BindError result = new BindError();
+            BindFieldError result = new BindFieldError();
             result.setField(fieldError.getField());
             result.setMessage(toMessage(fieldError.getDefaultMessage()));
             result.setFieldLabel(toFieldLabel(fieldError));
