@@ -4,12 +4,14 @@ package tk.gushizone.infra.libs.core.rest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import tk.gushizone.infra.libs.base.Status;
 import tk.gushizone.infra.libs.base.exception.BizException;
 
 import java.io.Serializable;
 
 /**
+ * 共同响应
+ * - 业务方仅需使用ok和抛出异常
+ *
  * @author gushizone
  * @since 2023/6/1
  */
@@ -43,15 +45,6 @@ public class RestResponse<T> implements Serializable {
                 .setCode(Status.OK.code())
                 .setMsg(Status.OK.label())
                 .setData(data);
-    }
-
-    /**
-     * 一般业务不要直接使用这个方法, 直接抛出业务异常即可
-     */
-    public static <T> RestResponse<T> fail(String msg) {
-        return new RestResponse<T>()
-                .setCode(Status.FAIL_OPERATION.code())
-                .setMsg(msg);
     }
 
     /**

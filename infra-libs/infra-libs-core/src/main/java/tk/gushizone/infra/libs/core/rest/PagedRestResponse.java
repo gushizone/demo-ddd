@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.collections4.CollectionUtils;
-import tk.gushizone.infra.libs.base.Status;
 import tk.gushizone.infra.libs.base.query.PagedData;
 import tk.gushizone.infra.libs.core.rest.query.RestPagedData;
 

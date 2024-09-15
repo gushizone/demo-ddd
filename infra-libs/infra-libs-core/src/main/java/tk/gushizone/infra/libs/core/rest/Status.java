@@ -1,11 +1,9 @@
-package tk.gushizone.infra.libs.base;
+package tk.gushizone.infra.libs.core.rest;
+
+import tk.gushizone.infra.libs.base.value.BaseEnum;
 
 /**
- * 状态码枚举
- * <p>
- * 业务一般仅使用 OK(2000) 和 FAIL_OPERATION(4006) 即可
- * <p>
- * 参考: <a href="https://github.com/dibo-software/diboot/blob/develop/diboot-core/src/main/java/com/diboot/core/vo/Status.java">diboot:Status.java</a>
+ * 响应码枚举
  *
  * @author gushizone
  * @see cn.hutool.http.HttpStatus
@@ -73,17 +71,17 @@ public enum Status implements BaseEnum {
      */
     FAIL_SERVICE_UNAVAILABLE(5003, "服务不可用");;
 
-    private final long code;
+    private final int code;
 
     private final String label;
 
-    Status(long code, String label) {
+    Status(int code, String label) {
         this.code = code;
         this.label = label;
     }
 
     @Override
-    public long code() {
+    public int code() {
         return code;
     }
 

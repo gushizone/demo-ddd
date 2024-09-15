@@ -6,6 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.exception.BizException;
 import tk.gushizone.mall.order.domain.model.entity.OrderEntity;
 import tk.gushizone.mall.order.domain.model.entity.OrderItemEntity;
+import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -40,11 +41,11 @@ public class OrderCreateCmd {
 
     private List<OrderItemEntity> buildOrderItem() {
         if (CollectionUtils.isEmpty(orderItems)) {
-            throw new BizException("订单项不能为空");
+            throw BizException.of(OrderErrors.ORDER_ITEM_EMPTY);
         }
         for (OrderItemCmd orderItem : orderItems) {
             if (orderItem.getQuantity() > orderItem.getStockQty()) {
-                throw new BizException("库存不足");
+                throw BizException.of(OrderErrors.INSUFFICIENT_INVENTORY);
             }
         }
         List<OrderItemEntity> results = Lists.newArrayListWithExpectedSize(orderItems.size());
