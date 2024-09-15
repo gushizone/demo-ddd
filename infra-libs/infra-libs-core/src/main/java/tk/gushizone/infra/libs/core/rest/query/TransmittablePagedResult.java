@@ -16,7 +16,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class TransferablePagedResult<T> implements PagedResult<T> {
+public class TransmittablePagedResult<T> implements PagedResult<T> {
 
     private RestPagedData page;
 

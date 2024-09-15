@@ -9,8 +9,8 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
-import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
-import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
 import tk.gushizone.mall.order.adapter.in.web.dto.excel.exp.OrderExp;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
@@ -63,7 +63,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         // 库存
         StockQryApiReq stockQryReq = new StockQryApiReq()
                 .setProductIds(productIds);
-        List<StockApiRsp> stocksRsp = stockApi.query(PagingRestRequest.of(stockQryReq)).getData();
+        List<StockApiRsp> stocksRsp = stockApi.query(SearchRestRequest.of(stockQryReq)).getData();
         Map<Long, StockApiRsp> productStockMap = ModelUtils.toMap(stocksRsp, StockApiRsp::getProductId);
 
         OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCmd(req, productMap, productStockMap);
@@ -75,13 +75,13 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     }
 
     @Override
-    public void exportData(HttpServletResponse response, PagingRestRequest<OrderQryReq> req) {
+    public void exportData(HttpServletResponse response, SearchRestRequest<OrderQryReq> req) {
 
         String filename = "订单导出";
         ServletOutputStream outputStream = getOutputStream(response, filename);
 
         // todo 使用函数式接口传递 工具类
-        PagedRestResponse<OrderRsp> pagedRestResp = orderQueryAppService.query(req);
+        SearchRestResponse<OrderRsp> pagedRestResp = orderQueryAppService.query(req);
 
         List<OrderExp> results = OrderAppAssembler.toExp(pagedRestResp.getData());
 

@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Schema(description = "分页请求")
-public class PagingRestRequest<T> extends RestPagingParam<T> {
+public class SearchRestRequest<T> extends RestPagingParam<T> {
 
     @Schema(title = "用例", description = "应用场景")
     private String useCase;
@@ -26,8 +26,8 @@ public class PagingRestRequest<T> extends RestPagingParam<T> {
     @Schema(title = "包含列", description = "可供导出使用")
     private List<String> columns = Lists.newArrayList();
 
-    public static <T> PagingRestRequest<T> of(T param) {
-        PagingRestRequest<T> result = new PagingRestRequest<>();
+    public static <T> SearchRestRequest<T> of(T param) {
+        SearchRestRequest<T> result = new SearchRestRequest<>();
         result.setPage(RestPagingData.noPaging());
         result.setParam(param);
         return result;

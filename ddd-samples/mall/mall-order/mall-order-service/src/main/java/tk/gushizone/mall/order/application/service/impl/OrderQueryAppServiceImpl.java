@@ -4,10 +4,10 @@ import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
-import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
-import tk.gushizone.infra.libs.core.util.Pages;
+import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
@@ -25,15 +25,16 @@ public class OrderQueryAppServiceImpl implements OrderQueryAppService {
     private OrderDomainService orderDomainService;
 
     @Override
-    public PagedRestResponse<OrderRsp> query(PagingRestRequest<OrderQryReq> req) {
+    public SearchRestResponse<OrderRsp> query(SearchRestRequest<OrderQryReq> req) {
 
         OrderQry orderQry = OrderAppAssembler.toQry(req.getParam());
 
         PagedResult<OrderAggregate> orderPagedResult = orderDomainService.query(Pages.toParam(req.getPage(), orderQry));
 
-        List<OrderRsp> orderRspList = OrderAppAssembler.toRsp(orderPagedResult.getRecords());
+        // todo 商品查询
 
-        return PagedRestResponse.ok(orderPagedResult.getPage(), orderRspList);
+        List<OrderRsp> orderRspList = OrderAppAssembler.toRsp(orderPagedResult.getRecords());
+        return SearchRestResponse.ok(orderPagedResult.getPage(), orderRspList);
     }
 
     /**
@@ -42,7 +43,7 @@ public class OrderQueryAppServiceImpl implements OrderQueryAppService {
     @Override
     public RestResponse<OrderRsp> query(Long id) {
 
-        PagingRestRequest<OrderQryReq> pagingReq = PagingRestRequest.of(new OrderQryReq()
+        SearchRestRequest<OrderQryReq> pagingReq = SearchRestRequest.of(new OrderQryReq()
                 .setIds(Lists.newArrayList(id)));
         OrderRsp orderRsp = this.query(pagingReq).findFirst();
         return RestResponse.ok(orderRsp);

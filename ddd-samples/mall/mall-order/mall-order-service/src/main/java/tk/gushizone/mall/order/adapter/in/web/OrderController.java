@@ -8,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
-import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
@@ -70,7 +70,7 @@ public class OrderController {
 
     @Operation(summary = "搜索")
     @PostMapping("/search")
-    public PagedRestResponse<OrderRsp> search(@RequestBody @Validated PagingRestRequest<OrderQryReq> req) {
+    public SearchRestResponse<OrderRsp> search(@RequestBody @Validated SearchRestRequest<OrderQryReq> req) {
         return orderQueryAppService.query(req);
     }
 
@@ -79,7 +79,7 @@ public class OrderController {
      */
     @Operation(summary = "导出")
     @PostMapping("/export")
-    public void exportData(HttpServletResponse response, @RequestBody @Validated PagingRestRequest<OrderQryReq> req) {
+    public void exportData(HttpServletResponse response, @RequestBody @Validated SearchRestRequest<OrderQryReq> req) {
         orderCmdAppService.exportData(response, req);
     }
 

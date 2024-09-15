@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.core.util;
+package tk.gushizone.infra.libs.core.rest.query;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,8 +8,6 @@ import tk.gushizone.infra.libs.base.query.OrderEntry;
 import tk.gushizone.infra.libs.base.query.PagedResult;
 import tk.gushizone.infra.libs.base.query.PagingData;
 import tk.gushizone.infra.libs.base.query.PagingParam;
-import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
-import tk.gushizone.infra.libs.core.rest.query.*;
 
 import java.util.List;
 
@@ -36,8 +34,8 @@ public class Pages {
         if (CollectionUtils.isEmpty(records)) {
             records = Lists.newArrayList();
         }
-        TransferablePagedResult<T> transferablePagedResult = new TransferablePagedResult<>();
-        transferablePagedResult.setRecords(records);
+        TransmittablePagedResult<T> transmittablePagedResult = new TransmittablePagedResult<>();
+        transmittablePagedResult.setRecords(records);
 
         RestPagedData restPaged = new RestPagedData();
         restPaged.setCurrent(page.getCurrent());
@@ -50,8 +48,8 @@ public class Pages {
         }
         restPaged.setOrders(toEntry(page.orders()));
 
-        transferablePagedResult.setPage(restPaged);
-        return transferablePagedResult;
+        transmittablePagedResult.setPage(restPaged);
+        return transmittablePagedResult;
     }
 
     /**
@@ -103,18 +101,5 @@ public class Pages {
             results.add(result);
         }
         return results;
-    }
-
-    /**
-     * 不分页
-     * - todo 是否需要
-     * - todo 默认排序问题
-     */
-    public static RestPagingData noPaging() {
-        RestPagingData restPagingData = new RestPagingData();
-        restPagingData.setCurrent(1);
-        restPagingData.setSize(-1);
-        restPagingData.setOrders(Lists.newArrayList());
-        return restPagingData;
     }
 }

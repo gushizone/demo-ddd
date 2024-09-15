@@ -1,8 +1,8 @@
 package tk.gushizone.mall.stock.adapter.in.api;
 
 import org.springframework.web.bind.annotation.RestController;
-import tk.gushizone.infra.libs.core.rest.PagedRestResponse;
-import tk.gushizone.infra.libs.core.rest.PagingRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.mall.stock.api.StockApi;
 import tk.gushizone.mall.stock.application.service.StockQryAppService;
 import tk.gushizone.mall.stock.dto.req.qry.StockQryApiReq;
@@ -17,7 +17,7 @@ public class StockApiImpl implements StockApi {
     private StockQryAppService stockQryAppService;
 
     @Override
-    public PagedRestResponse<StockApiRsp> query(PagingRestRequest<StockQryApiReq> req) {
+    public SearchRestResponse<StockApiRsp> query(SearchRestRequest<StockQryApiReq> req) {
         return stockQryAppService.queryByApi(req);
     }
 }

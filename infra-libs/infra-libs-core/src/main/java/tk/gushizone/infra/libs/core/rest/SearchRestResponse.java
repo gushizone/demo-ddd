@@ -17,14 +17,14 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "分页响应")
-public class PagedRestResponse<T> extends RestResponse<List<T>> implements Serializable {
+@Schema(description = "搜索响应")
+public class SearchRestResponse<T> extends RestResponse<List<T>> implements Serializable {
 
-    @Schema(description = "已分页")
+    @Schema(description = "分页")
     private RestPagedData page;
 
-    public static <T> PagedRestResponse<T> ok(PagedData page, List<T> list) {
-        PagedRestResponse<T> result = new PagedRestResponse<>();
+    public static <T> SearchRestResponse<T> ok(PagedData page, List<T> list) {
+        SearchRestResponse<T> result = new SearchRestResponse<>();
         result.setPage((RestPagedData) page);
         result.setCode(Status.OK.code());
         result.setMsg(Status.OK.label());
