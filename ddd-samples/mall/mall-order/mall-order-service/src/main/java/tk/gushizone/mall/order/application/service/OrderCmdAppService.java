@@ -16,6 +16,8 @@ public interface OrderCmdAppService {
 
     RestResponse<Long> create(OrderCreateCmdReq req);
 
+    void delete(Long id);
+
     void exportData(HttpServletResponse response, SearchRestRequest<OrderQryReq> req);
 
     void createImportTpl(HttpServletResponse response);

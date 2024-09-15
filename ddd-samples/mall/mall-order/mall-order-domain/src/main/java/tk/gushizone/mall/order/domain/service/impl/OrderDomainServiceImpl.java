@@ -6,6 +6,7 @@ import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
@@ -38,5 +39,10 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         PagedResult<OrderAggregate> orderPagedResult =  orderRepository.query(pagingParam);
 
         return orderPagedResult;
+    }
+
+    @Override
+    public void delete(OrderDeleteCmd orderDeleteCmd) {
+        orderRepository.delete(orderDeleteCmd);
     }
 }

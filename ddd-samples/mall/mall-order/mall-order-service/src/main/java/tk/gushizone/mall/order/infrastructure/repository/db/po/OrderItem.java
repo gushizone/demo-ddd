@@ -1,25 +1,19 @@
 package tk.gushizone.mall.order.infrastructure.repository.db.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import tk.gushizone.infra.libs.core.mybatisplus.ControllableEntity;
+
+import java.math.BigDecimal;
 
 /**
  * 订单项
  */
 @Data
-@TableName(value ="order_item")
-public class OrderItem {
-    /**
-     * id
-     */
-    @TableId(type = IdType.AUTO)
-    private Long id;
+@TableName(value = "order_item")
+@EqualsAndHashCode(callSuper = true)
+public class OrderItem extends ControllableEntity {
 
     /**
      * 订单id

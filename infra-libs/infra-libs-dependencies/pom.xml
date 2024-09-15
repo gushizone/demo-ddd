@@ -53,9 +53,10 @@
 
         <!--  工具类  -->
         <hutool-all.version>5.8.11</hutool-all.version>
+        <guava.version>31.1-jre</guava.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
-        <guava.version>31.1-jre</guava.version>
+        <transmittable-thread-local.version>2.12.4</transmittable-thread-local.version>
 
         <!-- plugins -->
         <maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
@@ -99,6 +100,11 @@
                 <version>${hutool-all.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
@@ -109,9 +115,9 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
             </dependency>
 
             <dependency>

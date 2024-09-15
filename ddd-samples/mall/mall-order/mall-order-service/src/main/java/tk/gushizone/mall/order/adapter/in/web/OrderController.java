@@ -54,8 +54,9 @@ public class OrderController {
 
     @Operation(summary = "删除")
     @DeleteMapping("/{id}")
-    public RestResponse<Long> delete(@PathVariable("id") Long id) {
-        return null;
+    public RestResponse<Void> delete(@PathVariable("id") Long id) {
+        orderCmdAppService.delete(id);
+        return RestResponse.ok();
     }
 
     /**

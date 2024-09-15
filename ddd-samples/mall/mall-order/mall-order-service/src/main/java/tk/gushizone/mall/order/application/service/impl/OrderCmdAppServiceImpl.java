@@ -23,6 +23,7 @@ import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
 import tk.gushizone.mall.stock.api.StockApi;
 import tk.gushizone.mall.stock.dto.req.qry.StockQryApiReq;
@@ -72,6 +73,13 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         // todo event...
 
         return RestResponse.ok(id);
+    }
+
+    @Override
+    public void delete(Long id) {
+
+        // todo 版本控制
+        orderDomainService.delete(new OrderDeleteCmd().setIds(Lists.newArrayList(id)));
     }
 
     @Override

@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-tk.gushizone.infra.libs.core.starter.ExceptionAutoConfiguration

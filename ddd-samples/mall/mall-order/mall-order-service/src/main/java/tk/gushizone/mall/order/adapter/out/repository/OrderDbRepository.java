@@ -1,17 +1,19 @@
 package tk.gushizone.mall.order.adapter.out.repository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tk.gushizone.infra.libs.base.query.PagedResult;
 import tk.gushizone.infra.libs.base.query.PagingParam;
-import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
+import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
 import tk.gushizone.mall.order.adapter.out.repository.dto.OrderCreateDmResult;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
@@ -19,7 +21,6 @@ import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderMapper;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.Order;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.OrderItem;
 
-import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -68,5 +69,19 @@ public class OrderDbRepository implements OrderRepository {
 
         List<OrderAggregate> orders = OrderRepositoryAssembler.toAgg(orderPage.getRecords(), orderToItemMap);
         return Pages.toResult(orderPage, orders);
+    }
+
+    @Override
+    public void delete(OrderDeleteCmd orderDeleteCmd) {
+//        orderMapper.deleteBatchIds(orderDeleteCmd.getIds());
+        orderMapper.removeByIds(orderDeleteCmd.getIds());
+
+
+        List<OrderItem> orderItems = orderItemMapper.lambdaQuery()
+                .in(OrderItem::getOrderId, orderDeleteCmd.getIds())
+                .list();
+
+//        todo
+        orderItemMapper.removeByIds(orderItems);
     }
 }

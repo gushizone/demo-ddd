@@ -4,6 +4,7 @@ import tk.gushizone.infra.libs.base.query.PagedResult;
 import tk.gushizone.infra.libs.base.query.PagingParam;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 
 /**
@@ -15,4 +16,7 @@ public interface OrderDomainService {
     Long create(OrderCreateCmd cmd);
 
     PagedResult<OrderAggregate> query(PagingParam<OrderQry> pagingParam);
+
+    void delete(OrderDeleteCmd orderDeleteCmd);
+
 }
