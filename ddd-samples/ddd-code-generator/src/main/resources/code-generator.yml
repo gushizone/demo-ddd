@@ -1,11 +1,11 @@
 global:
   outputDir: ~/Downloads/ddd-code-generator
-  author: gushizone
+  author: author
   dateType: ONLY_DATE
 dataSource:
-  url: jdbc:mysql://localhost:3306/demo-ddd?useSSL=false&serverTimezone=GMT%2B8
-  username: root
-  password: root
+  url:
+  username:
+  password:
 packages:
   #  moduleName: module
   parent: tk.gushizone.mall.order
@@ -21,8 +21,8 @@ strategy:
   #  fieldPrefix:
   #    - is_
   include:
-    - order
-    - order_item
+#    - order
+#    - order_item
   entity:
     superClass: tk.gushizone.infra.libs.core.mybatisplus.RevisionModel
   #    naming: underline_to_camel

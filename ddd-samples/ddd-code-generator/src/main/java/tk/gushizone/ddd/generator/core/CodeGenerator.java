@@ -1,5 +1,6 @@
-package tk.gushizone.ddd.generator;
+package tk.gushizone.ddd.generator.core;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
@@ -8,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.ibatis.annotations.Mapper;
+import tk.gushizone.ddd.generator.util.YamlHelper;
 import tk.gushizone.infra.libs.base.constant.Columns;
 import tk.gushizone.infra.libs.base.entity.RevisionEntity;
 import tk.gushizone.infra.libs.core.mybatisplus.RevisionModel;
@@ -24,20 +26,24 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
 
-        CodeGeneratorConfig config = CodeGeneratorConfig.loadByPath("code-generator.yml");
+        CodeGeneratorConfig config = YamlHelper.loadByPath("code-generator.yml", CodeGeneratorConfig.class);
+        execute(config);
+    }
+
+    public static void execute(CodeGeneratorConfig config) {
 
         GlobalConfig global = config.getGlobal();
         DataSourceConfig dataSource = config.getDataSource();
         PackageConfig packages = config.getPackages();
         StrategyConfig strategy = config.getStrategy();
 
-        // 模版的自定义配置
-        Map<String, Object> customMap = new HashMap<>();
+        // 路径兼容, 如用户相对目录等
+        String outputDir = FileUtil.normalize(global.getOutputDir());
 
         FastAutoGenerator.create(dataSource.getUrl(), dataSource.getUsername(), dataSource.getPassword())
                 .globalConfig(builder -> builder
                         .author(global.getAuthor()) // 设置作者
-                        .outputDir(global.getOutputDir()) // 指定输出目录
+                        .outputDir(outputDir) // 指定输出目录
                         .dateType(global.getDateType()) // 日期类型
                 )
                 .packageConfig(builder -> builder.parent(packages.getParent()) // 设置父包名
@@ -48,7 +54,7 @@ public class CodeGenerator {
                         .mapper(packages.getMapper())
                         .xml(packages.getXml())
                         .controller(packages.getController())
-                        .pathInfo(pathInfoMap(global.getOutputDir())) // 设置文件生成路径
+                        .pathInfo(pathInfoMap(outputDir)) // 设置文件生成路径
                 )
                 .strategyConfig(builder -> builder
                         .addInclude(new ArrayList<>(strategy.getInclude())) // 设置需要生成的表名
@@ -69,7 +75,7 @@ public class CodeGenerator {
                                     objectMap.put("adapter", initAdapterMap(tableInfo, objectMap));
 
                                 })
-                                .customFile(customFiles(global.getOutputDir()))
+                                .customFile(customFiles(outputDir))
                 )
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
@@ -156,6 +162,5 @@ public class CodeGenerator {
 
         return resultMap;
     }
-
 
 }
