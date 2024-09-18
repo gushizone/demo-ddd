@@ -1,13 +1,13 @@
 package tk.gushizone.infra.libs.core.rest.query;
 
 import lombok.*;
-import tk.gushizone.infra.libs.base.query.PagedData;
-import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagedData;
+import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 
 import java.util.List;
 
 /**
- * 此结果集仅用于数据传输, 不会对rest暴露
+ * 此结果集仅用于数据传输, 不会对rest暴露 todo
  *
  * @author gushizone
  * @since 2024/9/10

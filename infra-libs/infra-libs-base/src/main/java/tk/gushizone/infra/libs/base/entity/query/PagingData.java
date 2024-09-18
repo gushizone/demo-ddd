@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.base.query;
+package tk.gushizone.infra.libs.base.entity.query;
 
 import java.util.List;
 

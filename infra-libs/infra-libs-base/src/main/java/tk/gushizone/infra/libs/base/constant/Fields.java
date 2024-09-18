@@ -1,6 +1,6 @@
-package tk.gushizone.infra.libs.base.value;
+package tk.gushizone.infra.libs.base.constant;
 
-public interface Columns {
+public interface Fields {
 
     /**
      * 主键
@@ -9,19 +9,19 @@ public interface Columns {
     /**
      * 创建人
      */
-    String CREATED_BY = "created_by";
+    String CREATED_BY = "createdBy";
     /**
      * 创建时间
      */
-    String CREATED_AT = "created_at";
+    String CREATED_AT = "createdAt";
     /**
      * 更新人
      */
-    String UPDATED_BY = "updated_by";
+    String UPDATED_BY = "updatedBy";
     /**
      * 更新时间
      */
-    String UPDATED_AT = "updated_at";
+    String UPDATED_AT = "updatedAt";
     /**
      * 版本号:乐观锁
      */
@@ -29,7 +29,7 @@ public interface Columns {
     /**
      * 删除事件:逻辑删除
      */
-    String DELETED_AT = "deleted_at";
+    String DELETED_AT = "deletedAt";
 
 
 }

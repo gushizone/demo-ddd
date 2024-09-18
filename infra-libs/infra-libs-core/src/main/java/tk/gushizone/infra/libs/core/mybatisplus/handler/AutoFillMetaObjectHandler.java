@@ -2,7 +2,7 @@ package tk.gushizone.infra.libs.core.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import tk.gushizone.infra.libs.base.value.Fields;
+import tk.gushizone.infra.libs.base.constant.Fields;
 import tk.gushizone.infra.libs.core.auth.LoginUser;
 import tk.gushizone.infra.libs.core.auth.LoginUserHolder;
 

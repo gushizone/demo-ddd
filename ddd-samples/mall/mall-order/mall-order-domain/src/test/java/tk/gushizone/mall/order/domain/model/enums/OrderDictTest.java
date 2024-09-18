@@ -2,7 +2,7 @@ package tk.gushizone.mall.order.domain.model.enums;
 
 
 import org.junit.jupiter.api.Test;
-import tk.gushizone.infra.libs.base.value.Enums;
+import tk.gushizone.infra.libs.base.enums.Enums;
 
 class OrderDictTest {
 

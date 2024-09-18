@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.collections4.CollectionUtils;
-import tk.gushizone.infra.libs.base.query.PagedData;
+import tk.gushizone.infra.libs.base.entity.query.PagedData;
 import tk.gushizone.infra.libs.core.rest.query.RestPagedData;
 
 import java.io.Serializable;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "搜索响应")
+@Schema(name = "SearchRestResponse", description = "搜索响应")
 public class SearchRestResponse<T> extends RestResponse<List<T>> implements Serializable {
 
     @Schema(description = "分页")

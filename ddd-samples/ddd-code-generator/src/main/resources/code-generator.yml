@@ -1,0 +1,31 @@
+global:
+  outputDir: ~/Downloads/ddd-code-generator
+  author: gushizone
+  dateType: ONLY_DATE
+dataSource:
+  url: jdbc:mysql://localhost:3306/demo-ddd?useSSL=false&serverTimezone=GMT%2B8
+  username: root
+  password: root
+packages:
+  #  moduleName: module
+  parent: tk.gushizone.mall.order
+  entity: infrastructure.repository.db.po
+  mapper: infrastructure.repository.db.mapper
+  xml: mapper
+  controller: adapter.in.web
+#  service: domain.service
+#  serviceImpl: domain.service.impl
+strategy:
+  #  tablePrefix:
+  #    - tm_
+  #  fieldPrefix:
+  #    - is_
+  include:
+    - order
+    - order_item
+  entity:
+    superClass: tk.gushizone.infra.libs.core.mybatisplus.RevisionModel
+  #    naming: underline_to_camel
+  #    idType: AUTO
+  mapper:
+    superClass: tk.gushizone.infra.libs.core.mybatisplus.BasePlusMapper

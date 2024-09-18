@@ -1,6 +1,7 @@
 package tk.gushizone.mall.order.adapter.in.web.dto.req.cmd;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
 
@@ -14,9 +15,7 @@ import java.util.List;
 @Schema(description = "订单新增命令")
 public class OrderCreateCmdReq {
 
-    @Schema(description = "用户名称")
-    private Long userId;
-
+    @NotNull
     @Schema(description = "地址")
     private Long shippingId;
 

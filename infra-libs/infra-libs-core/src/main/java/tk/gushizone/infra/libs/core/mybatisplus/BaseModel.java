@@ -3,25 +3,29 @@ package tk.gushizone.infra.libs.core.mybatisplus;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import lombok.Data;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
 /**
- * 基础实体
+ * 基础数据模型
  *
  * @author gushizone
  * @since 2024/9/15
  */
-@Data
-public class BaseEntity {
+@Getter
+@Setter
+@Accessors(chain = true)
+public abstract class BaseModel {
 
     /**
      * 主键
      */
     @TableId
     private Long id;
-
     /**
      * 创建人
      */
@@ -43,4 +47,9 @@ public class BaseEntity {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedAt;
 
+    /**
+     * 删除时间
+     */
+    @TableLogic
+    private Date deletedAt;
 }

@@ -1,21 +1,28 @@
 package tk.gushizone.mall.order.domain.model.entity;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
+import tk.gushizone.infra.libs.base.entity.RevisionEntity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
-@Data
-public class OrderEntity {
-
-    /**
-     * id
-     */
-    private Long id;
+/**
+ * <p>
+ * 订单
+ * </p>
+ *
+ * @author gushizone
+ * @since 2024-09-17
+ */
+@Getter
+@Setter
+@Accessors(chain = true)
+public class OrderEntity extends RevisionEntity {
 
     /**
      * 订单号
      */
-    private Long orderNo;
+    private String orderNo;
 
     /**
      * 用户id
@@ -28,13 +35,12 @@ public class OrderEntity {
     private Long shippingId;
 
     /**
-     * 实际付款金额,单位是元,保留两位小数
+     * 实际付款金额
      */
     private BigDecimal payment;
 
     /**
-     * 订单状态: 0=已取消, 10=未付款, 20=已付款, 40=已发货, 50=交易成功, 60=交易关闭
+     * 订单状态(1002)
      */
     private Integer orderStatus;
-
 }

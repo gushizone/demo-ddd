@@ -1,6 +1,6 @@
 package tk.gushizone.infra.libs.core.rest;
 
-import tk.gushizone.infra.libs.base.value.BaseEnum;
+import tk.gushizone.infra.libs.base.enums.BaseEnum;
 
 /**
  * 响应码枚举

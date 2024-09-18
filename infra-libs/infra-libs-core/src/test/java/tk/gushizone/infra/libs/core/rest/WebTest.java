@@ -3,9 +3,8 @@ package tk.gushizone.infra.libs.core.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.junit.jupiter.api.Test;
-import tk.gushizone.infra.libs.base.value.BaseEnum;
 import tk.gushizone.infra.libs.base.exception.BizException;
-import tk.gushizone.infra.libs.base.value.Enums;
+import tk.gushizone.infra.libs.base.enums.Enums;
 
 public class WebTest {
 

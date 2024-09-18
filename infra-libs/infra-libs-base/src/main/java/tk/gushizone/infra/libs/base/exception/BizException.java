@@ -2,7 +2,7 @@ package tk.gushizone.infra.libs.base.exception;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.Getter;
-import tk.gushizone.infra.libs.base.value.BaseEnum;
+import tk.gushizone.infra.libs.base.enums.BaseEnum;
 
 /**
  * 通用的业务异常类

@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(description = "分页请求")
+@Schema(name = "SearchRestRequest", description = "分页请求")
 public class SearchRestRequest<T> extends RestPagingParam<T> {
 
     @Schema(title = "用例", description = "应用场景")

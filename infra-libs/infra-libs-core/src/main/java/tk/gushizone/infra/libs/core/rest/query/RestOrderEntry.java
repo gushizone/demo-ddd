@@ -2,7 +2,7 @@ package tk.gushizone.infra.libs.core.rest.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import tk.gushizone.infra.libs.base.query.OrderEntry;
+import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
 
 import jakarta.validation.constraints.Pattern;
 

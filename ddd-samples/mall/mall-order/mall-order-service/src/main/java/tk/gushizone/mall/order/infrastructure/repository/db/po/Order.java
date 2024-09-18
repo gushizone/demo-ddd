@@ -1,24 +1,31 @@
 package tk.gushizone.mall.order.infrastructure.repository.db.po;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import tk.gushizone.infra.libs.core.mybatisplus.ControllableEntity;
-
 import java.math.BigDecimal;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import tk.gushizone.infra.libs.core.mybatisplus.RevisionModel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 /**
+ * <p>
  * 订单
+ * </p>
+ *
+ * @author gushizone
+ * @since 2024-09-17
  */
-@Data
-@TableName(value = "`order`")
-@EqualsAndHashCode(callSuper = true)
-public class Order extends ControllableEntity {
+@Getter
+@Setter
+@Accessors(chain = true)
+@TableName("`order`")
+public class Order extends RevisionModel {
 
     /**
      * 订单号
      */
-    private Long orderNo;
+    private String orderNo;
 
     /**
      * 用户id
@@ -31,12 +38,12 @@ public class Order extends ControllableEntity {
     private Long shippingId;
 
     /**
-     * 实际付款金额,单位是元,保留两位小数
+     * 实际付款金额
      */
     private BigDecimal payment;
 
     /**
-     * 订单状态: 0=已取消, 10=未付款, 20=已付款, 40=已发货, 50=交易成功, 60=交易关闭
+     * 订单状态(1002)
      */
     private Integer orderStatus;
 }

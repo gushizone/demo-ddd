@@ -2,7 +2,7 @@ package tk.gushizone.mall.stock.application.service.impl;
 
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
-import tk.gushizone.infra.libs.base.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.query.Pages;

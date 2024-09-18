@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class OrderExp {
 
     @ExcelProperty(value = "订单号")
-    private Long orderNo;
+    private String orderNo;
 
     @ExcelProperty(value = "实付金额")
     private BigDecimal payment;

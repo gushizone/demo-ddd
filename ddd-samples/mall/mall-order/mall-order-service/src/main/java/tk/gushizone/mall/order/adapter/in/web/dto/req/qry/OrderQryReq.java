@@ -17,7 +17,4 @@ public class OrderQryReq {
     @Schema(description = "ids")
     private List<Long> ids;
 
-    @Schema(description = "列表")
-    private List<Long> list;
-
 }

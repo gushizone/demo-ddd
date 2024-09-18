@@ -2,30 +2,26 @@ package tk.gushizone.infra.libs.core.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
 /**
- * 可控的实体
+ * 版本数据模型
  *
  * @author gushizone
  * @since 2024/9/15
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class ControllableEntity extends BaseEntity {
+@Getter
+@Setter
+@Accessors(chain = true)
+public class RevisionModel extends BaseModel {
 
     /**
      * 版本号:乐观锁
      */
     @Version
     private Integer revision;
-    /**
-     * 删除事件:逻辑删除
-     */
-    @TableLogic
-    private Date deletedAt;
-
 }

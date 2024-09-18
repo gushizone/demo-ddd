@@ -1,0 +1,11 @@
+global:
+  outputDir: ~/Downloads/ddd-code-generator
+  author: gushizone
+dataSource:
+  url: jdbc:mysql://localhost:3306/demo-ddd?useSSL=false&serverTimezone=GMT%2B8
+  username: root
+  password: root
+strategy:
+  include:
+    - order
+    - order_item

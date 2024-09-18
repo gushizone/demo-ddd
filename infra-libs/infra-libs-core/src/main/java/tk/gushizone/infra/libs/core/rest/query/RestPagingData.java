@@ -5,8 +5,8 @@ import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.*;
-import tk.gushizone.infra.libs.base.query.OrderEntry;
-import tk.gushizone.infra.libs.base.query.PagingData;
+import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
+import tk.gushizone.infra.libs.base.entity.query.PagingData;
 
 import java.util.List;
 

@@ -2,6 +2,8 @@ package tk.gushizone.mall.order.application.assembler;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.infra.libs.base.exception.BizException;
+import tk.gushizone.infra.libs.core.auth.LoginUser;
 import tk.gushizone.mall.order.adapter.in.web.dto.excel.exp.OrderExp;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
@@ -14,6 +16,7 @@ import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderItemCmd;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
+import tk.gushizone.mall.order.infrastructure.enums.OrderAppErrors;
 import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
 import java.util.List;
@@ -27,9 +30,10 @@ public class OrderAppAssembler {
 
     public static OrderCreateCmd toCmd(OrderCreateCmdReq req,
                                        Map<Long, Product> productMap,
-                                       Map<Long, StockApiRsp> productStockMap) {
-
+                                       Map<Long, StockApiRsp> productStockMap,
+                                       LoginUser loginUser) {
         OrderCreateCmd result = OrderAppConvertor.INSTANCE.toCmd(req);
+        result.setUserId(loginUser.getUserId());
 
         List<OrderItemCmd> orderItems = Lists.newArrayListWithExpectedSize(req.getOrderItems().size());
         for (OrderItemCmdReq orderItem : req.getOrderItems()) {
@@ -46,14 +50,18 @@ public class OrderAppAssembler {
     private static OrderItemCmd orderItemOf(OrderItemCmdReq orderItemReq,
                                             Product product,
                                             StockApiRsp stock) {
+        if (product == null) {
+            throw BizException.of(OrderAppErrors.PRODUCT_NOT_FOUND);
+        }
+        if (stock == null) {
+            throw BizException.of(OrderAppErrors.PRODUCT_NOT_FOUND);
+        }
         OrderItemCmd orderItemCmd = new OrderItemCmd();
-//        orderItemCmd.setUserId(); // todo user
-        orderItemCmd.setProductId(product.getId()); // todo null check
+        orderItemCmd.setProductId(product.getId());
         orderItemCmd.setProductName(product.getName());
         orderItemCmd.setProductImage(product.getImage());
         orderItemCmd.setCurrentUnitPrice(product.getCurrentUnitPrice());
         orderItemCmd.setQuantity(orderItemReq.getQuantity());
-        orderItemCmd.setStockQty(stock.getQuantity()); // todo null check
 
         return orderItemCmd;
     }

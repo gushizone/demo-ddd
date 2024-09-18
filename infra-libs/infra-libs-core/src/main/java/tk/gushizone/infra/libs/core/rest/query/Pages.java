@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
-import tk.gushizone.infra.libs.base.query.OrderEntry;
-import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.PagingData;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
+import tk.gushizone.infra.libs.base.entity.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagingData;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 
 import java.util.List;
 

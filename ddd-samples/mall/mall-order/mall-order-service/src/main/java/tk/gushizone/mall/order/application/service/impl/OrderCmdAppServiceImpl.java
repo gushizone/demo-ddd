@@ -9,6 +9,8 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
+import tk.gushizone.infra.libs.core.auth.LoginUser;
+import tk.gushizone.infra.libs.core.auth.LoginUserHolder;
 import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
@@ -56,7 +58,10 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     @Override
     public RestResponse<Long> create(OrderCreateCmdReq req) {
 
-        // 商品 todo 在 stock
+        // 用户
+        LoginUser loginUser = LoginUserHolder.getUser().orElse(LoginUser.GUEST);
+
+        // 商品
         List<Long> productIds = ModelUtils.map(req.getOrderItems(), OrderItemCmdReq::getProductId);
         List<Product> products = productClient.queryByIds(productIds);
         Map<Long, Product> productMap = ModelUtils.toMap(products, Product::getId);
@@ -67,7 +72,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         List<StockApiRsp> stocksRsp = stockApi.query(SearchRestRequest.of(stockQryReq)).getData();
         Map<Long, StockApiRsp> productStockMap = ModelUtils.toMap(stocksRsp, StockApiRsp::getProductId);
 
-        OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCmd(req, productMap, productStockMap);
+        OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCmd(req, productMap, productStockMap, loginUser);
         Long id = orderDomainService.create(orderCreateCmd);
 
         // todo event...

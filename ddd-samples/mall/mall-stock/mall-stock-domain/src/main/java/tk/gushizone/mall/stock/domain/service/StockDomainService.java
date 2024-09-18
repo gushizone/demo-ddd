@@ -1,7 +1,7 @@
 package tk.gushizone.mall.stock.domain.service;
 
-import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.base.entity.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
 

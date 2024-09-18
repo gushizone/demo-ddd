@@ -28,7 +28,7 @@ public class ProductClientImpl implements ProductClient {
             result.setId(productId);
             result.setName("产品" + productId);
             result.setImage("www.demo" + productId + ".png");
-            result.setCurrentUnitPrice(new BigDecimal("10"));
+            result.setCurrentUnitPrice(new BigDecimal("9.9"));
 
             results.add(result);
         }

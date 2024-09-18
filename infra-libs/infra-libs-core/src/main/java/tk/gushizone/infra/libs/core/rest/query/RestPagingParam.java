@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.*;
-import tk.gushizone.infra.libs.base.query.PagingData;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.base.entity.query.PagingData;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 
 /**
  * @author gushizone
@@ -16,7 +16,7 @@ import tk.gushizone.infra.libs.base.query.PagingParam;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "分页查询参数")
+@Schema(name = "RestPagingParam", description = "分页查询参数")
 public class RestPagingParam<T> implements PagingParam<T> {
 
     @Valid

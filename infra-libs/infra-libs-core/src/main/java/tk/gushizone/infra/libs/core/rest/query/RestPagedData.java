@@ -2,8 +2,8 @@ package tk.gushizone.infra.libs.core.rest.query;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-import tk.gushizone.infra.libs.base.query.OrderEntry;
-import tk.gushizone.infra.libs.base.query.PagedData;
+import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
+import tk.gushizone.infra.libs.base.entity.query.PagedData;
 
 import java.util.List;
 

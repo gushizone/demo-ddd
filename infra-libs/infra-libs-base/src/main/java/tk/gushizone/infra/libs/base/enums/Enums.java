@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.base.value;
+package tk.gushizone.infra.libs.base.enums;
 
 /**
  * 枚举工具类

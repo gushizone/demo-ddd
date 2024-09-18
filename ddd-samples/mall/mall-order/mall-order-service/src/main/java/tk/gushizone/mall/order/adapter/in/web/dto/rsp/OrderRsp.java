@@ -1,50 +1,43 @@
 package tk.gushizone.mall.order.adapter.in.web.dto.rsp;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.List;
 
+import tk.gushizone.infra.libs.core.rest.RevisionRsp;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+
 /**
+ * <p>
+ * 订单
+ * </p>
+ *
  * @author gushizone
- * @since 2022/10/18 15:51
+ * @since 2024-09-18
  */
-@Data
-public class OrderRsp {
+@Getter
+@Setter
+@Accessors(chain = true)
+@Schema(name = "Order", description = "订单")
+public class OrderRsp extends RevisionRsp {
 
-    /**
-     * id
-     */
-    private Long id;
+    @Schema(description = "订单号")
+    private String orderNo;
 
-    /**
-     * 订单号
-     */
-    private Long orderNo;
-
-    /**
-     * 用户id
-     */
+    @Schema(description = "用户id")
     private Long userId;
 
-    /**
-     * 收货地址id
-     */
+    @Schema(description = "收货地址id")
     private Long shippingId;
 
-    /**
-     * 实际付款金额,单位是元,保留两位小数
-     */
+    @Schema(description = "实际付款金额")
     private BigDecimal payment;
 
-    /**
-     * 订单状态: 0=已取消, 10=未付款, 20=已付款, 40=已发货, 50=交易成功, 60=交易关闭
-     */
+    @Schema(description = "订单状态(1002)")
     private Integer orderStatus;
 
-    /**
-     * 订单项
-     */
+    @Schema(description = "订单项")
     private List<OrderItemRsp> orderItems;
-
 }

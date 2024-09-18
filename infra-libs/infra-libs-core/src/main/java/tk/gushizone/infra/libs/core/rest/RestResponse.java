@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 @Data
 @Accessors(chain = true)
-@Schema(description = "服务响应")
+@Schema(name = "RestResponse", description = "服务响应")
 public class RestResponse<T> implements Serializable {
 
     /**

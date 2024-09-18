@@ -1,33 +1,33 @@
 package tk.gushizone.mall.order.domain.model.entity;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
+import tk.gushizone.infra.libs.base.entity.RevisionEntity;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * 订单项
+ * </p>
+ *
+ * @author gushizone
+ * @since 2024-09-17
  */
-@Data
-public class OrderItemEntity {
-    /**
-     * id
-     */
-    private Long id;
+@Getter
+@Setter
+@Accessors(chain = true)
+public class OrderItemEntity extends RevisionEntity {
 
     /**
-     *
+     * 用户id
      */
     private Long userId;
 
     /**
-     *
+     * 订单id
      */
     private Long orderId;
-
-    /**
-     *
-     */
-    private Long orderNo;
 
     /**
      * 商品id
@@ -45,7 +45,7 @@ public class OrderItemEntity {
     private String productImage;
 
     /**
-     * 生成订单时的商品单价，单位是元,保留两位小数
+     * 生成订单时的商品单价
      */
     private BigDecimal currentUnitPrice;
 
@@ -55,8 +55,7 @@ public class OrderItemEntity {
     private Integer quantity;
 
     /**
-     * 商品总价,单位是元,保留两位小数
+     * 商品总价
      */
     private BigDecimal totalPrice;
-
 }

@@ -5,8 +5,8 @@ import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import tk.gushizone.infra.libs.base.query.PagedResult;
-import tk.gushizone.infra.libs.base.query.PagingParam;
+import tk.gushizone.infra.libs.base.entity.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
@@ -45,7 +45,7 @@ public class OrderDbRepository implements OrderRepository {
         orderMapper.insert(result.getOrder());
 
         result.linking();
-        orderItemMapper.saveBatch(result.getOrderItems());
+        orderItemMapper.insert(result.getOrderItems());
 
         return result.getOrder().getId();
     }
@@ -71,17 +71,18 @@ public class OrderDbRepository implements OrderRepository {
         return Pages.toResult(orderPage, orders);
     }
 
+    /**
+     * 版本控制，应该通过po更新 todo
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(OrderDeleteCmd orderDeleteCmd) {
-//        orderMapper.deleteBatchIds(orderDeleteCmd.getIds());
-        orderMapper.removeByIds(orderDeleteCmd.getIds());
 
+        orderMapper.deleteByIds(orderDeleteCmd.getIds());
 
         List<OrderItem> orderItems = orderItemMapper.lambdaQuery()
                 .in(OrderItem::getOrderId, orderDeleteCmd.getIds())
                 .list();
-
-//        todo
-        orderItemMapper.removeByIds(orderItems);
+        orderItemMapper.deleteByIds(orderItems);
     }
 }

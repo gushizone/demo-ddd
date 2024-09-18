@@ -1,29 +1,35 @@
 package tk.gushizone.mall.order.infrastructure.repository.db.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import tk.gushizone.infra.libs.core.mybatisplus.ControllableEntity;
-
 import java.math.BigDecimal;
+import tk.gushizone.infra.libs.core.mybatisplus.RevisionModel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * 订单项
+ * </p>
+ *
+ * @author gushizone
+ * @since 2024-09-17
  */
-@Data
-@TableName(value = "order_item")
-@EqualsAndHashCode(callSuper = true)
-public class OrderItem extends ControllableEntity {
-
-    /**
-     * 订单id
-     */
-    private Long orderId;
+@Getter
+@Setter
+@Accessors(chain = true)
+@TableName("order_item")
+public class OrderItem extends RevisionModel {
 
     /**
      * 用户id
      */
     private Long userId;
+
+    /**
+     * 订单id
+     */
+    private Long orderId;
 
     /**
      * 商品id
@@ -41,7 +47,7 @@ public class OrderItem extends ControllableEntity {
     private String productImage;
 
     /**
-     * 生成订单时的商品单价，单位是元,保留两位小数
+     * 生成订单时的商品单价
      */
     private BigDecimal currentUnitPrice;
 
@@ -51,7 +57,7 @@ public class OrderItem extends ControllableEntity {
     private Integer quantity;
 
     /**
-     * 商品总价,单位是元,保留两位小数
+     * 商品总价
      */
     private BigDecimal totalPrice;
 }
