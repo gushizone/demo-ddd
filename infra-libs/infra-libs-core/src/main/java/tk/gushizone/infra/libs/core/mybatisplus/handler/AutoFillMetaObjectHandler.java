@@ -2,7 +2,7 @@ package tk.gushizone.infra.libs.core.mybatisplus.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import tk.gushizone.infra.libs.base.constant.Fields;
+import tk.gushizone.infra.libs.base.constant.Columns;
 import tk.gushizone.infra.libs.core.auth.LoginUser;
 import tk.gushizone.infra.libs.core.auth.LoginUserHolder;
 
@@ -23,10 +23,10 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
         LoginUser loginUser = LoginUserHolder.getUser().orElse(LoginUser.GUEST);
         Date now = new Date();
 
-        this.strictInsertFill(metaObject, Fields.CREATED_BY, Long.class, loginUser.getUserId());
-        this.strictInsertFill(metaObject, Fields.CREATED_AT, Date.class, now);
-        this.strictInsertFill(metaObject, Fields.UPDATED_BY, Long.class, loginUser.getUserId());
-        this.strictInsertFill(metaObject, Fields.UPDATED_AT, Date.class, now);
+        this.strictInsertFill(metaObject, Columns.CREATED_BY, Long.class, loginUser.getUserId());
+        this.strictInsertFill(metaObject, Columns.CREATED_AT, Date.class, now);
+        this.strictInsertFill(metaObject, Columns.UPDATED_BY, Long.class, loginUser.getUserId());
+        this.strictInsertFill(metaObject, Columns.UPDATED_AT, Date.class, now);
     }
 
     @Override
@@ -34,8 +34,8 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
         LoginUser loginUser = LoginUserHolder.getUser().orElse(LoginUser.GUEST);
         Date now = new Date();
 
-        this.strictUpdateFill(metaObject, Fields.UPDATED_BY, Long.class, loginUser.getUserId());
-        this.strictUpdateFill(metaObject, Fields.UPDATED_AT, Date.class, now);
+        this.strictUpdateFill(metaObject, Columns.UPDATED_BY, Long.class, loginUser.getUserId());
+        this.strictUpdateFill(metaObject, Columns.UPDATED_AT, Date.class, now);
     }
 
     /**

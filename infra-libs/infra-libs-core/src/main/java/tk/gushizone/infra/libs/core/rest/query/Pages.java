@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.infra.libs.base.constant.Orders;
 import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingData;
@@ -80,7 +81,7 @@ public class Pages {
         for (OrderEntry order : entries) {
             OrderItem result = new OrderItem();
             result.setColumn(order.getColumn());
-            result.setAsc(RestOrderEntry.ORDER_AES.equals(order.getOrder()));
+            result.setAsc(Orders.ASC.equals(order.getOrder()));
             results.add(result);
         }
         return results;
@@ -97,7 +98,7 @@ public class Pages {
         for (OrderItem item : items) {
             RestOrderEntry result = new RestOrderEntry();
             result.setColumn(item.getColumn());
-            result.setOrder(item.isAsc() ? RestOrderEntry.ORDER_AES : RestOrderEntry.ORDER_DESC);
+            result.setOrder(item.isAsc() ? Orders.ASC : Orders.DESC);
             results.add(result);
         }
         return results;

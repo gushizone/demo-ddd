@@ -27,7 +27,7 @@ public class Enums {
      * 通过code获取字典枚举类
      */
     public static <T extends BaseDict> T codeOf(Class<T> enumClass, BaseEnum dictType, Integer code) {
-        if (code == null) {
+        if (dictType == null || code == null) {
             return null;
         }
         for (T e : enumClass.getEnumConstants()) {

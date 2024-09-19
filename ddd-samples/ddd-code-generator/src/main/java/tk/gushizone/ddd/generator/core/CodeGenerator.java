@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.ibatis.annotations.Mapper;
 import tk.gushizone.ddd.generator.util.YamlHelper;
-import tk.gushizone.infra.libs.base.constant.Columns;
+import tk.gushizone.infra.libs.base.constant.DbColumns;
 import tk.gushizone.infra.libs.base.entity.RevisionEntity;
 import tk.gushizone.infra.libs.core.mybatisplus.RevisionModel;
 import tk.gushizone.infra.libs.core.rest.RevisionRsp;
@@ -64,7 +64,7 @@ public class CodeGenerator {
                         .disableSerialVersionUID()
                         .enableLombok()
                         .enableChainModel()
-                        .addSuperEntityColumns(Columns.CREATED_BY, Columns.CREATED_AT, Columns.UPDATED_BY, Columns.UPDATED_AT, Columns.DELETED_AT)
+                        .addSuperEntityColumns(DbColumns.CREATED_BY, DbColumns.CREATED_AT, DbColumns.UPDATED_BY, DbColumns.UPDATED_AT, DbColumns.DELETED_AT)
                         .mapperBuilder()
                         .mapperAnnotation(Mapper.class)
                         .superClass(strategy.mapper().getSuperClass())

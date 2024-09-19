@@ -9,7 +9,7 @@ import tk.gushizone.infra.libs.core.validation.constraints.Dict;
 /**
  * 字典校验
  *
- * @author zhangwei
+ * @author gushizone
  * @since 2024/9/19
  */
 public class DictValidator implements ConstraintValidator<Dict, Integer> {
@@ -28,7 +28,7 @@ public class DictValidator implements ConstraintValidator<Dict, Integer> {
         if (value == null) {
             return true;
         }
-        BaseDict dict = Enums.codeOf(this.dict, Enums.codeOf(this.dict, type), value);
-        return dict != null;
+        // todo
+        return Enums.codeOf(this.dict, Enums.codeOf(this.dict, type), value) != null;
     }
 }

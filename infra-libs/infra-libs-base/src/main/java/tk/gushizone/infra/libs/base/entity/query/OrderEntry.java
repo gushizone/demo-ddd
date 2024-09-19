@@ -1,11 +1,10 @@
 package tk.gushizone.infra.libs.base.entity.query;
 
+/**
+ * @author gushizone
+ * @since 2024/9/19
+ */
 public interface OrderEntry {
-
-    String COLUMN_ID = "id";
-
-    String ORDER_AES = "asc";
-    String ORDER_DESC = "desc";
 
     String getColumn();
 

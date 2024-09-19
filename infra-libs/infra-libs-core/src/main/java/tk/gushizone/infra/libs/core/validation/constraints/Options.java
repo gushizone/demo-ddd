@@ -2,8 +2,7 @@ package tk.gushizone.infra.libs.core.validation.constraints;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import tk.gushizone.infra.libs.base.enums.BaseDict;
-import tk.gushizone.infra.libs.core.validation.validator.DictValidator;
+import tk.gushizone.infra.libs.core.validation.validator.OptionsValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,27 +10,22 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 字典
+ * 可选项
  *
  * @author gushizone
  * @since 2024/9/19
  */
-@Constraint(validatedBy = DictValidator.class)
+@Constraint(validatedBy = OptionsValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Dict {
+public @interface Options {
 
     /**
-     * 字典类
+     * 可选项
      */
-    Class<? extends BaseDict> dict();
+    String[] options();
 
-    /**
-     * 字典类别
-     */
-    int type();
-
-    String message() default "{tk.gushizone.infra.libs.core.validation.constraints.Dict}";
+    String message() default "{tk.gushizone.infra.libs.core.validation.constraints.Options}";
 
     Class<?>[] groups() default {};
 
