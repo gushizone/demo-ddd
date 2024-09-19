@@ -8,5 +8,8 @@ package tk.gushizone.infra.libs.base.enums;
  */
 public interface BaseDict extends BaseEnum {
 
-    BaseEnum parent();
+    /**
+     * 类型
+     */
+    BaseEnum type();
 }

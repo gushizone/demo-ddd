@@ -68,6 +68,12 @@ public class CodeGenerator {
                         .mapperBuilder()
                         .mapperAnnotation(Mapper.class)
                         .superClass(strategy.mapper().getSuperClass())
+                        .controllerBuilder()
+                        .enableRestStyle()
+                        .enableHyphenStyle()
+                        .enableFileOverride()
+                        .serviceBuilder()
+                        .disable()
                 )
                 .injectionConfig(builder -> builder.beforeOutputFile((tableInfo, objectMap) -> {
 

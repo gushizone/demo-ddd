@@ -3,7 +3,10 @@ package tk.gushizone.mall.order.adapter.in.web.dto.req.cmd;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import tk.gushizone.infra.libs.core.validation.constraints.Dict;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
+import tk.gushizone.mall.order.domain.model.contant.OrderDictTypes;
+import tk.gushizone.mall.order.domain.model.enums.OrderDict;
 
 import java.util.List;
 
@@ -21,5 +24,10 @@ public class OrderCreateCmdReq {
 
     @Schema(description = "订单项")
     private List<OrderItemCmdReq> orderItems;
+
+    // todo
+    @Schema(description = "订单类型")
+    @Dict(dict = OrderDict.class, type = OrderDictTypes.ORDER_TYPE)
+    private Integer type;
 
 }
