@@ -4,13 +4,12 @@ import com.google.common.collect.Lists;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
-import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
-import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
-import tk.gushizone.infra.libs.core.rest.query.Pages;
-import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
+import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
@@ -29,7 +28,7 @@ public class OrderQueryAppServiceImpl implements OrderQueryAppService {
 
         OrderQry orderQry = OrderAppAssembler.toQry(req.getParam());
 
-        PagedResult<OrderAggregate> orderPagedResult = orderDomainService.query(Pages.toParam(req.getPage(), orderQry));
+        PagedResult<OrderAggregate> orderPagedResult = orderDomainService.query(req.off(orderQry));
 
         // todo 商品查询
 

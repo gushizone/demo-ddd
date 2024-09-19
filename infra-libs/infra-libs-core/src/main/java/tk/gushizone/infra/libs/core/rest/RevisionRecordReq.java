@@ -1,6 +1,7 @@
 package tk.gushizone.infra.libs.core.rest;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 
@@ -12,9 +13,11 @@ import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 @Schema(name = "RevisionRecordReq", description = "标准的版本记录")
 public class RevisionRecordReq implements RevisionRecord {
 
+    @NotNull
     @Schema(description = "主键")
     private Long id;
 
+    @NotNull
     @Schema(description = "版本号")
     private Integer revision;
 }

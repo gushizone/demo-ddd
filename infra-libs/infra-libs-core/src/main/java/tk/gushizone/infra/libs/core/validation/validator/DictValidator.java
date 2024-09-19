@@ -21,6 +21,7 @@ public class DictValidator implements ConstraintValidator<Dict, Integer> {
     @Override
     public void initialize(Dict constraintAnnotation) {
         dict = constraintAnnotation.dict();
+        type = constraintAnnotation.type();
     }
 
     @Override
@@ -28,7 +29,6 @@ public class DictValidator implements ConstraintValidator<Dict, Integer> {
         if (value == null) {
             return true;
         }
-        // todo
-        return Enums.codeOf(this.dict, Enums.codeOf(this.dict, type), value) != null;
+        return Enums.codeOf(dict, type, value) != null;
     }
 }

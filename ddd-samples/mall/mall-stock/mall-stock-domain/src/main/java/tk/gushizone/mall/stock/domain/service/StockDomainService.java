@@ -11,5 +11,5 @@ import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;
  */
 public interface StockDomainService {
 
-    PagedResult<StockAggregate> query(PagingParam<StockQry> pagingParam);
+    PagedResult<StockAggregate> query(PagingParam<StockQry> IPagingParam);
 }

@@ -25,7 +25,6 @@ public class OrderCreateCmdReq {
     @Schema(description = "订单项")
     private List<OrderItemCmdReq> orderItems;
 
-    // todo
     @Schema(description = "订单类型")
     @Dict(dict = OrderDict.class, type = OrderDictTypes.ORDER_TYPE)
     private Integer type;

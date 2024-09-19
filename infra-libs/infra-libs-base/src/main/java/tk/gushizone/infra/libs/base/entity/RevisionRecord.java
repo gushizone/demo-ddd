@@ -1,7 +1,7 @@
 package tk.gushizone.infra.libs.base.entity;
 
 /**
- * 带版本的记录
+ * 带版本的记录  todo
  * - 增删改基础条件
  *
  * @author gushizone

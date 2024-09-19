@@ -2,6 +2,7 @@ package tk.gushizone.mall.order.domain.model.cmd;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
+import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class OrderDeleteCmd {
 
-    private List<Long> ids;
+    private List<RevisionRecord> records;
 
 }

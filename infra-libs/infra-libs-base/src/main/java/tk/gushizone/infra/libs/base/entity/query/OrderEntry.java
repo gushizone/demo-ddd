@@ -1,16 +1,25 @@
 package tk.gushizone.infra.libs.base.entity.query;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
+ * 排序项
+ *
  * @author gushizone
  * @since 2024/9/19
  */
-public interface OrderEntry {
+@Getter
+@Setter
+public class OrderEntry {
 
-    String getColumn();
+    /**
+     * 排序列
+     */
+    private String column;
 
-    void setColumn(String column);
-
-    String getOrder();
-
-    void setOrder(String order);
+    /**
+     * 排序
+     */
+    private String order;
 }

@@ -1,12 +1,32 @@
 package tk.gushizone.infra.libs.base.entity.query;
 
-public interface PagingParam<T> {
+import lombok.Getter;
+import lombok.Setter;
 
-    PagingData getPage();
+/**
+ * 分页查询参数
+ *
+ * @author gushizone
+ * @since 2024/9/10
+ */
+@Getter
+@Setter
+public class PagingParam<T> {
 
-    void setPage(PagingData page);
+    /**
+     * 分页参数
+     */
+    private PagingData page = PagingData.noPaging();
 
-    T getParam();
+    /**
+     * 查询参数
+     */
+    private T param;
 
-    void setParam(T param);
+    public static <T> PagingParam<T> of(PagingData page, T param) {
+        PagingParam<T> pagingParam = new PagingParam<>();
+        pagingParam.setPage(page);
+        pagingParam.setParam(param);
+        return pagingParam;
+    }
 }

@@ -26,12 +26,30 @@ public class Enums {
     /**
      * 通过code获取字典枚举类
      */
-    public static <T extends BaseDict> T codeOf(Class<T> enumClass, BaseEnum dictType, Integer code) {
-        if (dictType == null || code == null) {
+    public static <T extends BaseDict> T codeOf(Class<T> enumClass, BaseEnum type, Integer code) {
+        if (type == null || code == null) {
             return null;
         }
         for (T e : enumClass.getEnumConstants()) {
-            if (e.type() != dictType) {
+            if (e.type() != type) {
+                continue;
+            }
+            if (e.code() == code) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 通过code获取字典枚举类
+     */
+    public static <T extends BaseDict> T codeOf(Class<T> enumClass, Integer typeCode, Integer code) {
+        if (typeCode == null || code == null) {
+            return null;
+        }
+        for (T e : enumClass.getEnumConstants()) {
+            if (e.type() == null || e.type().code() != typeCode) {
                 continue;
             }
             if (e.code() == code) {

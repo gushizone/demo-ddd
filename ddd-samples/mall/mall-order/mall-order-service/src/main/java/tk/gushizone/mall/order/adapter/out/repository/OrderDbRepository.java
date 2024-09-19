@@ -51,12 +51,12 @@ public class OrderDbRepository implements OrderRepository {
     }
 
     @Override
-    public PagedResult<OrderAggregate> query(PagingParam<OrderQry> pagingParam) {
-        OrderQry orderQry = pagingParam.getParam();
+    public PagedResult<OrderAggregate> query(PagingParam<OrderQry> PagingParam) {
+        OrderQry orderQry = PagingParam.getParam();
 
         Page<Order> orderPage = orderMapper.lambdaQuery()
                 .in(CollectionUtils.isNotEmpty(orderQry.getIds()), Order::getId, orderQry.getIds())
-                .page(Pages.toPage(pagingParam.getPage()));
+                .page(Pages.toPage(PagingParam.getPage()));
         if (CollectionUtils.isEmpty(orderPage.getRecords())) {
             return Pages.toResult(orderPage);
         }
@@ -78,10 +78,10 @@ public class OrderDbRepository implements OrderRepository {
     @Transactional(rollbackFor = Exception.class)
     public void delete(OrderDeleteCmd orderDeleteCmd) {
 
-        orderMapper.deleteByIds(orderDeleteCmd.getIds());
+        orderMapper.deleteByIds(orderDeleteCmd.getRecords());
 
         List<OrderItem> orderItems = orderItemMapper.lambdaQuery()
-                .in(OrderItem::getOrderId, orderDeleteCmd.getIds())
+                .in(OrderItem::getOrderId, orderDeleteCmd.getRecords())
                 .list();
         orderItemMapper.deleteByIds(orderItems);
     }

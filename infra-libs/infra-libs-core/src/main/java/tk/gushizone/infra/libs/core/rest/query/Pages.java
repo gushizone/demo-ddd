@@ -6,27 +6,19 @@ import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.constant.Orders;
 import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
+import tk.gushizone.infra.libs.base.entity.query.PagedData;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingData;
-import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 
 import java.util.List;
 
 /**
- * 类型转换
- * - 使用接口解耦, 不暴露实现类
+ * 类型转换: mybatis-plus 的分页 <-> 系统的分页
  *
  * @author gushizone
  * @since 2024/9/10
  */
 public class Pages {
-
-    /**
-     * 转变为参数
-     */
-    public static <T> PagingParam<T> toParam(RestPagingData restPaging, T param) {
-        return new RestPagingParam<>(restPaging, param);
-    }
 
     /**
      * 转变为结果
@@ -35,22 +27,22 @@ public class Pages {
         if (CollectionUtils.isEmpty(records)) {
             records = Lists.newArrayList();
         }
-        TransmittablePagedResult<T> transmittablePagedResult = new TransmittablePagedResult<>();
-        transmittablePagedResult.setRecords(records);
+        PagedResult<T> pagedResult = new PagedResult<>();
+        pagedResult.setRecords(records);
 
-        RestPagedData restPaged = new RestPagedData();
-        restPaged.setCurrent(page.getCurrent());
-        restPaged.setSize(page.getSize());
+        PagedData pagedData = new PagedData();
+        pagedData.setCurrent(page.getCurrent());
+        pagedData.setSize(page.getSize());
         if (page.getSize() >= 0) {
-            restPaged.setTotal(page.getTotal());
+            pagedData.setTotal(page.getTotal());
         } else {
             // 避免未分页时, 计数不对
-            restPaged.setTotal(records.size());
+            pagedData.setTotal(records.size());
         }
-        restPaged.setOrders(toEntry(page.orders()));
+        pagedData.setOrders(toEntry(page.orders()));
 
-        transmittablePagedResult.setPage(restPaged);
-        return transmittablePagedResult;
+        pagedResult.setPage(pagedData);
+        return pagedResult;
     }
 
     /**
@@ -61,19 +53,20 @@ public class Pages {
         return (PagedResult<T>) toResult(page, page.getRecords());
     }
 
+
     /**
      * 转变为 mybatis-plus 参数
      */
-    public static <T> Page<T> toPage(PagingData pagingData) {
-        Page<T> result = Page.of(pagingData.getCurrent(), pagingData.getSize());
-        result.setOrders(toOrder(pagingData.getOrders()));
+    public static <T> Page<T> toPage(PagingData PagingData) {
+        Page<T> result = Page.of(PagingData.getCurrent(), PagingData.getSize());
+        result.setOrders(toOrder(PagingData.getOrders()));
         return result;
     }
 
     /**
-     * 转换排序集 - 请求
+     * 转换排序集
      */
-    private static List<OrderItem> toOrder(List<? extends OrderEntry> entries) {
+    private static List<OrderItem> toOrder(List<OrderEntry> entries) {
         if (CollectionUtils.isEmpty(entries)) {
             return Lists.newArrayList();
         }
@@ -88,15 +81,15 @@ public class Pages {
     }
 
     /**
-     * 转换排序集 - 响应
+     * 转换排序集
      */
-    private static List<RestOrderEntry> toEntry(List<OrderItem> items) {
+    private static List<OrderEntry> toEntry(List<OrderItem> items) {
         if (CollectionUtils.isEmpty(items)) {
             return Lists.newArrayList();
         }
-        List<RestOrderEntry> results = Lists.newArrayListWithExpectedSize(items.size());
+        List<OrderEntry> results = Lists.newArrayListWithExpectedSize(items.size());
         for (OrderItem item : items) {
-            RestOrderEntry result = new RestOrderEntry();
+            OrderEntry result = new OrderEntry();
             result.setColumn(item.getColumn());
             result.setOrder(item.isAsc() ? Orders.ASC : Orders.DESC);
             results.add(result);

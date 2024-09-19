@@ -10,14 +10,14 @@ import tk.gushizone.infra.libs.core.rest.query.RestPagingParam;
 import java.util.List;
 
 /**
- * todo 请求场景
+ * 搜索请求
  *
  * @author gushizone
  * @since 2024/9/10
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "SearchRestRequest", description = "分页请求")
+@Schema(name = "SearchRestRequest", description = "搜索请求")
 public class SearchRestRequest<T> extends RestPagingParam<T> {
 
     @Schema(title = "用例", description = "应用场景")

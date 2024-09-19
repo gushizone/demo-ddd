@@ -1,22 +1,41 @@
 package tk.gushizone.infra.libs.base.entity.query;
 
+import com.google.common.collect.Lists;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
 /**
+ * 分页
+ *
  * @author gushizone
  * @since 2023/6/1
  */
-public interface PagingData {
+@Getter
+@Setter
+public class PagingData {
 
-    long getCurrent();
+    /**
+     * 页码
+     */
+    private long current = 1;
 
-    void setCurrent(long current);
+    /**
+     * 页容量
+     */
+    private long size = 10;
 
-    long getSize();
+    /**
+     * 排序集
+     */
+    private List<OrderEntry> orders = Lists.newArrayList();
 
-    void setSize(long size);
 
-    List<? extends OrderEntry> getOrders();
-
-    void setOrders(List<? extends OrderEntry> orders);
+    public static PagingData noPaging() {
+        PagingData result = new PagingData();
+        result.setCurrent(1);
+        result.setSize(-1);
+        return result;
+    }
 }

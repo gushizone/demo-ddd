@@ -25,7 +25,7 @@ public class SearchRestResponse<T> extends RestResponse<List<T>> implements Seri
 
     public static <T> SearchRestResponse<T> ok(PagedData page, List<T> list) {
         SearchRestResponse<T> result = new SearchRestResponse<>();
-        result.setPage((RestPagedData) page);
+        result.setPage(RestPagedData.of(page));
         result.setCode(Status.OK.code());
         result.setMsg(Status.OK.label());
         result.setData(list);

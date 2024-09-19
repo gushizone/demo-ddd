@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tk.gushizone.infra.libs.core.rest.RevisionRecordReq;
 import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
@@ -54,8 +55,8 @@ public class OrderController {
 
     @Operation(summary = "删除")
     @DeleteMapping("/{id}")
-    public RestResponse<Void> delete(@PathVariable("id") Long id) {
-        orderCmdAppService.delete(id);
+    public RestResponse<Void> delete(@PathVariable("id") Long id, @RequestBody RevisionRecordReq req) {
+        orderCmdAppService.delete(req);
         return RestResponse.ok();
     }
 

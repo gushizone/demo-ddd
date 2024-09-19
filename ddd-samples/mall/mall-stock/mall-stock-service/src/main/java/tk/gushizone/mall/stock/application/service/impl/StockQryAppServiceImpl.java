@@ -3,9 +3,8 @@ package tk.gushizone.mall.stock.application.service.impl;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
-import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
-import tk.gushizone.infra.libs.core.rest.query.Pages;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.mall.stock.application.assembler.StockAppAssembler;
 import tk.gushizone.mall.stock.application.service.StockQryAppService;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
@@ -24,8 +23,8 @@ public class StockQryAppServiceImpl implements StockQryAppService {
     public SearchRestResponse<StockApiRsp> queryByApi(SearchRestRequest<StockQryApiReq> req) {
         StockQry stockQry = StockAppAssembler.toQry(req.getParam());
 
-        PagedResult<StockAggregate> stackPagedResult = stockDomainService.query(Pages.toParam(req.getPage(), stockQry));
+        PagedResult<StockAggregate> stackIPagedResult = stockDomainService.query(req.off(stockQry));
 
-        return SearchRestResponse.ok(stackPagedResult.getPage(), StockAppAssembler.toApiRsp(stackPagedResult.getRecords()));
+        return SearchRestResponse.ok(stackIPagedResult.getPage(), StockAppAssembler.toApiRsp(stackIPagedResult.getRecords()));
     }
 }

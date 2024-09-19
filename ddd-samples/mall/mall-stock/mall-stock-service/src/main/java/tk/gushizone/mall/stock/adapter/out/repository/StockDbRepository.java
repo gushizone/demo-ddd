@@ -1,6 +1,7 @@
 package tk.gushizone.mall.stock.adapter.out.repository;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
@@ -13,7 +14,6 @@ import tk.gushizone.mall.stock.domain.repository.StockRepository;
 import tk.gushizone.mall.stock.infrastructure.repository.db.mapper.StockMapper;
 import tk.gushizone.mall.stock.infrastructure.repository.db.po.Stock;
 
-import jakarta.annotation.Resource;
 import java.util.List;
 
 @Repository

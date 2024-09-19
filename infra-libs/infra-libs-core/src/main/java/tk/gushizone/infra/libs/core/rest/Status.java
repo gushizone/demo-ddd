@@ -28,8 +28,7 @@ public enum Status implements BaseEnum {
      */
     FAIL_INVALID_IDENTIFICATION(4001, "认证不通过"),
     /***
-     * 认证不通过 - Token无效或已过期
-     * todo - 一般会伴随重定向
+     * 认证不通过 - Token无效或已过期, 一般会伴随重定向
      */
     FAIL_INVALID_TOKEN(4101, "Token无效或已过期"),
     /***

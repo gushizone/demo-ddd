@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.auth.LoginUser;
 import tk.gushizone.infra.libs.core.auth.LoginUserHolder;
+import tk.gushizone.infra.libs.core.rest.RevisionRecordReq;
 import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
@@ -81,10 +82,8 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     }
 
     @Override
-    public void delete(Long id) {
-
-        // todo 版本控制
-        orderDomainService.delete(new OrderDeleteCmd().setIds(Lists.newArrayList(id)));
+    public void delete(RevisionRecordReq req) {
+        orderDomainService.delete(new OrderDeleteCmd().setRecords(Lists.newArrayList(req)));
     }
 
     @Override

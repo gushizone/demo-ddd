@@ -1,8 +1,11 @@
 package tk.gushizone.mall.order.domain.service.impl;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
+import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
@@ -11,7 +14,7 @@ import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
 
-import jakarta.annotation.Resource;
+import java.util.List;
 
 /**
  * @author gushizone
@@ -34,15 +37,24 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     }
 
     @Override
-    public PagedResult<OrderAggregate> query(PagingParam<OrderQry> pagingParam) {
+    public PagedResult<OrderAggregate> query(PagingParam<OrderQry> PagingParam) {
 
-        PagedResult<OrderAggregate> orderPagedResult =  orderRepository.query(pagingParam);
+        PagedResult<OrderAggregate> orderIPagedResult =  orderRepository.query(PagingParam);
 
-        return orderPagedResult;
+        return orderIPagedResult;
     }
 
     @Override
     public void delete(OrderDeleteCmd orderDeleteCmd) {
+
+        List<Long> ids = ModelUtils.map(orderDeleteCmd.getRecords(), RevisionRecord::getId);
+
+        // todo
+//        orderRepository.query();
+
+
+//        orderDeleteCmd.exec();
+
         orderRepository.delete(orderDeleteCmd);
     }
 }

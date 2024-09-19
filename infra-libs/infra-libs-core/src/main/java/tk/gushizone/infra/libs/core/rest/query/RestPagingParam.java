@@ -1,10 +1,9 @@
 package tk.gushizone.infra.libs.core.rest.query;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
-import lombok.*;
-import tk.gushizone.infra.libs.base.entity.query.PagingData;
+import lombok.Getter;
+import lombok.Setter;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 
 /**
@@ -12,12 +11,9 @@ import tk.gushizone.infra.libs.base.entity.query.PagingParam;
  * @since 2024/9/10
  */
 @Getter
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor
-@AllArgsConstructor
+@Setter
 @Schema(name = "RestPagingParam", description = "分页查询参数")
-public class RestPagingParam<T> implements PagingParam<T> {
+public class RestPagingParam<T> {
 
     @Valid
     @Schema(description = "分页参数")
@@ -28,9 +24,11 @@ public class RestPagingParam<T> implements PagingParam<T> {
     @Schema(description = "查询参数")
     private T param;
 
-    @Override
-    @JsonDeserialize(as = RestPagingData.class)
-    public void setPage(PagingData page) {
-        this.page = (RestPagingData) page;
+    public static <T> PagingParam<T> off(RestPagingData page, T param) {
+        return PagingParam.of(RestPagingData.off(page), param);
+    }
+
+    public <R> PagingParam<R> off(R param) {
+        return PagingParam.of(RestPagingData.off(page), param);
     }
 }

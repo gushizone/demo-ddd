@@ -15,7 +15,7 @@ public interface OrderDomainService {
 
     Long create(OrderCreateCmd cmd);
 
-    PagedResult<OrderAggregate> query(PagingParam<OrderQry> pagingParam);
+    PagedResult<OrderAggregate> query(PagingParam<OrderQry> PagingParam);
 
     void delete(OrderDeleteCmd orderDeleteCmd);
 
