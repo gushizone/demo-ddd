@@ -1,5 +1,6 @@
 package tk.gushizone.mall.order.domain.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import tk.gushizone.infra.libs.base.entity.RevisionEntity;
 import lombok.Getter;
@@ -12,11 +13,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author gushizone
- * @since 2024-09-17
+ * @since 2024-09-20
  */
 @Getter
 @Setter
 @Accessors(chain = true)
+@TableName("order_item")
 public class OrderItem extends RevisionEntity {
 
     /**

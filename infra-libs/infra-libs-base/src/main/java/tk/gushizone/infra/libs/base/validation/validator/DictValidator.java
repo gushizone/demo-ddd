@@ -1,10 +1,10 @@
-package tk.gushizone.infra.libs.core.validation.validator;
+package tk.gushizone.infra.libs.base.validation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import tk.gushizone.infra.libs.base.enums.BaseDict;
 import tk.gushizone.infra.libs.base.enums.Enums;
-import tk.gushizone.infra.libs.core.validation.constraints.Dict;
+import tk.gushizone.infra.libs.base.validation.constraints.Dict;
 
 /**
  * 字典校验

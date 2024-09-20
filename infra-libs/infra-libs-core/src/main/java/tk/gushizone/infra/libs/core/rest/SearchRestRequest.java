@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import tk.gushizone.infra.libs.core.rest.query.RestPagingData;
-import tk.gushizone.infra.libs.core.rest.query.RestPagingParam;
+import tk.gushizone.infra.libs.base.entity.query.PagingData;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Schema(name = "SearchRestRequest", description = "搜索请求")
-public class SearchRestRequest<T> extends RestPagingParam<T> {
+public class SearchRestRequest<T> extends PagingParam<T> {
 
     @Schema(title = "用例", description = "应用场景")
     private String useCase;
@@ -28,7 +28,7 @@ public class SearchRestRequest<T> extends RestPagingParam<T> {
 
     public static <T> SearchRestRequest<T> of(T param) {
         SearchRestRequest<T> result = new SearchRestRequest<>();
-        result.setPage(RestPagingData.noPaging());
+        result.setPage(PagingData.noPaging());
         result.setParam(param);
         return result;
     }

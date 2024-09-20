@@ -76,7 +76,6 @@ public class CodeGenerator {
                 )
                 .injectionConfig(builder -> builder.beforeOutputFile((tableInfo, objectMap) -> {
 
-                                    objectMap.put("domain", initDomainMap(tableInfo, objectMap));
                                     objectMap.put("adapter", initAdapterMap(tableInfo, objectMap));
 
                                 })
@@ -84,27 +83,6 @@ public class CodeGenerator {
                 )
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
                 .execute();
-    }
-
-    /**
-     * 模板变量配置 - domain
-     */
-    private static Object initDomainMap(TableInfo tableInfo, Map<String, Object> objectMap) {
-
-        Map<String, Object> resultMap = new HashMap<>();
-
-        Set<String> importPackages = tableInfo.getImportPackages().stream()
-                .filter(e -> !TableName.class.getName().equals(e))
-//                .filter(e -> !RevisionModel.class.getName().equals(e))
-                .collect(Collectors.toSet());
-        importPackages.add(RevisionEntity.class.getName());
-        resultMap.put("importPackages", new ArrayList<>(importPackages));
-
-        resultMap.put("package", JSONUtil.parseObj(objectMap).getJSONObject("package").get("Parent")
-                + ".domain.model.entity");
-        resultMap.put("entity", tableInfo.getEntityName() + "Entity");
-        resultMap.put("superEntityClass", RevisionEntity.class.getSimpleName());
-        return resultMap;
     }
 
     /**
@@ -116,7 +94,7 @@ public class CodeGenerator {
 
         Set<String> importPackages = tableInfo.getImportPackages().stream()
                 .filter(e -> !TableName.class.getName().equals(e))
-//                .filter(e -> !RevisionModel.class.getName().equals(e))
+                .filter(e -> !RevisionEntity.class.getName().equals(e))
                 .collect(Collectors.toSet());
         importPackages.add(RevisionRsp.class.getName());
         resultMap.put("importPackages", new ArrayList<>(importPackages));
@@ -137,14 +115,6 @@ public class CodeGenerator {
         List<CustomFile> customFiles = new ArrayList<>();
 
         customFiles.add(new CustomFile.Builder()
-                .fileName("Entity.java")
-                .templatePath("/templates/domain/entity.java.ftl")
-                .packageName("domain.model.entity")
-                .filePath(outputDir)
-                .enableFileOverride()
-                .build());
-
-        customFiles.add(new CustomFile.Builder()
                 .fileName("Rsp.java")
                 .templatePath("/templates/adapter/rsp.java.ftl")
                 .packageName("adapter.in.web.dto.rsp")
@@ -161,7 +131,7 @@ public class CodeGenerator {
     private static Map<OutputFile, String> pathInfoMap(String outputDir) {
         Map<OutputFile, String> resultMap = new HashMap<>();
 
-        resultMap.put(OutputFile.entity, outputDir + "/infrastructure/repository/db/po");
+        resultMap.put(OutputFile.entity, outputDir + "/domain/model/entity");
         resultMap.put(OutputFile.mapper, outputDir + "/infrastructure/repository/db/mapper");
         resultMap.put(OutputFile.xml, outputDir + "/resources/mapper");
 

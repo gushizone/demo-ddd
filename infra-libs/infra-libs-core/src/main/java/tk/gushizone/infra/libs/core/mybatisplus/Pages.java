@@ -1,4 +1,4 @@
-package tk.gushizone.infra.libs.core.rest.query;
+package tk.gushizone.infra.libs.core.mybatisplus;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

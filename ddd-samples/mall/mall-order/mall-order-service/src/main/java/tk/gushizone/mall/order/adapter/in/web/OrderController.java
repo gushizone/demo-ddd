@@ -16,7 +16,7 @@ import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
-import tk.gushizone.mall.order.application.service.OrderQueryAppService;
+import tk.gushizone.mall.order.application.service.OrderQryAppService;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class OrderController {
     @Resource
     private OrderCmdAppService orderCmdAppService;
     @Resource
-    private OrderQueryAppService orderQueryAppService;
+    private OrderQryAppService orderQryAppService;
 
     @Operation(summary = "创建")
     @PostMapping
@@ -44,7 +44,7 @@ public class OrderController {
     @Operation(summary = "查询")
     @GetMapping("/{id}")
     public RestResponse<OrderRsp> query(@PathVariable("id") Long id) {
-        return orderQueryAppService.query(id);
+        return orderQryAppService.query(id);
     }
 
     @Operation(summary = "编辑")
@@ -73,7 +73,7 @@ public class OrderController {
     @Operation(summary = "搜索")
     @PostMapping("/search")
     public SearchRestResponse<OrderRsp> search(@RequestBody @Validated SearchRestRequest<OrderQryReq> req) {
-        return orderQueryAppService.query(req);
+        return orderQryAppService.query(req);
     }
 
     /**

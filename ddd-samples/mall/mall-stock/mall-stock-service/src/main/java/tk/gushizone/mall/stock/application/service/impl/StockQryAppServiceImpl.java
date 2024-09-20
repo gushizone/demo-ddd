@@ -3,6 +3,7 @@ package tk.gushizone.mall.stock.application.service.impl;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.mall.stock.application.assembler.StockAppAssembler;
@@ -23,7 +24,7 @@ public class StockQryAppServiceImpl implements StockQryAppService {
     public SearchRestResponse<StockApiRsp> queryByApi(SearchRestRequest<StockQryApiReq> req) {
         StockQry stockQry = StockAppAssembler.toQry(req.getParam());
 
-        PagedResult<StockAggregate> stackIPagedResult = stockDomainService.query(req.off(stockQry));
+        PagedResult<StockAggregate> stackIPagedResult = stockDomainService.query(PagingParam.of(req.getPage(), stockQry));
 
         return SearchRestResponse.ok(stackIPagedResult.getPage(), StockAppAssembler.toApiRsp(stackIPagedResult.getRecords()));
     }

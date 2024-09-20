@@ -9,7 +9,7 @@ dataSource:
 packages:
   #  moduleName: module
   parent: tk.gushizone.mall.order
-  entity: infrastructure.repository.db.po
+  entity: domain.model.entity
   mapper: infrastructure.repository.db.mapper
   xml: mapper
   controller: adapter.in.web
@@ -21,10 +21,10 @@ strategy:
   #  fieldPrefix:
   #    - is_
   include:
-#    - order
-#    - order_item
+  #    - order
+  #    - order_item
   entity:
-    superClass: tk.gushizone.infra.libs.core.mybatisplus.RevisionModel
+    superClass: tk.gushizone.infra.libs.base.entity.RevisionEntity
   #    naming: underline_to_camel
   #    idType: AUTO
   mapper:

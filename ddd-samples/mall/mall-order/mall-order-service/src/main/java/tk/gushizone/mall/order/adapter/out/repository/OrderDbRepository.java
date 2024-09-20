@@ -8,13 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
-import tk.gushizone.infra.libs.core.rest.query.Pages;
-import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
-import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
-import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
-import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
+import tk.gushizone.infra.libs.core.mybatisplus.Pages;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
+import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
+import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
@@ -37,14 +36,13 @@ public class OrderDbRepository implements OrderRepository {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Long save(OrderCreateCmdResult orderCreateCmdResult) {
+    public Long save(OrderCreatedEvent orderCreatedEvent) {
 
-        orderMapper.insert(orderCreateCmdResult.getOrder());
+        orderMapper.insert(orderCreatedEvent.getOrder());
 
-        orderCreateCmdResult.linking();
-        orderItemMapper.insert(orderCreateCmdResult.getOrderItems());
-
-        return orderCreateCmdResult.getOrder().getId();
+        orderCreatedEvent.linking();
+        orderItemMapper.insert(orderCreatedEvent.getOrderItems());
+        return orderCreatedEvent.getOrder().getId();
     }
 
     @Override
@@ -64,8 +62,7 @@ public class OrderDbRepository implements OrderRepository {
                 .list();
         Map<Long, List<OrderItem>> orderToItemMap = ModelUtils.groupBy(orderItems, OrderItem::getOrderId);
 
-        List<OrderAggregate> orders = OrderRepositoryAssembler.toAgg(orderPage.getRecords(), orderToItemMap);
-        return Pages.toResult(orderPage, orders);
+        return Pages.toResult(orderPage, OrderAggregate.of(orderPage.getRecords(), orderToItemMap));
     }
 
     /**
@@ -73,18 +70,19 @@ public class OrderDbRepository implements OrderRepository {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(List<OrderDeleteCmdResult> orderDeleteCmdResults) {
+    public void delete(List<OrderDeletedEvent> orderDeletedEvents) {
 
-        for (OrderDeleteCmdResult orderDeleteCmdResult : orderDeleteCmdResults) {
-            delete(orderDeleteCmdResult);
+        for (OrderDeletedEvent orderDeletedEvent : orderDeletedEvents) {
+            delete(orderDeletedEvent);
         }
     }
 
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(OrderDeleteCmdResult orderDeleteDmResult) {
+    public void delete(OrderDeletedEvent orderDeletedEvent) {
 
-        orderMapper.deleteById(orderDeleteDmResult.getOrder());
+        orderMapper.deleteById(orderDeletedEvent.getOrder());
 
-        orderItemMapper.deleteByIds(orderDeleteDmResult.getOrderItems());
+        orderItemMapper.deleteByIds(orderDeletedEvent.getOrderItems());
     }
 }

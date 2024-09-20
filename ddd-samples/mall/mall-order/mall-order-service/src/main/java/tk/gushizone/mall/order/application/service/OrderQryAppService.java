@@ -10,7 +10,7 @@ import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
  * @author gushizone
  * @since 2022/10/18 16:26
  */
-public interface OrderQueryAppService {
+public interface OrderQryAppService {
 
     SearchRestResponse<OrderRsp> query(SearchRestRequest<OrderQryReq> req);
 

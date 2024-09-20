@@ -5,6 +5,8 @@ dataSource:
   url: jdbc:mysql://localhost:3306/demo-ddd?useSSL=false&serverTimezone=GMT%2B8
   username: root
   password: root
+packages:
+  parent: tk.gushizone.mall.order   # 前缀.项目.子服务
 strategy:
   include:
     - order

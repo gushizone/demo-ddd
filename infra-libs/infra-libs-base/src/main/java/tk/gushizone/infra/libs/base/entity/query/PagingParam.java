@@ -1,26 +1,26 @@
 package tk.gushizone.infra.libs.base.entity.query;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 分页查询参数
- *
  * @author gushizone
  * @since 2024/9/10
  */
 @Getter
 @Setter
+@Schema(description = "分页查询参数")
 public class PagingParam<T> {
 
-    /**
-     * 分页参数
-     */
+    @Valid
+    @Schema(description = "分页参数")
     private PagingData page = PagingData.noPaging();
 
-    /**
-     * 查询参数
-     */
+    @Valid
+    @Setter
+    @Schema(description = "查询参数")
     private T param;
 
     public static <T> PagingParam<T> of(PagingData page, T param) {

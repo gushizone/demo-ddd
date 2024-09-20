@@ -1,7 +1,6 @@
-package tk.gushizone.mall.order.domain.model.aggregate;
+package tk.gushizone.mall.order.domain.model.event;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
@@ -10,15 +9,13 @@ import java.util.List;
 
 /**
  * @author gushizone
- * @since 2022/10/18 18:20
+ * @since 2022/10/18 18:01
  */
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
-public class OrderAggregate extends Order {
+public class OrderDeletedEvent {
 
-    /**
-     * 订单项
-     */
+    private Order order;
+
     private List<OrderItem> orderItems;
 }

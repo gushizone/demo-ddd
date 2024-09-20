@@ -5,14 +5,13 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
-import tk.gushizone.infra.libs.base.entity.query.PagingData;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
-import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
-import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
+import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
 import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
-import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
+import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
@@ -32,19 +31,15 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     @Override
     public Long create(OrderCreateCmd orderCreateCmd) {
 
-        // todo 查询领域内的其他数据
+        // 可以查询领域内的其他数据，放入 cmd 中
+        OrderCreatedEvent orderCreatedEvent = orderCreateCmd.exec();
 
-        OrderCreateCmdResult orderCreateCmdResult = orderCreateCmd.exec();
-
-        return orderRepository.save(orderCreateCmdResult);
+        return orderRepository.save(orderCreatedEvent);
     }
 
     @Override
     public PagedResult<OrderAggregate> query(PagingParam<OrderQry> PagingParam) {
-
-        PagedResult<OrderAggregate> orderIPagedResult = orderRepository.query(PagingParam);
-
-        return orderIPagedResult;
+        return orderRepository.query(PagingParam);
     }
 
     @Override
@@ -55,8 +50,10 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         if (CollectionUtils.isEmpty(orderAggList)) {
             return;
         }
-        List<OrderDeleteCmdResult> orderDeleteCmdResults = orderDeleteCmd.exec(orderAggList);
+        orderDeleteCmd.setOrderAggList(orderAggList);
 
-        orderRepository.delete(orderDeleteCmdResults);
+        List<OrderDeletedEvent> orderDeletedEvents = orderDeleteCmd.exec();
+
+        orderRepository.delete(orderDeletedEvents);
     }
 }

@@ -2,9 +2,9 @@ package tk.gushizone.mall.order.domain.repository;
 
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
-import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
-import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
-import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
+import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
+import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 
 import java.util.List;
@@ -15,10 +15,11 @@ import java.util.List;
  */
 public interface OrderRepository {
 
-    Long save(OrderCreateCmdResult orderCreateCmdResult);
+    Long save(OrderCreatedEvent orderCreatedEvent);
 
     PagedResult<OrderAggregate> query(PagingParam<OrderQry> param);
 
-    void delete(List<OrderDeleteCmdResult> orderDeleteCmdResults);
+    void delete(List<OrderDeletedEvent> orderDeletedEvents);
 
+    void delete(OrderDeletedEvent orderDeletedEvent);
 }

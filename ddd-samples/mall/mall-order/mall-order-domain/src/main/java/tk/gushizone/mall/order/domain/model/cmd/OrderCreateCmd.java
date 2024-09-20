@@ -10,15 +10,14 @@ import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 import tk.gushizone.mall.order.domain.model.enums.OrderDict;
 import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
+import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * todo 通用抽取
- *
  * @author gushizone
- * @since 2022/10/18 18:01
+ * @since 2024/9/20
  */
 @Data
 public class OrderCreateCmd {
@@ -29,29 +28,24 @@ public class OrderCreateCmd {
 
     private List<OrderItemCmd> orderItems;
 
-    public OrderCreateCmdResult exec() {
-
-        OrderCreateCmdResult result = new OrderCreateCmdResult();
+    public OrderCreatedEvent exec() {
+        OrderCreatedEvent result = new OrderCreatedEvent();
 
         result.setOrder(buildOrder());
 
-        result.setOrderItems(buildOrderItem());
-
-        // 订单总价
-        List<BigDecimal> totalPrices = ModelUtils.map(result.getOrderItems(), OrderItem::getTotalPrice);
-        result.getOrder().setPayment(NumberUtil.add(totalPrices.toArray(new BigDecimal[0])));
+        result.setOrderItems(buildOrderItem(result.getOrder()));
 
         return result;
     }
 
-    private List<OrderItem> buildOrderItem() {
+    private List<OrderItem> buildOrderItem(Order order) {
         if (CollectionUtils.isEmpty(orderItems)) {
             throw BizException.of(OrderErrors.ORDER_ITEM_EMPTY);
         }
         List<OrderItem> results = Lists.newArrayListWithExpectedSize(orderItems.size());
         for (OrderItemCmd orderItemCmd : orderItems) {
             OrderItem result = new OrderItem();
-            result.setUserId(userId);
+            result.setUserId(order.getUserId());
 //            result.setOrderNo(); // todo
             result.setProductId(orderItemCmd.getProductId());
             result.setProductName(orderItemCmd.getProductName());
@@ -61,6 +55,9 @@ public class OrderCreateCmd {
             result.setTotalPrice(NumberUtil.mul(result.getCurrentUnitPrice(), result.getQuantity()));
             results.add(result);
         }
+        // 订单总价
+        List<BigDecimal> totalPrices = ModelUtils.map(results, OrderItem::getTotalPrice);
+        order.setPayment(NumberUtil.add(totalPrices.toArray(new BigDecimal[0])));
         return results;
     }
 

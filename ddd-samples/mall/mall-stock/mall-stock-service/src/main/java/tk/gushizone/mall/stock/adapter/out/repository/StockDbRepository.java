@@ -6,7 +6,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
-import tk.gushizone.infra.libs.core.rest.query.Pages;
+import tk.gushizone.infra.libs.core.mybatisplus.Pages;
 import tk.gushizone.mall.stock.adapter.out.repository.assembler.StockRepositoryAssembler;
 import tk.gushizone.mall.stock.domain.model.aggregate.StockAggregate;
 import tk.gushizone.mall.stock.domain.model.value.qry.StockQry;

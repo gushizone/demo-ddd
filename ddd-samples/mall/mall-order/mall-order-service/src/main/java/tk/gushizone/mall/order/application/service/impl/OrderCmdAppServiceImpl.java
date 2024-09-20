@@ -24,7 +24,7 @@ import tk.gushizone.mall.order.adapter.out.external.ProductClient;
 import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
 import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
-import tk.gushizone.mall.order.application.service.OrderQueryAppService;
+import tk.gushizone.mall.order.application.service.OrderQryAppService;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
@@ -47,7 +47,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     private OrderDomainService orderDomainService;
 
     @Resource
-    private OrderQueryAppService orderQueryAppService;
+    private OrderQryAppService orderQryAppService;
 
     @Resource
     private ProductClient productClient;
@@ -73,7 +73,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         List<StockApiRsp> stocksRsp = stockApi.query(SearchRestRequest.of(stockQryReq)).getData();
         Map<Long, StockApiRsp> productStockMap = ModelUtils.toMap(stocksRsp, StockApiRsp::getProductId);
 
-        OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCmd(req, productMap, productStockMap, loginUser);
+        OrderCreateCmd orderCreateCmd = OrderAppAssembler.toCreateCmd(req, productMap, productStockMap, loginUser);
         Long id = orderDomainService.create(orderCreateCmd);
 
         // todo event...
@@ -93,7 +93,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
         ServletOutputStream outputStream = getOutputStream(response, filename);
 
         // todo 使用函数式接口传递 工具类
-        SearchRestResponse<OrderRsp> pagedRestResp = orderQueryAppService.query(req);
+        SearchRestResponse<OrderRsp> pagedRestResp = orderQryAppService.query(req);
 
         List<OrderExp> results = OrderAppAssembler.toExp(pagedRestResp.getData());
 

@@ -46,6 +46,8 @@
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
 
         <!--  web  -->
+        <jakarta.validation-api>3.0.2</jakarta.validation-api>
+        <swagger.version>2.2.19</swagger.version>
         <knife4j.version>4.4.0</knife4j.version>
 
         <!--  excel  -->
@@ -120,6 +122,16 @@
                 <version>${transmittable-thread-local.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation-api}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations-jakarta</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
