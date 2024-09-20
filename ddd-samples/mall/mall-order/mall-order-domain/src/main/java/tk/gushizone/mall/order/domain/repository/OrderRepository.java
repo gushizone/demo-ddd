@@ -4,8 +4,10 @@ import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
-import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
+
+import java.util.List;
 
 /**
  * @author gushizone
@@ -17,5 +19,6 @@ public interface OrderRepository {
 
     PagedResult<OrderAggregate> query(PagingParam<OrderQry> param);
 
-    void delete(OrderDeleteCmd orderDeleteCmd);
+    void delete(List<OrderDeleteCmdResult> orderDeleteCmdResults);
+
 }

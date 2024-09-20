@@ -11,9 +11,10 @@ import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
 import tk.gushizone.mall.order.adapter.out.repository.dto.OrderCreateDmResult;
+import tk.gushizone.mall.order.adapter.out.repository.dto.OrderDeleteDmResult;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
-import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
@@ -76,13 +77,20 @@ public class OrderDbRepository implements OrderRepository {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(OrderDeleteCmd orderDeleteCmd) {
+    public void delete(List<OrderDeleteCmdResult> orderDeleteCmdResults) {
 
-        orderMapper.deleteByIds(orderDeleteCmd.getRecords());
+        List<OrderDeleteDmResult> orderDeleteDmResults = OrderRepositoryAssembler.toDmResult(orderDeleteCmdResults);
 
-        List<OrderItem> orderItems = orderItemMapper.lambdaQuery()
-                .in(OrderItem::getOrderId, orderDeleteCmd.getRecords())
-                .list();
-        orderItemMapper.deleteByIds(orderItems);
+        for (OrderDeleteDmResult orderDeleteDmResult : orderDeleteDmResults) {
+            delete(orderDeleteDmResult);
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(OrderDeleteDmResult orderDeleteDmResult) {
+
+        orderMapper.deleteById(orderDeleteDmResult.getOrder());
+
+        orderItemMapper.deleteByIds(orderDeleteDmResult.getOrderItems());
     }
 }

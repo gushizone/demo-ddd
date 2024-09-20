@@ -6,8 +6,10 @@ import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.converter.OrderItemRepositoryConvertor;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.converter.OrderRepositoryConvertor;
 import tk.gushizone.mall.order.adapter.out.repository.dto.OrderCreateDmResult;
+import tk.gushizone.mall.order.adapter.out.repository.dto.OrderDeleteDmResult;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
+import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.Order;
 import tk.gushizone.mall.order.infrastructure.repository.db.po.OrderItem;
 
@@ -34,6 +36,20 @@ public class OrderRepositoryAssembler {
 
             result.setOrderItems(OrderRepositoryConvertor.INSTANCE.toEntity(orderToItemMap.getOrDefault(order.getId(), Lists.newArrayList())));
 
+            results.add(result);
+        }
+        return results;
+    }
+
+    public static List<OrderDeleteDmResult> toDmResult(List<OrderDeleteCmdResult> orderDeleteCmdResults) {
+        if (CollectionUtils.isEmpty(orderDeleteCmdResults)) {
+            return Lists.newArrayList();
+        }
+        List<OrderDeleteDmResult> results = Lists.newArrayListWithExpectedSize(orderDeleteCmdResults.size());
+        for (OrderDeleteCmdResult cmd : orderDeleteCmdResults) {
+            OrderDeleteDmResult result = new OrderDeleteDmResult();
+            result.setOrder(OrderRepositoryConvertor.INSTANCE.toPo(cmd.getOrder()));
+            result.setOrderItems(OrderItemRepositoryConvertor.INSTANCE.toPo(cmd.getOrderItems()));
             results.add(result);
         }
         return results;

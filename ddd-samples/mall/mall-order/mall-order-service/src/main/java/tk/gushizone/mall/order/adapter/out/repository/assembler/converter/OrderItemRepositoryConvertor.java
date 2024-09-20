@@ -18,5 +18,8 @@ public interface OrderItemRepositoryConvertor {
 
     OrderItem toPo(OrderItemEntity orderItem);
 
+    List<OrderItem> toPo(List<OrderItemEntity> orderItems);
+
     List<OrderItem> toPoList(List<OrderItemEntity> list);
+
 }

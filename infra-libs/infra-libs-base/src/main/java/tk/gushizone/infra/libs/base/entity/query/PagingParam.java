@@ -29,4 +29,8 @@ public class PagingParam<T> {
         pagingParam.setParam(param);
         return pagingParam;
     }
+
+    public static <T> PagingParam<T> of(T param) {
+        return of(PagingData.noPaging(), param);
+    }
 }
