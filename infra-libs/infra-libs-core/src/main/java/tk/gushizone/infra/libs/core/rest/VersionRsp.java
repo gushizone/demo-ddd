@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class RevisionRsp {
+public class VersionRsp {
 
     @Schema(description = "主键")
     private Long id;
@@ -28,6 +28,6 @@ public class RevisionRsp {
     private Date updatedAt;
 
     @Schema(description = "版本号")
-    private Integer revision;
+    private Integer version;
 
 }

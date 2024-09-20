@@ -14,11 +14,11 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public abstract class RevisionEntity extends BaseEntity {
+public abstract class VersionEntity extends BaseEntity {
 
     /**
      * 版本号:乐观锁
      */
     @Version
-    private Integer revision;
+    private Integer version;
 }

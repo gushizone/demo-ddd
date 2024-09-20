@@ -38,11 +38,13 @@ public class OrderDbRepository implements OrderRepository {
     @Transactional(rollbackFor = Exception.class)
     public Long save(OrderCreatedEvent orderCreatedEvent) {
 
-        orderMapper.insert(orderCreatedEvent.getOrder());
+        OrderAggregate orderAggregate = orderCreatedEvent.getOrderAggregate();
 
-        orderCreatedEvent.linking();
-        orderItemMapper.insert(orderCreatedEvent.getOrderItems());
-        return orderCreatedEvent.getOrder().getId();
+        orderMapper.insert(orderAggregate.getRoot());
+
+        orderAggregate.linking();
+        orderItemMapper.insert(orderAggregate.getOrderItems());
+        return orderAggregate.getRoot().getId();
     }
 
     @Override

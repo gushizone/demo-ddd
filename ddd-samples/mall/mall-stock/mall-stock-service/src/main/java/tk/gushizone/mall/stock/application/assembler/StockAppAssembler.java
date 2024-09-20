@@ -8,6 +8,10 @@ import tk.gushizone.mall.stock.dto.rsp.StockApiRsp;
 
 import java.util.List;
 
+/**
+ * @author gushizone
+ * @since 2024/9/20
+ */
 public class StockAppAssembler {
 
     public static StockQry toQry(StockQryApiReq req) {

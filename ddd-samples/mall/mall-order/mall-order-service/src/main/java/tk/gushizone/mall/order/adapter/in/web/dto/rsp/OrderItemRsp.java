@@ -1,7 +1,7 @@
 package tk.gushizone.mall.order.adapter.in.web.dto.rsp;
 
 import java.math.BigDecimal;
-import tk.gushizone.infra.libs.core.rest.RevisionRsp;
+import tk.gushizone.infra.libs.core.rest.VersionRsp;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @Schema(name = "OrderItem", description = "订单项")
-public class OrderItemRsp extends RevisionRsp {
+public class OrderItemRsp extends VersionRsp {
 
     @Schema(description = "用户id")
     private Long userId;

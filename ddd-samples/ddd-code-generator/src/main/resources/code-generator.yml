@@ -24,7 +24,7 @@ strategy:
   #    - order
   #    - order_item
   entity:
-    superClass: tk.gushizone.infra.libs.base.entity.RevisionEntity
+    superClass: tk.gushizone.infra.libs.base.entity.VersionEntity
   #    naming: underline_to_camel
   #    idType: AUTO
   mapper:

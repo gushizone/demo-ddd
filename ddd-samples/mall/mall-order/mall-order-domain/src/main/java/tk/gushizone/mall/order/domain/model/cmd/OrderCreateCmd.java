@@ -8,6 +8,7 @@ import tk.gushizone.infra.libs.base.exception.BizException;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.enums.OrderDict;
 import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
 import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
@@ -31,10 +32,11 @@ public class OrderCreateCmd {
     public OrderCreatedEvent exec() {
         OrderCreatedEvent result = new OrderCreatedEvent();
 
-        result.setOrder(buildOrder());
+        OrderAggregate orderAggregate = new OrderAggregate();
+        orderAggregate.setRoot(buildOrder());
+        orderAggregate.setOrderItems(buildOrderItem(orderAggregate.getRoot()));
 
-        result.setOrderItems(buildOrderItem(result.getOrder()));
-
+        result.setOrderAggregate(orderAggregate);
         return result;
     }
 

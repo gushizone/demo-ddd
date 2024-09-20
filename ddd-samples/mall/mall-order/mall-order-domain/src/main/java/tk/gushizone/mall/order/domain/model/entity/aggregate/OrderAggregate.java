@@ -41,4 +41,13 @@ public class OrderAggregate extends BaseAggregate<Order> {
         }
         return results;
     }
+
+    public void linking() {
+        if (CollectionUtils.isEmpty(orderItems)) {
+            return;
+        }
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setOrderId(getRoot().getId());
+        }
+    }
 }
