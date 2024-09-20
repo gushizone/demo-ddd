@@ -6,8 +6,8 @@ import lombok.Data;
 import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.exception.BizException;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
-import tk.gushizone.mall.order.domain.model.entity.OrderEntity;
-import tk.gushizone.mall.order.domain.model.entity.OrderItemEntity;
+import tk.gushizone.mall.order.domain.model.entity.Order;
+import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 import tk.gushizone.mall.order.domain.model.enums.OrderDict;
 import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
 
@@ -38,19 +38,19 @@ public class OrderCreateCmd {
         result.setOrderItems(buildOrderItem());
 
         // 订单总价
-        List<BigDecimal> totalPrices = ModelUtils.map(result.getOrderItems(), OrderItemEntity::getTotalPrice);
+        List<BigDecimal> totalPrices = ModelUtils.map(result.getOrderItems(), OrderItem::getTotalPrice);
         result.getOrder().setPayment(NumberUtil.add(totalPrices.toArray(new BigDecimal[0])));
 
         return result;
     }
 
-    private List<OrderItemEntity> buildOrderItem() {
+    private List<OrderItem> buildOrderItem() {
         if (CollectionUtils.isEmpty(orderItems)) {
             throw BizException.of(OrderErrors.ORDER_ITEM_EMPTY);
         }
-        List<OrderItemEntity> results = Lists.newArrayListWithExpectedSize(orderItems.size());
+        List<OrderItem> results = Lists.newArrayListWithExpectedSize(orderItems.size());
         for (OrderItemCmd orderItemCmd : orderItems) {
-            OrderItemEntity result = new OrderItemEntity();
+            OrderItem result = new OrderItem();
             result.setUserId(userId);
 //            result.setOrderNo(); // todo
             result.setProductId(orderItemCmd.getProductId());
@@ -64,12 +64,12 @@ public class OrderCreateCmd {
         return results;
     }
 
-    private OrderEntity buildOrder() {
-        OrderEntity orderEntity = new OrderEntity();
+    private Order buildOrder() {
+        Order order = new Order();
 //        orderEntity.setOrderNo();
-        orderEntity.setUserId(userId);
-        orderEntity.setShippingId(shippingId);
-        orderEntity.setOrderStatus(OrderDict.ORDER_STATUS_UNPAID.code());
-        return orderEntity;
+        order.setUserId(userId);
+        order.setShippingId(shippingId);
+        order.setOrderStatus(OrderDict.ORDER_STATUS_UNPAID.code());
+        return order;
     }
 }

@@ -1,6 +1,6 @@
 package tk.gushizone.mall.order.adapter.out.external;
 
-import tk.gushizone.mall.order.adapter.out.external.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ProductClient {
 
-    List<Product> queryByIds(List<Long> productIds);
+    List<ProductApiRsp> queryByIds(List<Long> productIds);
 }

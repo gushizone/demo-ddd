@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @since 2022/10/19 10:44
  */
 @Data
-public class Product {
+public class ProductApiRsp {
 
     /**
      * 商品id

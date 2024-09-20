@@ -10,17 +10,15 @@ import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.rest.query.Pages;
 import tk.gushizone.mall.order.adapter.out.repository.assembler.OrderRepositoryAssembler;
-import tk.gushizone.mall.order.adapter.out.repository.dto.OrderCreateDmResult;
-import tk.gushizone.mall.order.adapter.out.repository.dto.OrderDeleteDmResult;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmdResult;
 import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmdResult;
+import tk.gushizone.mall.order.domain.model.entity.Order;
+import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderMapper;
-import tk.gushizone.mall.order.infrastructure.repository.db.po.Order;
-import tk.gushizone.mall.order.infrastructure.repository.db.po.OrderItem;
 
 import java.util.List;
 import java.util.Map;
@@ -41,14 +39,12 @@ public class OrderDbRepository implements OrderRepository {
     @Transactional(rollbackFor = Exception.class)
     public Long save(OrderCreateCmdResult orderCreateCmdResult) {
 
-        OrderCreateDmResult result = OrderRepositoryAssembler.toDmResult(orderCreateCmdResult);
+        orderMapper.insert(orderCreateCmdResult.getOrder());
 
-        orderMapper.insert(result.getOrder());
+        orderCreateCmdResult.linking();
+        orderItemMapper.insert(orderCreateCmdResult.getOrderItems());
 
-        result.linking();
-        orderItemMapper.insert(result.getOrderItems());
-
-        return result.getOrder().getId();
+        return orderCreateCmdResult.getOrder().getId();
     }
 
     @Override
@@ -79,15 +75,13 @@ public class OrderDbRepository implements OrderRepository {
     @Transactional(rollbackFor = Exception.class)
     public void delete(List<OrderDeleteCmdResult> orderDeleteCmdResults) {
 
-        List<OrderDeleteDmResult> orderDeleteDmResults = OrderRepositoryAssembler.toDmResult(orderDeleteCmdResults);
-
-        for (OrderDeleteDmResult orderDeleteDmResult : orderDeleteDmResults) {
-            delete(orderDeleteDmResult);
+        for (OrderDeleteCmdResult orderDeleteCmdResult : orderDeleteCmdResults) {
+            delete(orderDeleteCmdResult);
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delete(OrderDeleteDmResult orderDeleteDmResult) {
+    public void delete(OrderDeleteCmdResult orderDeleteDmResult) {
 
         orderMapper.deleteById(orderDeleteDmResult.getOrder());
 

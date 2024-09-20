@@ -1,14 +1,15 @@
 package tk.gushizone.infra.libs.base.entity;
 
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * 带版本号的实体
- * -
+ * 版本数据模型
+ *
  * @author gushizone
- * @since 2024/9/16
+ * @since 2024/9/15
  */
 @Getter
 @Setter
@@ -18,5 +19,6 @@ public abstract class RevisionEntity extends BaseEntity {
     /**
      * 版本号:乐观锁
      */
+    @Version
     private Integer revision;
 }

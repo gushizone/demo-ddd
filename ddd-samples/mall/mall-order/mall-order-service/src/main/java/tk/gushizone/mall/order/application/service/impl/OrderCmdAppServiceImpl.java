@@ -21,7 +21,7 @@ import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.adapter.out.external.ProductClient;
-import tk.gushizone.mall.order.adapter.out.external.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
 import tk.gushizone.mall.order.application.assembler.OrderAppAssembler;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
 import tk.gushizone.mall.order.application.service.OrderQueryAppService;
@@ -64,8 +64,8 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
 
         // 商品
         List<Long> productIds = ModelUtils.map(req.getOrderItems(), OrderItemCmdReq::getProductId);
-        List<Product> products = productClient.queryByIds(productIds);
-        Map<Long, Product> productMap = ModelUtils.toMap(products, Product::getId);
+        List<ProductApiRsp> products = productClient.queryByIds(productIds);
+        Map<Long, ProductApiRsp> productMap = ModelUtils.toMap(products, ProductApiRsp::getId);
 
         // 库存
         StockQryApiReq stockQryReq = new StockQryApiReq()

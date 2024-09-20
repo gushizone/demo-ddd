@@ -12,7 +12,6 @@ import org.apache.ibatis.annotations.Mapper;
 import tk.gushizone.ddd.generator.util.YamlHelper;
 import tk.gushizone.infra.libs.base.constant.DbColumns;
 import tk.gushizone.infra.libs.base.entity.RevisionEntity;
-import tk.gushizone.infra.libs.core.mybatisplus.RevisionModel;
 import tk.gushizone.infra.libs.core.rest.RevisionRsp;
 
 import java.util.*;
@@ -96,7 +95,7 @@ public class CodeGenerator {
 
         Set<String> importPackages = tableInfo.getImportPackages().stream()
                 .filter(e -> !TableName.class.getName().equals(e))
-                .filter(e -> !RevisionModel.class.getName().equals(e))
+//                .filter(e -> !RevisionModel.class.getName().equals(e))
                 .collect(Collectors.toSet());
         importPackages.add(RevisionEntity.class.getName());
         resultMap.put("importPackages", new ArrayList<>(importPackages));
@@ -117,7 +116,7 @@ public class CodeGenerator {
 
         Set<String> importPackages = tableInfo.getImportPackages().stream()
                 .filter(e -> !TableName.class.getName().equals(e))
-                .filter(e -> !RevisionModel.class.getName().equals(e))
+//                .filter(e -> !RevisionModel.class.getName().equals(e))
                 .collect(Collectors.toSet());
         importPackages.add(RevisionRsp.class.getName());
         resultMap.put("importPackages", new ArrayList<>(importPackages));

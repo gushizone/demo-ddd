@@ -1,8 +1,9 @@
 package tk.gushizone.mall.order.domain.model.cmd;
 
 import lombok.Data;
-import tk.gushizone.mall.order.domain.model.entity.OrderEntity;
-import tk.gushizone.mall.order.domain.model.entity.OrderItemEntity;
+import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.mall.order.domain.model.entity.Order;
+import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 
 import java.util.List;
 
@@ -13,7 +14,17 @@ import java.util.List;
 @Data
 public class OrderCreateCmdResult {
 
-    private OrderEntity order;
+    private Order order;
 
-    private List<OrderItemEntity> orderItems;
+    private List<OrderItem> orderItems;
+
+
+    public void linking() {
+        if (CollectionUtils.isEmpty(orderItems)) {
+            return;
+        }
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setOrderId(order.getId());
+        }
+    }
 }

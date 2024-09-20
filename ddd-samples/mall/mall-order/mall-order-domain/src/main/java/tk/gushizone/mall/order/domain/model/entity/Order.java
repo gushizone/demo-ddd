@@ -1,6 +1,8 @@
 package tk.gushizone.mall.order.domain.model.entity;
 
 import java.math.BigDecimal;
+
+import com.baomidou.mybatisplus.annotation.TableName;
 import tk.gushizone.infra.libs.base.entity.RevisionEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +19,8 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class OrderEntity extends RevisionEntity {
+@TableName("`order`")
+public class Order extends RevisionEntity {
 
     /**
      * 订单号

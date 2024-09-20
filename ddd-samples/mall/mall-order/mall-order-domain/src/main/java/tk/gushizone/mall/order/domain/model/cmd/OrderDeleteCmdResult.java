@@ -2,9 +2,8 @@ package tk.gushizone.mall.order.domain.model.cmd;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
-import tk.gushizone.mall.order.domain.model.entity.OrderEntity;
-import tk.gushizone.mall.order.domain.model.entity.OrderItemEntity;
+import tk.gushizone.mall.order.domain.model.entity.Order;
+import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class OrderDeleteCmdResult {
 
-    private OrderEntity order;
+    private Order order;
 
-    private List<OrderItemEntity> orderItems;
+    private List<OrderItem> orderItems;
 }

@@ -3,7 +3,7 @@ package tk.gushizone.mall.order.adapter.out.external;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
-import tk.gushizone.mall.order.adapter.out.external.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,14 +17,14 @@ public class ProductClientImpl implements ProductClient {
 
 
     @Override
-    public List<Product> queryByIds(List<Long> productIds) {
+    public List<ProductApiRsp> queryByIds(List<Long> productIds) {
         if (CollectionUtils.isEmpty(productIds)) {
             return Lists.newArrayList();
         }
-        List<Product> results = Lists.newArrayListWithExpectedSize(productIds.size());
+        List<ProductApiRsp> results = Lists.newArrayListWithExpectedSize(productIds.size());
         for (Long productId : productIds) {
 
-            Product result = new Product();
+            ProductApiRsp result = new ProductApiRsp();
             result.setId(productId);
             result.setName("产品" + productId);
             result.setImage("www.demo" + productId + ".png");

@@ -9,7 +9,7 @@ import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
-import tk.gushizone.mall.order.adapter.out.external.dto.Product;
+import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderAppConvertor;
 import tk.gushizone.mall.order.application.assembler.convertor.OrderItemAppConvertor;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class OrderAppAssembler {
 
     public static OrderCreateCmd toCmd(OrderCreateCmdReq req,
-                                       Map<Long, Product> productMap,
+                                       Map<Long, ProductApiRsp> productMap,
                                        Map<Long, StockApiRsp> productStockMap,
                                        LoginUser loginUser) {
         OrderCreateCmd result = OrderAppConvertor.INSTANCE.toCmd(req);
@@ -38,29 +38,29 @@ public class OrderAppAssembler {
         List<OrderItemCmd> orderItems = Lists.newArrayListWithExpectedSize(req.getOrderItems().size());
         for (OrderItemCmdReq orderItem : req.getOrderItems()) {
 
-            Product product = productMap.get(orderItem.getProductId());
+            ProductApiRsp productApiRsp = productMap.get(orderItem.getProductId());
             StockApiRsp stock = productStockMap.get(orderItem.getProductId());
 
-            orderItems.add(orderItemOf(orderItem, product, stock));
+            orderItems.add(orderItemOf(orderItem, productApiRsp, stock));
         }
         result.setOrderItems(orderItems);
         return result;
     }
 
     private static OrderItemCmd orderItemOf(OrderItemCmdReq orderItemReq,
-                                            Product product,
+                                            ProductApiRsp productApiRsp,
                                             StockApiRsp stock) {
-        if (product == null) {
+        if (productApiRsp == null) {
             throw BizException.of(OrderAppErrors.PRODUCT_NOT_FOUND);
         }
         if (stock == null) {
             throw BizException.of(OrderAppErrors.PRODUCT_NOT_FOUND);
         }
         OrderItemCmd orderItemCmd = new OrderItemCmd();
-        orderItemCmd.setProductId(product.getId());
-        orderItemCmd.setProductName(product.getName());
-        orderItemCmd.setProductImage(product.getImage());
-        orderItemCmd.setCurrentUnitPrice(product.getCurrentUnitPrice());
+        orderItemCmd.setProductId(productApiRsp.getId());
+        orderItemCmd.setProductName(productApiRsp.getName());
+        orderItemCmd.setProductImage(productApiRsp.getImage());
+        orderItemCmd.setCurrentUnitPrice(productApiRsp.getCurrentUnitPrice());
         orderItemCmd.setQuantity(orderItemReq.getQuantity());
 
         return orderItemCmd;
@@ -81,7 +81,6 @@ public class OrderAppAssembler {
             OrderRsp result = OrderAppConvertor.INSTANCE.toRsp(record);
 
             result.setOrderItems(OrderItemAppConvertor.INSTANCE.toRsp(record.getOrderItems()));
-
             results.add(result);
         }
         return results;
