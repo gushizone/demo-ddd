@@ -2,6 +2,7 @@ package tk.gushizone.mall.order.domain.model.entity.aggregate;
 
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.commons.collections4.CollectionUtils;
@@ -26,6 +27,10 @@ public class OrderAggregate extends BaseAggregate<Order> {
      */
     private List<OrderItem> orderItems;
 
+    public OrderAggregate(Order root) {
+        super(root);
+    }
+
     public static List<OrderAggregate> of(List<Order> orders,
                                           Map<Long, List<OrderItem>> orderToItemMap) {
         if (CollectionUtils.isEmpty(orders)) {
@@ -34,20 +39,20 @@ public class OrderAggregate extends BaseAggregate<Order> {
         List<OrderAggregate> results = Lists.newArrayListWithExpectedSize(orders.size());
         for (Order order : orders) {
 
-            OrderAggregate result = new OrderAggregate();
-            result.setRoot(order);
+            OrderAggregate result = new OrderAggregate(order);
             result.setOrderItems(orderToItemMap.getOrDefault(order.getId(), Lists.newArrayList()));
             results.add(result);
         }
         return results;
     }
 
+    // 共通抽取
     public void linking() {
         if (CollectionUtils.isEmpty(orderItems)) {
             return;
         }
         for (OrderItem orderItem : orderItems) {
-            orderItem.setOrderId(getRoot().getId());
+            orderItem.setOrderId(getId());
         }
     }
 }

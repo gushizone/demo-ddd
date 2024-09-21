@@ -19,5 +19,5 @@ public class RevisionRecordReq implements RevisionRecord {
 
     @NotNull
     @Schema(description = "版本号")
-    private Integer revision;
+    private Integer version;
 }

@@ -4,16 +4,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.mybatisplus.Pages;
-import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
-import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
-import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
@@ -35,16 +32,13 @@ public class OrderDbRepository implements OrderRepository {
     private OrderItemMapper orderItemMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Long save(OrderCreatedEvent orderCreatedEvent) {
-
-        OrderAggregate orderAggregate = orderCreatedEvent.getOrderAggregate();
+    public Long save(OrderAggregate orderAggregate) {
 
         orderMapper.insert(orderAggregate.getRoot());
-
+        // 关联子项
         orderAggregate.linking();
         orderItemMapper.insert(orderAggregate.getOrderItems());
-        return orderAggregate.getRoot().getId();
+        return orderAggregate.getId();
     }
 
     @Override
@@ -67,24 +61,19 @@ public class OrderDbRepository implements OrderRepository {
         return Pages.toResult(orderPage, OrderAggregate.of(orderPage.getRecords(), orderToItemMap));
     }
 
-    /**
-     * 版本控制，应该通过po更新 todo
-     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(List<OrderDeletedEvent> orderDeletedEvents) {
+    public void delete(List<OrderAggregate> orderAggregates) {
 
-        for (OrderDeletedEvent orderDeletedEvent : orderDeletedEvents) {
-            delete(orderDeletedEvent);
+        for (OrderAggregate orderAggregate : orderAggregates) {
+            delete(orderAggregate);
         }
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(OrderDeletedEvent orderDeletedEvent) {
+    public void delete(OrderAggregate orderAggregate) {
 
-        orderMapper.deleteById(orderDeletedEvent.getOrder());
+        orderMapper.deleteById(orderAggregate.getRoot());
 
-        orderItemMapper.deleteByIds(orderDeletedEvent.getOrderItems());
+        orderItemMapper.deleteByIds(orderAggregate.getOrderItems());
     }
 }

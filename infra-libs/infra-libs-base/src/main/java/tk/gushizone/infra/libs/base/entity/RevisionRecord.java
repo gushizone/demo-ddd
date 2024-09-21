@@ -13,7 +13,7 @@ public interface RevisionRecord {
 
     void setId(Long id);
 
-    Integer getRevision();
+    Integer getVersion();
 
-    void setRevision(Integer revision);
+    void setVersion(Integer revision);
 }

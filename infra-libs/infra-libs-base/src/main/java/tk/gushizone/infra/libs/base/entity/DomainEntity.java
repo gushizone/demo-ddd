@@ -6,7 +6,8 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * 版本数据模型
+ * 领域实体
+ * - 带版本号
  *
  * @author gushizone
  * @since 2024/9/15
@@ -14,7 +15,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public abstract class VersionEntity extends BaseEntity {
+public abstract class DomainEntity extends BaseEntity {
 
     /**
      * 版本号:乐观锁

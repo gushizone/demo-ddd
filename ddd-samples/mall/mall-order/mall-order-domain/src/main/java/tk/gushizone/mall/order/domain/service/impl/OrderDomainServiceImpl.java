@@ -7,11 +7,9 @@ import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 import tk.gushizone.infra.libs.base.entity.query.PagedResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingParam;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
-import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.cmd.OrderCreateCmd;
-import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
 import tk.gushizone.mall.order.domain.model.cmd.OrderDeleteCmd;
-import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
+import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
 import tk.gushizone.mall.order.domain.service.OrderDomainService;
@@ -32,9 +30,9 @@ public class OrderDomainServiceImpl implements OrderDomainService {
     public Long create(OrderCreateCmd orderCreateCmd) {
 
         // 可以查询领域内的其他数据，放入 cmd 中
-        OrderCreatedEvent orderCreatedEvent = orderCreateCmd.exec();
+        OrderAggregate orderAggregate  = orderCreateCmd.exec();
 
-        return orderRepository.save(orderCreatedEvent);
+        return orderRepository.save(orderAggregate);
     }
 
     @Override
@@ -50,10 +48,10 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         if (CollectionUtils.isEmpty(orderAggList)) {
             return;
         }
-        orderDeleteCmd.setOrderAggList(orderAggList);
+        orderDeleteCmd.setOrderAggregates(orderAggList);
 
-        List<OrderDeletedEvent> orderDeletedEvents = orderDeleteCmd.exec();
+        List<OrderAggregate> orderAggregates = orderDeleteCmd.exec();
 
-        orderRepository.delete(orderDeletedEvents);
+        orderRepository.delete(orderAggregates);
     }
 }

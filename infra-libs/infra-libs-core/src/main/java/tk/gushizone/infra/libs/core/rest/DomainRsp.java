@@ -7,10 +7,16 @@ import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+/**
+ * 领域响应
+ *
+ * @author zhangwei
+ * @since 2024/9/21
+ */
 @Getter
 @Setter
 @Accessors(chain = true)
-public class VersionRsp {
+public class DomainRsp {
 
     @Schema(description = "主键")
     private Long id;

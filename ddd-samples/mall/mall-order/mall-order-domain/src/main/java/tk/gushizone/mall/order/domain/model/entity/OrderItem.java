@@ -2,7 +2,7 @@ package tk.gushizone.mall.order.domain.model.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
-import tk.gushizone.infra.libs.base.entity.VersionEntity;
+import tk.gushizone.infra.libs.base.entity.DomainEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("order_item")
-public class OrderItem extends VersionEntity {
+public class OrderItem extends DomainEntity {
 
     /**
      * 用户id

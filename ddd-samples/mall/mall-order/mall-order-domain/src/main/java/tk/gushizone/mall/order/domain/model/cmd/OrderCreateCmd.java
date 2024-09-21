@@ -11,7 +11,6 @@ import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.enums.OrderDict;
 import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
-import tk.gushizone.mall.order.domain.model.event.OrderCreatedEvent;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,15 +28,12 @@ public class OrderCreateCmd {
 
     private List<OrderItemCmd> orderItems;
 
-    public OrderCreatedEvent exec() {
-        OrderCreatedEvent result = new OrderCreatedEvent();
+    public OrderAggregate exec() {
 
-        OrderAggregate orderAggregate = new OrderAggregate();
-        orderAggregate.setRoot(buildOrder());
+        OrderAggregate orderAggregate = new OrderAggregate(buildOrder());
         orderAggregate.setOrderItems(buildOrderItem(orderAggregate.getRoot()));
 
-        result.setOrderAggregate(orderAggregate);
-        return result;
+        return orderAggregate;
     }
 
     private List<OrderItem> buildOrderItem(Order order) {

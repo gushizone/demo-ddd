@@ -7,14 +7,15 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.auth.LoginUser;
 import tk.gushizone.infra.libs.core.auth.LoginUserHolder;
-import tk.gushizone.infra.libs.core.rest.RevisionRecordReq;
-import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
-import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
+import tk.gushizone.infra.libs.core.rest.RevisionRecordReq;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
 import tk.gushizone.mall.order.adapter.in.web.dto.excel.exp.OrderExp;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq;
@@ -37,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * todo 分布式事务控制
+ *
  * @author gushizone
  * @since 2022/10/18 16:28
  */
@@ -57,6 +60,7 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public RestResponse<Long> create(OrderCreateCmdReq req) {
 
         // 用户
@@ -82,10 +86,12 @@ public class OrderCmdAppServiceImpl implements OrderCmdAppService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void delete(RevisionRecordReq req) {
         orderDomainService.delete(new OrderDeleteCmd().setRecords(Lists.newArrayList(req)));
     }
 
+    // todo 这个应该在 query 中
     @Override
     public void exportData(HttpServletResponse response, SearchRestRequest<OrderQryReq> req) {
 

@@ -4,10 +4,10 @@ import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.collections4.CollectionUtils;
+import tk.gushizone.infra.libs.base.entity.BaseAggregate;
 import tk.gushizone.infra.libs.base.entity.RevisionRecord;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.domain.model.entity.aggregate.OrderAggregate;
-import tk.gushizone.mall.order.domain.model.event.OrderDeletedEvent;
 
 import java.util.List;
 import java.util.Map;
@@ -24,20 +24,20 @@ public class OrderDeleteCmd {
 
     private List<RevisionRecord> records;
 
-    private List<OrderAggregate> orderAggList;
+    private List<OrderAggregate> orderAggregates;
 
-    public List<OrderDeletedEvent> exec() {
-        if (CollectionUtils.isEmpty(orderAggList)) {
+    public List<OrderAggregate> exec() {
+        if (CollectionUtils.isEmpty(orderAggregates)) {
             return Lists.newArrayList();
         }
-        Map<Long, OrderAggregate> orderAggMap = ModelUtils.toMap(orderAggList, e -> e.getRoot().getId());
-        List<OrderDeletedEvent> results = Lists.newArrayListWithExpectedSize(orderAggList.size());
+        Map<Long, OrderAggregate> orderAggMap = ModelUtils.toMap(orderAggregates, BaseAggregate::getId);
+        List<OrderAggregate> results = Lists.newArrayListWithExpectedSize(records.size());
         for (RevisionRecord item : records) {
-            OrderDeletedEvent result = new OrderDeletedEvent();
-
-            OrderAggregate orderAggregate = orderAggMap.get(item.getId());
-            result.setOrder(orderAggregate.getRoot());
-            result.setOrderItems(orderAggregate.getOrderItems());
+            OrderAggregate result = orderAggMap.get(item.getId());
+            if (result == null) {
+                continue;
+            }
+            result.setVersion(item.getVersion());
             results.add(result);
         }
         return results;

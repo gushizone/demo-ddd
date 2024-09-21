@@ -11,8 +11,8 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.apache.ibatis.annotations.Mapper;
 import tk.gushizone.ddd.generator.util.YamlHelper;
 import tk.gushizone.infra.libs.base.constant.DbColumns;
-import tk.gushizone.infra.libs.base.entity.VersionEntity;
-import tk.gushizone.infra.libs.core.rest.VersionRsp;
+import tk.gushizone.infra.libs.base.entity.DomainEntity;
+import tk.gushizone.infra.libs.core.rest.DomainRsp;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -94,15 +94,15 @@ public class CodeGenerator {
 
         Set<String> importPackages = tableInfo.getImportPackages().stream()
                 .filter(e -> !TableName.class.getName().equals(e))
-                .filter(e -> !VersionEntity.class.getName().equals(e))
+                .filter(e -> !DomainEntity.class.getName().equals(e))
                 .collect(Collectors.toSet());
-        importPackages.add(VersionRsp.class.getName());
+        importPackages.add(DomainRsp.class.getName());
         resultMap.put("importPackages", new ArrayList<>(importPackages));
 
         resultMap.put("package", JSONUtil.parseObj(objectMap).getJSONObject("package").get("Parent")
                 + ".adapter.in.web.dto.rsp");
         resultMap.put("entity", tableInfo.getEntityName() + "Rsp");
-        resultMap.put("superEntityClass", VersionRsp.class.getSimpleName());
+        resultMap.put("superEntityClass", DomainRsp.class.getSimpleName());
 
         resultMap.put("springdoc", true);
         return resultMap;
