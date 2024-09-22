@@ -13,8 +13,7 @@
     <artifactId>mall-stock</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mall-stock-api</module>
-        <module>mall-stock-service</module>
+        <module>mall-stock-app</module>
         <module>mall-stock-domain</module>
     </modules>
 

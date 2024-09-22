@@ -13,8 +13,7 @@
     <artifactId>mall-order</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>mall-order-api</module>
-        <module>mall-order-service</module>
+        <module>mall-order-app</module>
         <module>mall-order-domain</module>
     </modules>
 

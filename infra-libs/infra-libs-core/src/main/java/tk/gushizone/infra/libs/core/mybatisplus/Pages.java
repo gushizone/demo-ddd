@@ -7,7 +7,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.constant.Orders;
 import tk.gushizone.infra.libs.base.entity.query.OrderEntry;
 import tk.gushizone.infra.libs.base.entity.query.PagedData;
-import tk.gushizone.infra.libs.base.entity.query.PagedResult;
+import tk.gushizone.infra.libs.base.entity.query.PageableResult;
 import tk.gushizone.infra.libs.base.entity.query.PagingData;
 
 import java.util.List;
@@ -23,12 +23,12 @@ public class Pages {
     /**
      * 转变为结果
      */
-    public static <T> PagedResult<T> toResult(Page<?> page, List<T> records) {
+    public static <T> PageableResult<T> toResult(Page<?> page, List<T> records) {
         if (CollectionUtils.isEmpty(records)) {
             records = Lists.newArrayList();
         }
-        PagedResult<T> pagedResult = new PagedResult<>();
-        pagedResult.setRecords(records);
+        PageableResult<T> pageableResult = new PageableResult<>();
+        pageableResult.setRecords(records);
 
         PagedData pagedData = new PagedData();
         pagedData.setCurrent(page.getCurrent());
@@ -41,16 +41,16 @@ public class Pages {
         }
         pagedData.setOrders(toEntry(page.orders()));
 
-        pagedResult.setPage(pagedData);
-        return pagedResult;
+        pageableResult.setPage(pagedData);
+        return pageableResult;
     }
 
     /**
      * 转变为结果
      */
     @SuppressWarnings("unchecked")
-    public static <T> PagedResult<T> toResult(Page<?> page) {
-        return (PagedResult<T>) toResult(page, page.getRecords());
+    public static <T> PageableResult<T> toResult(Page<?> page) {
+        return (PageableResult<T>) toResult(page, page.getRecords());
     }
 
 

@@ -8,10 +8,10 @@ import lombok.experimental.Accessors;
 import java.util.Date;
 
 /**
- * 领域响应
+ * 领域响应 todo
  *
- * @author zhangwei
- * @since 2024/9/21
+ * @author gushizone
+ * @since 2024/9/22
  */
 @Getter
 @Setter
