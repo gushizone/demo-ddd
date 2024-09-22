@@ -5,15 +5,15 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 带版本的记录
- * - 增删改的基础条件
+ * 带版本的记录 todo
+ * - 删改的基础条件
  *
  * @author gushizone
  * @since 2024/9/16
  */
 @Data
 @Schema(name = "CommandRecord", description = "标准的版本记录")
-public class CommandParam {
+public class CommandRecord {
 
     @NotNull
     @Schema(description = "主键")

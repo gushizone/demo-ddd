@@ -2,6 +2,7 @@ package tk.gushizone.infra.libs.base.entity.query;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
@@ -18,4 +19,11 @@ public class PageableResult<T> {
     private PagedData page;
 
     private List<T> records;
+
+    public T findFirst() {
+        if (CollectionUtils.isEmpty(records)) {
+            return null;
+        }
+        return records.get(0);
+    }
 }

@@ -12,9 +12,9 @@ import java.util.List;
  * @since 2022/10/19 11:25
  */
 @Mapper
-public interface OrderItemAppConvertor {
+public interface OrderItemAppConverter {
 
-    OrderItemAppConvertor INSTANCE = Mappers.getMapper(OrderItemAppConvertor.class);
+    OrderItemAppConverter INSTANCE = Mappers.getMapper(OrderItemAppConverter.class);
 
     List<OrderItemRsp> toRsp(List<OrderItem> orderItems);
 }

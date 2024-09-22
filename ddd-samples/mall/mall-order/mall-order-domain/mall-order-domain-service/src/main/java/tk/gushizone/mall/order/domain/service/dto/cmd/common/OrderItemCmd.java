@@ -1,4 +1,4 @@
-package tk.gushizone.mall.order.domain.service.dto.cmd;
+package tk.gushizone.mall.order.domain.service.dto.cmd.common;
 
 import lombok.Data;
 

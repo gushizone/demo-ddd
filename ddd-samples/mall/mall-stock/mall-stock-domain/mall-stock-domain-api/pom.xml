@@ -11,12 +11,4 @@
 
     <artifactId>mall-stock-domain-api</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>tk.gushizone</groupId>
-            <artifactId>infra-libs-base</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
 </project>

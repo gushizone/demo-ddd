@@ -11,7 +11,7 @@ import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
 import tk.gushizone.mall.order.domain.model.enums.OrderErrors;
 import tk.gushizone.mall.order.domain.service.dto.cmd.OrderCreateCmd;
-import tk.gushizone.mall.order.domain.service.dto.cmd.OrderItemCmd;
+import tk.gushizone.mall.order.domain.service.dto.cmd.common.OrderItemCmd;
 
 import java.math.BigDecimal;
 import java.util.List;

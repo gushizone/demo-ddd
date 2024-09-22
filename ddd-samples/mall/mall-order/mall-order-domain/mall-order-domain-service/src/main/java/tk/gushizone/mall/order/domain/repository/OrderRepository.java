@@ -13,11 +13,13 @@ import java.util.List;
  */
 public interface OrderRepository {
 
-    Long save(OrderAggregate orderAggregate);
+    Long create(OrderAggregate createResult);
 
     PageableResult<OrderAggregate> query(PageableParam<OrderQry> param);
 
-    void delete(List<OrderAggregate> orderAggregates);
+    void modify(OrderAggregate modifyResult);
 
-    void delete(OrderAggregate orderAggregate);
+    void delete(List<OrderAggregate> deleteResults);
+
+    void delete(OrderAggregate deleteResult);
 }

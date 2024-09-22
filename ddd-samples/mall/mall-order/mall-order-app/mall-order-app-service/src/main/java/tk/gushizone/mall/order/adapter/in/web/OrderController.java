@@ -11,12 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import tk.gushizone.infra.libs.base.entity.CommandParam;
-import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
-import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
+import tk.gushizone.infra.libs.base.entity.CommandRecord;
 import tk.gushizone.infra.libs.core.rest.RestResponse;
-import tk.gushizone.mall.order.adapter.in.web.dto.excel.exp.OrderExp;
+import tk.gushizone.infra.libs.core.rest.SearchRestRequest;
+import tk.gushizone.infra.libs.core.rest.SearchRestResponse;
+import tk.gushizone.mall.order.adapter.in.web.dto.excel.imp.OrderImp;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderCreateCmdReq;
+import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.OrderModifyCmdReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.application.service.OrderCmdAppService;
@@ -29,8 +30,8 @@ import java.util.List;
  * @author gushizone
  * @since 2022/10/18 11:40
  */
-@Tag(name = "订单")
 @Slf4j
+@Tag(name = "订单")
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -52,28 +53,27 @@ public class OrderController {
         return orderQryAppService.query(id);
     }
 
-    @Operation(summary = "编辑")
+    @Operation(summary = "修改")
     @PutMapping("/{id}")
-    public RestResponse<Long> edit(@PathVariable("id") Long id) {
-        return null;
+    public RestResponse<Long> modify(@PathVariable("id") Long id,
+                                     @RequestBody @Validated OrderModifyCmdReq req) {
+        return orderCmdAppService.modify(req);
     }
 
     @Operation(summary = "删除")
     @DeleteMapping("/{id}")
-    public RestResponse<Void> delete(@PathVariable("id") Long id, @RequestBody CommandParam req) {
+    public RestResponse<Void> delete(@PathVariable("id") Long id,
+                                     @RequestBody @Validated CommandRecord req) {
         orderCmdAppService.delete(req);
         return RestResponse.ok();
     }
 
-    /**
-     * todo
-     */
     @Operation(summary = "批量删除")
     @DeleteMapping("/delete")
-    public RestResponse<List<Long>> batchDelete(@RequestBody List<Long> ids) {
-        return null;
+    public RestResponse<List<Long>> delete(@RequestBody @Validated List<CommandRecord> req) {
+        orderCmdAppService.delete(req);
+        return RestResponse.ok();
     }
-
 
     @Operation(summary = "搜索")
     @PostMapping("/search")
@@ -81,29 +81,23 @@ public class OrderController {
         return orderQryAppService.query(req);
     }
 
-
     @Operation(summary = "导出")
     @PostMapping("/export")
-    public void exportData(HttpServletResponse response, @RequestBody @Validated SearchRestRequest<OrderQryReq> req) {
+    public void exportData(HttpServletResponse response,
+                           @RequestBody @Validated SearchRestRequest<OrderQryReq> req) {
         orderQryAppService.exportData(response, req);
     }
 
-    /**
-     * todo
-     */
     @Operation(summary = "获取导入模板")
     @GetMapping("/import-tpl")
     public void createImportTpl(HttpServletResponse response) {
         String filename = "订单导入模板";
         ServletOutputStream outputStream = ExcelUtils.getOutputStream(response, filename);
-        EasyExcel.write(outputStream, OrderExp.class)
+        EasyExcel.write(outputStream, OrderImp.class)
                 .sheet("订单")
                 .doWrite(Lists.newArrayList());
     }
 
-    /**
-     * todo
-     */
     @Operation(summary = "导入")
     @PostMapping("/import")
     public void importData(MultipartFile file) {

@@ -8,16 +8,15 @@ import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import java.util.List;
 
 /**
- * todo 通用抽取
  *
  * @author gushizone
  * @since 2022/10/18 18:01
  */
 @Data
 @Accessors(chain = true)
-public class OrderDeleteCmd {
+public class OrderModifyCmd extends CommandRecord {
 
-    private List<CommandRecord> records;
+    private Long shippingId;
 
-    private List<OrderAggregate> orderAggregates;
+    private OrderAggregate orderAggregate;
 }

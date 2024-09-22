@@ -3,7 +3,7 @@ package tk.gushizone.mall.order.domain.service.handler;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import tk.gushizone.infra.libs.base.entity.BaseAggregate;
-import tk.gushizone.infra.libs.base.entity.CommandParam;
+import tk.gushizone.infra.libs.base.entity.CommandRecord;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.service.dto.cmd.OrderDeleteCmd;
@@ -23,7 +23,7 @@ public class OrderDeleteCmdHandler {
         }
         Map<Long, OrderAggregate> orderAggMap = ModelUtils.toMap(orderDeleteCmd.getOrderAggregates(), BaseAggregate::getId);
         List<OrderAggregate> results = Lists.newArrayListWithExpectedSize(orderDeleteCmd.getRecords().size());
-        for (CommandParam item : orderDeleteCmd.getRecords()) {
+        for (CommandRecord item : orderDeleteCmd.getRecords()) {
             OrderAggregate result = orderAggMap.get(item.getId());
             if (result == null) {
                 continue;

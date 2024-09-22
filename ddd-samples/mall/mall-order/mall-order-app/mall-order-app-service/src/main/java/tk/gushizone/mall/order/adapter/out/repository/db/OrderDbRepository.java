@@ -1,18 +1,18 @@
-package tk.gushizone.mall.order.adapter.out.repository;
+package tk.gushizone.mall.order.adapter.out.repository.db;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.annotation.Resource;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Repository;
-import tk.gushizone.infra.libs.base.entity.query.PageableResult;
 import tk.gushizone.infra.libs.base.entity.query.PageableParam;
+import tk.gushizone.infra.libs.base.entity.query.PageableResult;
 import tk.gushizone.infra.libs.base.util.ModelUtils;
 import tk.gushizone.infra.libs.core.mybatisplus.Pages;
+import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.model.entity.Order;
 import tk.gushizone.mall.order.domain.model.entity.OrderItem;
-import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
-import tk.gushizone.mall.order.domain.service.dto.qry.OrderQry;
 import tk.gushizone.mall.order.domain.repository.OrderRepository;
+import tk.gushizone.mall.order.domain.service.dto.qry.OrderQry;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderItemMapper;
 import tk.gushizone.mall.order.infrastructure.repository.db.mapper.OrderMapper;
 
@@ -32,13 +32,13 @@ public class OrderDbRepository implements OrderRepository {
     private OrderItemMapper orderItemMapper;
 
     @Override
-    public Long save(OrderAggregate orderAggregate) {
+    public Long create(OrderAggregate createResult) {
 
-        orderMapper.insert(orderAggregate.getRoot());
+        orderMapper.insert(createResult.getRoot());
         // 关联子项
-        orderAggregate.linking();
-        orderItemMapper.insert(orderAggregate.getOrderItems());
-        return orderAggregate.getId();
+        createResult.linking();
+        orderItemMapper.insert(createResult.getOrderItems());
+        return createResult.getId();
     }
 
     @Override
@@ -62,18 +62,24 @@ public class OrderDbRepository implements OrderRepository {
     }
 
     @Override
-    public void delete(List<OrderAggregate> orderAggregates) {
+    public void modify(OrderAggregate modifyResult) {
 
-        for (OrderAggregate orderAggregate : orderAggregates) {
+        orderMapper.updateById(modifyResult.getRoot());
+    }
+
+    @Override
+    public void delete(List<OrderAggregate> deleteResults) {
+
+        for (OrderAggregate orderAggregate : deleteResults) {
             delete(orderAggregate);
         }
     }
 
     @Override
-    public void delete(OrderAggregate orderAggregate) {
+    public void delete(OrderAggregate deleteResult) {
 
-        orderMapper.deleteById(orderAggregate.getRoot());
+        orderMapper.deleteById(deleteResult.getRoot());
 
-        orderItemMapper.deleteByIds(orderAggregate.getOrderItems());
+        orderItemMapper.deleteByIds(deleteResult.getOrderItems());
     }
 }

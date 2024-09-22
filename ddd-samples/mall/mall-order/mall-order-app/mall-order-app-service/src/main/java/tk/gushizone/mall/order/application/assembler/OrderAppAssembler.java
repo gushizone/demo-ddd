@@ -10,11 +10,11 @@ import tk.gushizone.mall.order.adapter.in.web.dto.req.cmd.common.OrderItemCmdReq
 import tk.gushizone.mall.order.adapter.in.web.dto.req.qry.OrderQryReq;
 import tk.gushizone.mall.order.adapter.in.web.dto.rsp.OrderRsp;
 import tk.gushizone.mall.order.adapter.out.external.dto.ProductApiRsp;
-import tk.gushizone.mall.order.application.assembler.converter.OrderAppConvertor;
-import tk.gushizone.mall.order.application.assembler.converter.OrderItemAppConvertor;
+import tk.gushizone.mall.order.application.assembler.converter.OrderAppConverter;
+import tk.gushizone.mall.order.application.assembler.converter.OrderItemAppConverter;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.service.dto.cmd.OrderCreateCmd;
-import tk.gushizone.mall.order.domain.service.dto.cmd.OrderItemCmd;
+import tk.gushizone.mall.order.domain.service.dto.cmd.common.OrderItemCmd;
 import tk.gushizone.mall.order.domain.service.dto.qry.OrderQry;
 import tk.gushizone.mall.order.infrastructure.enums.OrderAppErrors;
 import tk.gushizone.mall.stock.api.dto.rsp.StockApiRsp;
@@ -32,7 +32,7 @@ public class OrderAppAssembler {
                                              Map<Long, ProductApiRsp> productMap,
                                              Map<Long, StockApiRsp> productStockMap,
                                              LoginUser loginUser) {
-        OrderCreateCmd result = OrderAppConvertor.INSTANCE.toCmd(req);
+        OrderCreateCmd result = OrderAppConverter.INSTANCE.toCmd(req);
         result.setUserId(loginUser.getUserId());
 
         List<OrderItemCmd> orderItems = Lists.newArrayListWithExpectedSize(req.getOrderItems().size());
@@ -78,8 +78,8 @@ public class OrderAppAssembler {
         }
         List<OrderRsp> results = Lists.newArrayListWithCapacity(records.size());
         for (OrderAggregate item : records) {
-            OrderRsp result = OrderAppConvertor.INSTANCE.toRsp(item.getRoot());
-            result.setOrderItems(OrderItemAppConvertor.INSTANCE.toRsp(item.getOrderItems()));
+            OrderRsp result = OrderAppConverter.INSTANCE.toRsp(item.getRoot());
+            result.setOrderItems(OrderItemAppConverter.INSTANCE.toRsp(item.getOrderItems()));
             results.add(result);
         }
         return results;

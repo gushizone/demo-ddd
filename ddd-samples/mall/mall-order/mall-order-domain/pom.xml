@@ -17,4 +17,11 @@
         <module>mall-order-domain-service</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>tk.gushizone</groupId>
+            <artifactId>infra-libs-base</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

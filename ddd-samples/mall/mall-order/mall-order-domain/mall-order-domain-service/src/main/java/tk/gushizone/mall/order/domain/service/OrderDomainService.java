@@ -5,6 +5,7 @@ import tk.gushizone.infra.libs.base.entity.query.PageableParam;
 import tk.gushizone.mall.order.domain.model.aggregate.OrderAggregate;
 import tk.gushizone.mall.order.domain.service.dto.cmd.OrderCreateCmd;
 import tk.gushizone.mall.order.domain.service.dto.cmd.OrderDeleteCmd;
+import tk.gushizone.mall.order.domain.service.dto.cmd.OrderModifyCmd;
 import tk.gushizone.mall.order.domain.service.dto.qry.OrderQry;
 
 /**
@@ -17,6 +18,7 @@ public interface OrderDomainService {
 
     PageableResult<OrderAggregate> query(PageableParam<OrderQry> pageableParam);
 
-    void delete(OrderDeleteCmd orderDeleteCmd);
+    Long modify(OrderModifyCmd cmd);
 
+    void delete(OrderDeleteCmd cmd);
 }

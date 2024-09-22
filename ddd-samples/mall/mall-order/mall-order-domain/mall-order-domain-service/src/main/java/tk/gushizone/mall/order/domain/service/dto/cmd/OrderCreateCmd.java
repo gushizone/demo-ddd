@@ -1,6 +1,7 @@
 package tk.gushizone.mall.order.domain.service.dto.cmd;
 
 import lombok.Data;
+import tk.gushizone.mall.order.domain.service.dto.cmd.common.OrderItemCmd;
 
 import java.util.List;
 

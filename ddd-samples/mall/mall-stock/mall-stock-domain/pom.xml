@@ -17,4 +17,12 @@
         <module>mall-stock-domain-service</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>tk.gushizone</groupId>
+            <artifactId>infra-libs-base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 </project>
